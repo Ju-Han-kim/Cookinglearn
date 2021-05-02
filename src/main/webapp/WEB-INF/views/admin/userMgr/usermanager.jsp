@@ -11,10 +11,10 @@
 			
 		<form>
 			<select name="condition">
-				<option value="nickname">닉네임</option>
-				<option value="userId">아이디</option>
+				<option value="nickname" ${param.condition == 'nickname'?'selected':''}>닉네임</option>
+				<option value="userId" ${param.condition == 'userId'?'selected':''}>아이디</option>
 			</select> &nbsp;
-			<input name="keyword" placeholder="검색어를 입력해주세요" />&nbsp;
+			<input name="keyword" placeholder="검색어를 입력해주세요" value="${param.keyword}"/>&nbsp;
 			<input type="submit" value="검색" />
 			<input type="hidden" name="currentPage" value="${pageMgr.paging.currentPage}">
 			<input type="hidden" name="messagePerPage" value="${pageMgr.paging.messagePerPage}">
