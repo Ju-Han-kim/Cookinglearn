@@ -68,8 +68,20 @@ public class UserMgrMapperTest {
 	}
 	*/
 	
-	
-	
+	/*
+	//검색조건에 맞는 전체 고객 수를 반환
+	@Test
+	public void userCountTest() {
+		
+		UserSearchVO search = new UserSearchVO();
+		
+		search.setCondition("");
+		search.setKeyword("");
+		
+		System.out.println("전체 고객 수 : " + mapper.userCount(search));
+		
+	}
+	*/
 	
 	
 	

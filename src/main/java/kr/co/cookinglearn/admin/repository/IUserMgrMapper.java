@@ -16,4 +16,6 @@ public interface IUserMgrMapper {
 	//고객의 관리자권한을 설정
 	void setAdmin(UserVO user);
 	
+	//검색조건에 맞는 전체 고객 수를 반환
+	int userCount(UserSearchVO search);
 }

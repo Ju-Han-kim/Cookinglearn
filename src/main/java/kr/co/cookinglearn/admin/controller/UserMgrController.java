@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kr.co.cookinglearn.admin.common.page.PageMgr;
 import kr.co.cookinglearn.admin.common.page.UserSearchVO;
 import kr.co.cookinglearn.admin.service.IUserMgrService;
 
@@ -20,6 +21,7 @@ public class UserMgrController {
 	@GetMapping("/")
 	public String userMgr(UserSearchVO search, Model model) {
 		
+		model.addAttribute("pageMgr", new PageMgr(search, service.userCount(search)));
 		model.addAttribute("userList",service.getUserList(search));
 		return "admin/userMgr/usermanager";
 	}

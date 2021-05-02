@@ -29,5 +29,10 @@ public class UserMgrService implements IUserMgrService {
 	public void setAdmin(UserVO user) {
 		mapper.setAdmin(user);
 	}
+	
+	@Override
+	public int userCount(UserSearchVO search) {
+		return mapper.userCount(search);
+	}
 
 }

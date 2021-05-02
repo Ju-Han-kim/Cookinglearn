@@ -44,7 +44,10 @@
 		WHERE rn BETWEEN (#{currentPage}-1)*#{messagePerPage}+1 AND #{currentPage}*#{messagePerPage}
 	</select>
 	
-	
+	<select id="userCount" resultType="int">
+		SELECT COUNT(*) FROM "USER"
+		<include refid="userSearch" />
+	</select>
 	
 	
 	

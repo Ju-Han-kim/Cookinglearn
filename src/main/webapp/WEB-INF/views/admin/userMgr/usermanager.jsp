@@ -16,9 +16,12 @@
 			</select> &nbsp;
 			<input name="keyword" placeholder="검색어를 입력해주세요" />&nbsp;
 			<input type="submit" value="검색" />
+			<input type="hidden" name="currentPage" value="${pageMgr.paging.currentPage}">
+			<input type="hidden" name="messagePerPage" value="${pageMgr.paging.messagePerPage}">
 		</form><br/>
 			
 		<div class="content-list">
+			
 			<table border=1>
 				<tr>
 					<th>고유번호</th>
@@ -46,13 +49,17 @@
 				</c:forEach>
 			</table>
 			<div class="paging">
-				
-				<a href="#"><i class="fas fa-angle-double-left"></i></a>
-				<a href="#"><i class="fas fa-angle-left"></i></a>
-				
-				<a href="#"><i class="fas fa-angle-right"></i></a>
-				<a href="#"><i class="fas fa-angle-double-right"></i></a>
-			
+				<c:if test="${pageMgr.prev}">
+					<a href="<c:url value='/admin/user/${pageMgr.mkUri(1)}'/>"><i class="fas fa-angle-double-left"></i></a>
+					<a href="<c:url value='/admin/user/${pageMgr.mkUri(pageMgr.startPage-1)}'/>"><i class="fas fa-angle-left"></i></a>
+				</c:if>
+				<c:forEach var="page" begin="${pageMgr.startPage}" end="${pageMgr.endPage}">
+					<a href="<c:url value='/admin/user/${pageMgr.mkUri(page)}'/>">${page}</a>
+				</c:forEach>
+				<c:if test="${pageMgr.next}">
+					<a href="<c:url value='/admin/user/${pageMgr.mkUri(pageMgr.endPage+1)}'/>"><i class="fas fa-angle-right"></i></a>
+					<a href="<c:url value='/admin/user/${pageMgr.mkUri(pageMgr.totalPage)}'/>"><i class="fas fa-angle-double-right"></i></a>
+				</c:if>
 			</div>
 		</div>
 	</div>
