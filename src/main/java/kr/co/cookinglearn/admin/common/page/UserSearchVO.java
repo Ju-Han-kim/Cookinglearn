@@ -1,4 +1,4 @@
-package kr.co.cookinglearn.admin.common;
+package kr.co.cookinglearn.admin.common.page;
 
 import lombok.Getter;
 import lombok.Setter;

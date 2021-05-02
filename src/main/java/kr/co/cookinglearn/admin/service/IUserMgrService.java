@@ -1,12 +1,12 @@
-package kr.co.cookinglearn.admin.repository;
+package kr.co.cookinglearn.admin.service;
 
 import java.util.List;
 
 import kr.co.cookinglearn.admin.common.page.UserSearchVO;
 import kr.co.cookinglearn.admin.model.UserVO;
 
-public interface IUserMgrMapper {
-
+public interface IUserMgrService {
+	
 	//검색 구분자를 전달받아 현재 페이지의 고객 리스트 반환
 	List<UserVO> getUserList(UserSearchVO search);
 	

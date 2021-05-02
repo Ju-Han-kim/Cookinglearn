@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import kr.co.cookinglearn.admin.common.UserSearchVO;
+import kr.co.cookinglearn.admin.common.page.UserSearchVO;
 import kr.co.cookinglearn.admin.model.UserVO;
 import kr.co.cookinglearn.admin.repository.IUserMgrMapper;
 
