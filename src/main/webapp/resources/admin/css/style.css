@@ -171,6 +171,11 @@ p {
   border-color: var(--color-grey);
   background-color: var(--color-dark-white);
 }
+.selected{
+  border-color: var(--color-grey);
+  background-color: var(--color-dark-white);
+}
+
 
 /* Footer */
 #footer {
