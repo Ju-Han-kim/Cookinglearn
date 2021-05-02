@@ -37,4 +37,13 @@ public class UserVO {
 		this.deleteDay = deleteDay;
 	}
 
+	@Override
+	public String toString() {
+		return "UserVO [userNo=" + userNo + ", userId=" + userId + ", userPassword=" + userPassword + ", nickname="
+				+ nickname + ", gender=" + gender + ", regDate=" + regDate + ", adminLevel=" + adminLevel
+				+ ", deleteAccount=" + deleteAccount + ", deleteDay=" + deleteDay + "]";
+	}
+	
+	
+
 }
