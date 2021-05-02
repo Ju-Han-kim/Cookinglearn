@@ -253,3 +253,8 @@ p {
   border-radius: 4px;
   border: 1px solid #e6e7e8;
 }
+
+/*content*/
+.content-list{
+	text-align: center;
+}
