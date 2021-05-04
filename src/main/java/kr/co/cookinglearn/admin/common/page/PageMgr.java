@@ -52,8 +52,8 @@ public class PageMgr {
 	public String mkUri(int currentPage) {
 		String uri = UriComponentsBuilder.newInstance().queryParam("currentPage", currentPage)
 				.queryParam("messagePerPage", paging.getMessagePerPage())
-				.queryParam("condition", ((UserSearchVO)paging).getCondition())
-				.queryParam("keyword", ((UserSearchVO)paging).getKeyword())
+				.queryParam("condition", ((SearchVO)paging).getCondition())
+				.queryParam("keyword", ((SearchVO)paging).getKeyword())
 				.build().toString();
 		return uri;
 	}

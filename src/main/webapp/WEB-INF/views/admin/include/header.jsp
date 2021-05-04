@@ -34,11 +34,11 @@
 		<nav id="navbar">
 			<div class="navbar__menu">
 				<ul class="navbar__menu">
-					<li class="navbar__menu__item ${menu=='DashBoard'?'selected':''}""><a href="#">현황관리</a></li>
-					<li class="navbar__menu__item ${menu=='Class'?'selected':''}""><a href="#">강의관리</a></li>
-					<li class="navbar__menu__item ${menu=='Order'?'selected':''}""><a href="#">주문관리</a></li>
-					<li class="navbar__menu__item ${menu=='Update'?'selected':''}"><a href="<c:url value='/admin/user/'/>">고객관리</a></li>
-					<li class="navbar__menu__item ${menu=='Qna'?'selected':''}""><a href="#">문의관리</a></li>
+					<li class="navbar__menu__item ${menu=='DashBoard'?'menu__selected':''}""><a href="#">현황관리</a></li>
+					<li class="navbar__menu__item ${menu=='Class'?'menu__selected':''}""><a href="#">강의관리</a></li>
+					<li class="navbar__menu__item ${menu=='Order'?'menu__selected':''}""><a href="#">주문관리</a></li>
+					<li class="navbar__menu__item ${menu=='Update'?'menu__selected':''}"><a href="<c:url value='/admin/user/'/>">고객관리</a></li>
+					<li class="navbar__menu__item ${menu=='Qna'?'menu__selected':''}""><a href="#">문의관리</a></li>
 				</ul>
 			</div>
 		</nav>

@@ -5,12 +5,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UserSearchVO extends PageVO{
+public class SearchVO extends PageVO{
 	
 	private String condition;
 	private String keyword;
 	
-	public UserSearchVO() {
+	public SearchVO() {
 		this.condition = "";
 		this.keyword = "";
 	}

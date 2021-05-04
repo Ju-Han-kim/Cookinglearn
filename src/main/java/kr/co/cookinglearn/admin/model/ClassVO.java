@@ -44,4 +44,12 @@ public class ClassVO {
 		this.maxStudent = maxStudent;
 	}
 
+	@Override
+	public String toString() {
+		return "ClassVO [classCode=" + classCode + ", classType=" + classType + ", classCategory=" + classCategory
+				+ ", thumbnailImg=" + thumbnailImg + ", className=" + className + ", classContent=" + classContent
+				+ ", runTime=" + runTime + ", startDate=" + startDate + ", contentImg=" + contentImg + ", classUrl="
+				+ classUrl + ", price=" + price + ", maxStudent=" + maxStudent + "]";
+	}
+	
 }

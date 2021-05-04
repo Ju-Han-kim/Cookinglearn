@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.co.cookinglearn.admin.common.page.UserSearchVO;
+import kr.co.cookinglearn.admin.common.page.SearchVO;
 import kr.co.cookinglearn.admin.model.UserVO;
 import kr.co.cookinglearn.admin.repository.IUserMgrMapper;
 
@@ -16,7 +16,7 @@ public class UserMgrService implements IUserMgrService {
 	private IUserMgrMapper mapper;
 	
 	@Override
-	public List<UserVO> getUserList(UserSearchVO search) {
+	public List<UserVO> getUserList(SearchVO search) {
 		return mapper.getUserList(search);
 	}
 
@@ -31,7 +31,7 @@ public class UserMgrService implements IUserMgrService {
 	}
 	
 	@Override
-	public int userCount(UserSearchVO search) {
+	public int userCount(SearchVO search) {
 		return mapper.userCount(search);
 	}
 
