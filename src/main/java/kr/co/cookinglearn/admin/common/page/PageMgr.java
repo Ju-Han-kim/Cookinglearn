@@ -49,11 +49,23 @@ public class PageMgr {
 		}
 	}
 	
-	public String mkUri(int currentPage) {
+	public String mkUserUri(int currentPage) {
 		String uri = UriComponentsBuilder.newInstance().queryParam("currentPage", currentPage)
 				.queryParam("messagePerPage", paging.getMessagePerPage())
 				.queryParam("condition", ((SearchVO)paging).getCondition())
 				.queryParam("keyword", ((SearchVO)paging).getKeyword())
+				.build().toString();
+		return uri;
+	}
+	
+	public String mkClassUri(int currentPage) {
+		String uri = UriComponentsBuilder.newInstance().queryParam("currentPage", currentPage)
+				.queryParam("messagePerPage", paging.getMessagePerPage())
+				.queryParam("startDate", ((ClassSearchVO)paging).getStartDate())
+				.queryParam("endDate", ((ClassSearchVO)paging).getEndDate())
+				.queryParam("classCategory", ((ClassSearchVO)paging).getClassCategory())
+				.queryParam("condition", ((ClassSearchVO)paging).getCondition())
+				.queryParam("keyword", ((ClassSearchVO)paging).getKeyword())
 				.build().toString();
 		return uri;
 	}

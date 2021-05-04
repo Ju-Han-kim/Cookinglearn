@@ -50,15 +50,15 @@
 			</table>
 			<div class="paging">
 				<c:if test="${pageMgr.prev}">
-					<a href="<c:url value='/admin/user/${pageMgr.mkUri(1)}'/>"><i class="fas fa-angle-double-left"></i></a>
-					<a href="<c:url value='/admin/user/${pageMgr.mkUri(pageMgr.startPage-1)}'/>"><i class="fas fa-angle-left"></i></a>
+					<a href="<c:url value='/admin/user/${pageMgr.mkUserUri(1)}'/>"><i class="fas fa-angle-double-left"></i></a>
+					<a href="<c:url value='/admin/user/${pageMgr.mkUserUri(pageMgr.startPage-1)}'/>"><i class="fas fa-angle-left"></i></a>
 				</c:if>
 				<c:forEach var="page" begin="${pageMgr.startPage}" end="${pageMgr.endPage}">
-					<a href="<c:url value='/admin/user/${pageMgr.mkUri(page)}'/>">${page}</a>
+					<a href="<c:url value='/admin/user/${pageMgr.mkUserUri(page)}'/>">${page}</a>
 				</c:forEach>
 				<c:if test="${pageMgr.next}">
-					<a href="<c:url value='/admin/user/${pageMgr.mkUri(pageMgr.endPage+1)}'/>"><i class="fas fa-angle-right"></i></a>
-					<a href="<c:url value='/admin/user/${pageMgr.mkUri(pageMgr.totalPage)}'/>"><i class="fas fa-angle-double-right"></i></a>
+					<a href="<c:url value='/admin/user/${pageMgr.mkUserUri(pageMgr.endPage+1)}'/>"><i class="fas fa-angle-right"></i></a>
+					<a href="<c:url value='/admin/user/${pageMgr.mkUserUri(pageMgr.totalPage)}'/>"><i class="fas fa-angle-double-right"></i></a>
 				</c:if>
 			</div>
 		</div>
