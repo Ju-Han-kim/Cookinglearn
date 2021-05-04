@@ -20,10 +20,10 @@ public class UserMgrController {
 	//고객관리 페이지 mapping
 	@GetMapping("/")
 	public String userMgr(SearchVO search, Model model) {
-		model.addAttribute("menu", "Update");
+		model.addAttribute("menu", "User");
 		model.addAttribute("pageMgr", new PageMgr(search, service.userCount(search)));
 		model.addAttribute("userList",service.getUserList(search));
-		return "admin/userMgr/usermanager";
+		return "admin/userMgr/userManager";
 	}
 	
 }
