@@ -13,15 +13,15 @@
 			<fieldset>
 				<legend>강의검색</legend>
 				
-					등록일자 : <input id="startDate" name="startDate" size=10> ~ <input id="endDate" name="endDate" size=10><br/>
+					등록일자 : <input id="sDate" name="sDate" size=10> ~ <input id="eDate" name="eDate" size=10><br/>
 					카테고리 : 
 							<select name="classCategory">
-								<option value="all" ${param.condition == 'all'?'selected':''}>전체</option>
-								<option value="한식" ${param.condition == '한식'?'selected':''}>한식</option>
-								<option value="분식" ${param.condition == '분식'?'selected':''}>분식</option>
-								<option value="중식" ${param.condition == '중식'?'selected':''}>중식</option>
-								<option value="일식" ${param.condition == '일식'?'selected':''}>일식</option>
-								<option value="양식" ${param.condition == '양식'?'selected':''}>양식</option>
+								<option value="all" ${param.classCategory == 'all'?'selected':''}>전체</option>
+								<option value="한식" ${param.classCategory == '한식'?'selected':''}>한식</option>
+								<option value="분식" ${param.classCategory == '분식'?'selected':''}>분식</option>
+								<option value="중식" ${param.classCategory == '중식'?'selected':''}>중식</option>
+								<option value="일식" ${param.classCategory == '일식'?'selected':''}>일식</option>
+								<option value="양식" ${param.classCategory == '양식'?'selected':''}>양식</option>
 							</select> <br/>
 					상품검색 : 
 							<select name="condition">

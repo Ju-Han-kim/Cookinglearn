@@ -1,5 +1,7 @@
 package kr.co.cookinglearn.admin.common.page;
 
+import java.sql.Timestamp;
+
 import org.springframework.web.util.UriComponentsBuilder;
 
 import lombok.Getter;
@@ -61,7 +63,7 @@ public class PageMgr {
 	public String mkClassUri(int currentPage) {
 		String uri;
 		
-		if(((ClassSearchVO)paging).getStartDate() == null) {
+		if(((ClassSearchVO)paging).getStartDate() == null || ((ClassSearchVO)paging).getStartDate().equals(Timestamp.valueOf("")) ) {
 			uri = UriComponentsBuilder.newInstance().queryParam("currentPage", currentPage)
 					.queryParam("messagePerPage", paging.getMessagePerPage())
 					.queryParam("classCategory", ((ClassSearchVO)paging).getClassCategory())
