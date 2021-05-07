@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.cookinglearn.admin.common.page.ClassSearchVO;
-import kr.co.cookinglearn.admin.common.page.DateVO;
 import kr.co.cookinglearn.admin.common.page.PageMgr;
 import kr.co.cookinglearn.admin.service.IClassMgrService;
 
@@ -20,13 +19,13 @@ public class ClassMgrController {
 	
 	//온라인 강의관리 페이지 Mapping
 	@GetMapping("/on")
-	public String onlineClassMgr(ClassSearchVO search, DateVO seDate, Model model) {
+	public String onlineClassMgr(ClassSearchVO search, Model model) {
 		
 		model.addAttribute("menu", "Class");
 		
 		search.setClassType(true);
-		model.addAttribute("pageMgr", new PageMgr(search, service.classCount(search, seDate)));
-		model.addAttribute("classList",service.getClassList(search, seDate));
+		model.addAttribute("pageMgr", new PageMgr(search, service.classCount(search)));
+		model.addAttribute("classList",service.getClassList(search));
 		return "admin/classMgr/onlineClassManager";
 	}
 	

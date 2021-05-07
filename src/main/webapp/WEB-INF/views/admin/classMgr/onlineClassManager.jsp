@@ -13,7 +13,7 @@
 			<fieldset>
 				<legend>강의검색</legend>
 				
-					등록일자 : <input id="sDate" name="sDate" size=10> ~ <input id="eDate" name="eDate" size=10><br/>
+					등록일자 : <input id="seDate" name="seDate" size=17 value="${param.seDate}" readonly><br/>
 					카테고리 : 
 							<select name="classCategory">
 								<option value="all" ${param.classCategory == 'all'?'selected':''}>전체</option>
@@ -78,3 +78,32 @@
 	</div>
 
 <jsp:include page="../include/footer.jsp" />	
+
+<script>
+	
+	$(function() {
+
+		$("#seDate").daterangepicker({
+
+			locale: {
+				"separator": " ~ ",
+				"format": 'YYYY-MM-DD', 
+				"applyLabel": "확인",    
+				"cancelLabel": "취소",   
+				"daysOfWeek": ["일", "월", "화", "수", "목", "금", "토"],
+				"monthNames": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
+				},
+			showDropdowns: true
+			
+		});
+		
+	});
+</script>
+
+
+
+
+
+
+
+

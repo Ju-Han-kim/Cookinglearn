@@ -19,7 +19,9 @@
 			href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&family=Noto+Sans+KR:wght@300;400;700&display=swap"
 			rel="stylesheet" />
 		<link rel="stylesheet" href="<c:url value='/admin/css/style.css'/>" />
-		<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
+		
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+		
 	</head>
 	<body>
 		<!-- Header -->

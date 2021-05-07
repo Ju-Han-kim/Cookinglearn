@@ -1,7 +1,5 @@
 package kr.co.cookinglearn.admin.common.page;
 
-import java.sql.Timestamp;
-
 import org.springframework.web.util.UriComponentsBuilder;
 
 import lombok.Getter;
@@ -62,24 +60,13 @@ public class PageMgr {
 	
 	public String mkClassUri(int currentPage) {
 		String uri;
-		
-		if(((ClassSearchVO)paging).getStartDate() == null || ((ClassSearchVO)paging).getStartDate().equals(Timestamp.valueOf("")) ) {
-			uri = UriComponentsBuilder.newInstance().queryParam("currentPage", currentPage)
-					.queryParam("messagePerPage", paging.getMessagePerPage())
-					.queryParam("classCategory", ((ClassSearchVO)paging).getClassCategory())
-					.queryParam("condition", ((ClassSearchVO)paging).getCondition())
-					.queryParam("keyword", ((ClassSearchVO)paging).getKeyword())
-					.build().toString();
-		} else {
-			uri = UriComponentsBuilder.newInstance().queryParam("currentPage", currentPage)
-					.queryParam("messagePerPage", paging.getMessagePerPage())
-					.queryParam("startDate", ((ClassSearchVO)paging).getStartDate())
-					.queryParam("endDate", ((ClassSearchVO)paging).getEndDate())
-					.queryParam("classCategory", ((ClassSearchVO)paging).getClassCategory())
-					.queryParam("condition", ((ClassSearchVO)paging).getCondition())
-					.queryParam("keyword", ((ClassSearchVO)paging).getKeyword())
-					.build().toString();
-		}
+		uri = UriComponentsBuilder.newInstance().queryParam("currentPage", currentPage)
+				.queryParam("seDate", ((ClassSearchVO)paging).getSeDate())
+				.queryParam("messagePerPage", paging.getMessagePerPage())
+				.queryParam("classCategory", ((ClassSearchVO)paging).getClassCategory())
+				.queryParam("condition", ((ClassSearchVO)paging).getCondition())
+				.queryParam("keyword", ((ClassSearchVO)paging).getKeyword())
+				.build().toString();
 		return uri;
 	}
 	

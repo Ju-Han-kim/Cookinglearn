@@ -10,6 +10,7 @@ import lombok.Setter;
 public class ClassSearchVO extends SearchVO {
 	
 	private boolean classType;
+	private String seDate;
 	private Timestamp startDate;
 	private Timestamp endDate;
 	private String classCategory;
@@ -18,6 +19,7 @@ public class ClassSearchVO extends SearchVO {
 		this.classType = false;
 		this.startDate = null;
 		this.endDate = null;
+		this.seDate = "";
 		this.classCategory = "all";
 	}
 	
