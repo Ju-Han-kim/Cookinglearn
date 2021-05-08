@@ -14,31 +14,34 @@ public class OrderVO {
 	private Timestamp limitDate;
 	private int orderProcess;
 
-	public OrderVO() {
+	public String getProcess(int orderProcess) { 
+		String process = "";
 		
+		switch (orderProcess) {
+		case 0:
+			process = "결제완료";
+			break;
+		case 1:
+			process = "수강중";
+			break;
+		case 2:
+			process = "수강완료";
+			break;
+		case 3:
+			process = "반품";
+			break;
+		}
+		
+		return process;
 	}
-
-	public OrderVO(int orderNo, int userNo, int classCode, int pointUse, int payment, String paymentMethod,
-			Timestamp paymentDate, Timestamp limitDate, int orderProcess) {
-		super();
-		this.orderNo = orderNo;
-		this.userNo = userNo;
-		this.classCode = classCode;
-		this.pointUse = pointUse;
-		this.payment = payment;
-		this.paymentMethod = paymentMethod;
-		this.paymentDate = paymentDate;
-		this.limitDate = limitDate;
-		this.orderProcess = orderProcess;
-	}
-
+	
 	@Override
 	public String toString() {
 		return "OrderVO [orderNo=" + orderNo + ", userNo=" + userNo + ", classCode=" + classCode + ", pointUse="
 				+ pointUse + ", payment=" + payment + ", paymentMethod=" + paymentMethod + ", paymentDate="
 				+ paymentDate + ", limitDate=" + limitDate + ", orderProcess=" + orderProcess + "]";
 	}
-
+	
 	public int getOrderNo() {
 		return orderNo;
 	}

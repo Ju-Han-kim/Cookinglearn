@@ -1,12 +1,12 @@
-package kr.co.cookinglearn.admin.repository;
+package kr.co.cookinglearn.admin.service.interfaces;
 
 import java.util.List;
 
 import kr.co.cookinglearn.admin.common.page.OrderSearchVO;
 import kr.co.cookinglearn.admin.model.OrderViewVO;
 
-public interface IOrderMgrMapper {
-	
+public interface IOrderMgrService {
+
 	//검색 구분자를 전달받아 현재 페이지의 주문 리스트 반환
 	List<OrderViewVO> getOrderList(OrderSearchVO search);
 	

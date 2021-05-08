@@ -11,7 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kr.co.cookinglearn.admin.common.page.OrderSearchVO;
-import kr.co.cookinglearn.admin.model.OrderVO;
+import kr.co.cookinglearn.admin.model.OrderViewVO;
 import kr.co.cookinglearn.admin.repository.IOrderMgrMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -36,11 +36,11 @@ public class OrderMgrMapperTest {
 		search.setEndDate(Timestamp.valueOf("2021-05-08 24:59:59.99"));
 		search.setOrderProcess(orderList);
 		
-		List<OrderVO> orders = mapper.getOrderList(search);
+		List<OrderViewVO> orders = mapper.getOrderList(search);
 		
 		System.out.println("=======================");
 
-		for(OrderVO order : orders) {
+		for(OrderViewVO order : orders) {
 			System.out.println(order);
 		}
 
@@ -49,7 +49,6 @@ public class OrderMgrMapperTest {
 	}
 	*/
 	
-	
 	/*
 	//검색 구분자를 전달받아 현재 페이지의 주문 수 반환테스트
 	@Test
@@ -57,7 +56,7 @@ public class OrderMgrMapperTest {
 		
 		OrderSearchVO search = new OrderSearchVO();
 		
-		int[] orderList = {3};
+		int[] orderList = {1,3};
 		
 		search.setCurrentPage(1);
 		search.setMessagePerPage(10);
@@ -79,13 +78,12 @@ public class OrderMgrMapperTest {
 		
 		int orderNo = 2;
 		
-		OrderVO orderInfo = mapper.getOrderInfo(orderNo);
+		OrderViewVO orderInfo = mapper.getOrderInfo(orderNo);
 		
 		System.out.println(orderInfo);
 		
 	}
 	*/
-	
 	
 	
 	

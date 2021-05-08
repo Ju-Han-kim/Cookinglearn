@@ -17,20 +17,30 @@ public class OrderSearchVO extends SearchVO{
 		this.startDate = null;
 		this.endDate = null;
 		this.seDate = "";
-		this.orderProcess = null;
+		this.orderProcess = new int[] {0,1,2,3,4};
 		
 		setDate();
 	}
 	
 	private void setDate() {
-		if(this.seDate.equals("")) {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			Date now = new Date();
-			
-			String defualtSeDate = sdf.format(now) + " ~ " + sdf.format(now);
-			
-			setSeDate(defualtSeDate);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date now = new Date();
+		
+		String defualtSeDate = sdf.format(now) + " ~ " + sdf.format(now);
+		
+		setSeDate(defualtSeDate);
+	}
+	
+	public boolean isContain(int inputProcess) {
+		boolean plag = false;
+		
+		for(int process : this.orderProcess) {
+			if(process == inputProcess) {
+				plag = true;
+				break;
+			}
 		}
+		return plag;
 	}
 
 	public boolean isClassType() {

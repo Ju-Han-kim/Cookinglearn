@@ -1,5 +1,7 @@
 package kr.co.cookinglearn.admin.common.page;
 
+import java.util.Arrays;
+
 import org.springframework.web.util.UriComponentsBuilder;
 
 public class PageMgr {
@@ -61,6 +63,18 @@ public class PageMgr {
 				.queryParam("classCategory", ((ClassSearchVO)paging).getClassCategory())
 				.queryParam("condition", ((ClassSearchVO)paging).getCondition())
 				.queryParam("keyword", ((ClassSearchVO)paging).getKeyword())
+				.build().toString();
+		return uri;
+	}
+	
+	public String mkOrderUri(int currentPage) {
+		String uri;
+		uri = UriComponentsBuilder.newInstance().queryParam("currentPage", currentPage)
+				.queryParam("orderProcess", Arrays.toString(((OrderSearchVO)paging).getOrderProcess()))
+				.queryParam("seDate", ((OrderSearchVO)paging).getSeDate())
+				.queryParam("messagePerPage", paging.getMessagePerPage())
+				.queryParam("condition", ((OrderSearchVO)paging).getCondition())
+				.queryParam("keyword", ((OrderSearchVO)paging).getKeyword())
 				.build().toString();
 		return uri;
 	}

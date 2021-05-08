@@ -5,7 +5,7 @@
     
 <mapper namespace="kr.co.cookinglearn.admin.repository.IOrderMgrMapper">
 
-	<resultMap id="orderMgrMap" type="kr.co.cookinglearn.admin.model.OrderVO">
+	<resultMap id="orderMgrMap" type="kr.co.cookinglearn.admin.model.OrderViewVO">
 		<id property="orderNo" column="order_no"/>
 		<result property="userNo" column="user_no"/>
 		<result property="classCode" column="class_code"/>
@@ -15,6 +15,9 @@
 		<result property="paymentDate" column="payment_date"/>
 		<result property="limitDate" column="limit_date"/>
 		<result property="orderProcess" column="order_process"/>
+		<result property="className" column="class_name"/>
+		<result property="userId" column="user_id"/>
+		<result property="nickname" column="nickname"/>
 	</resultMap>
 	
 	<sql id="orderSearch">
@@ -40,7 +43,7 @@
 	
 	<sql id="dateSearch">
 		<if test="startDate != null">
-			AND limit_date BETWEEN #{startDate} AND #{endDate}
+			AND payment_date BETWEEN #{startDate} AND #{endDate}
 		</if>
 	</sql>
 	
@@ -48,22 +51,23 @@
 		SELECT * FROM (
 		    SELECT row_number() OVER (ORDER BY order_no DESC) AS rn, "ORDER".*
 		    FROM (
-			        SELECT * FROM "ORDER" JOIN "CLASS" USING(class_code)
+			        SELECT * FROM "ORDER" JOIN "CLASS" USING(class_code) JOIN "USER" USING(user_no)
 			        <include refid="orderSearch" /> 
-		        )"ORDER" WHERE class_type = #{classType} <include refid="orderProcessSearch" /> <include refid="dateSearch" />
+		        )"ORDER"
+		        WHERE class_type = #{classType} <include refid="orderProcessSearch" /> <include refid="dateSearch" />
 		    )
 		WHERE rn BETWEEN (#{currentPage}-1)*#{messagePerPage}+1 AND #{currentPage}*#{messagePerPage}
 	</select>
 	
 	<select id="orderCount" resultType="int">
 		SELECT COUNT(*) FROM (
-	        SELECT * FROM "ORDER" JOIN "CLASS" USING(class_code)
+	        SELECT * FROM "ORDER" JOIN "CLASS" USING(class_code) JOIN "USER" USING(user_no)
 	        <include refid="orderSearch" /> 
         ) WHERE class_type = #{classType} <include refid="orderProcessSearch" /> <include refid="dateSearch" />
 	</select>
 	
 	<select id="getOrderInfo" resultMap="orderMgrMap">
-		SELECT * FROM "ORDER"
+		SELECT * FROM "ORDER" JOIN "CLASS" USING(class_code) JOIN "USER" USING(user_no)
 		WHERE order_no=#{orderNo}
 	</select> 
 	
