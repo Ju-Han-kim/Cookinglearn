@@ -19,20 +19,7 @@ public class ClassMgrService implements IClassMgrService {
 	@Override
 	public List<ClassVO> getClassList(ClassSearchVO search) {
 
-		if(!search.getSeDate().equals("")) {
-			Timestamp startDate;
-			Timestamp endDate;
-			
-			/* TimeStamp format Setting */
-			String sDate = search.getSeDate().substring(0, 10);
-			String eDate = search.getSeDate().substring(13, 23);
-			startDate = Timestamp.valueOf(sDate + " 00:00:00");
-			endDate = Timestamp.valueOf(eDate + " 23:59:59");
-			
-			search.setStartDate(startDate);
-			search.setEndDate(endDate);
-		}
-		
+		calcDate(search);
 		return mapper.getClassList(search);
 	}
 
@@ -43,7 +30,22 @@ public class ClassMgrService implements IClassMgrService {
 
 	@Override
 	public int classCount(ClassSearchVO search) {
-		
+		calcDate(search);
+		return mapper.classCount(search);
+	}
+	
+	@Override
+	public List<ClassVO> getClassListByOrder(ClassSearchVO search) {
+		calcDate(search);
+		return mapper.getClassListByOrder(search);
+	}
+	
+	@Override
+	public int classCountByOrder(ClassSearchVO search) {
+		return mapper.classCountByOrder(search);
+	}
+	
+	private void calcDate(ClassSearchVO search) {
 		if(!search.getSeDate().equals("")) {
 			Timestamp startDate;
 			Timestamp endDate;
@@ -57,8 +59,5 @@ public class ClassMgrService implements IClassMgrService {
 			search.setStartDate(startDate);
 			search.setEndDate(endDate);
 		}
-		
-		return mapper.classCount(search);
 	}
-
 }

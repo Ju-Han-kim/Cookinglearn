@@ -16,4 +16,10 @@ public interface IClassMgrMapper {
 	//검색조건에 맞는 전체 강의 수를 반환
 	int classCount(ClassSearchVO search);
 	
+	//오프라인 완료대기 강의리스트 반환
+	List<ClassVO> getClassListByOrder(ClassSearchVO search);
+	
+	//오프라인 완료대기 강의수를 반환
+	int classCountByOrder(ClassSearchVO search);
+	
 }

@@ -43,6 +43,12 @@
 			AND start_date BETWEEN #{startDate} AND #{endDate}
 		</if>
 	</sql>
+	
+	<sql id="not">
+		<if test="!complete">
+			NOT
+		</if>
+	</sql>
 
 	<select id="getClassList" resultMap="classMgrMap">
 		SELECT * FROM (
@@ -64,5 +70,35 @@
 		SELECT * FROM "CLASS"
 		WHERE class_code = #{classCode}
 	</select>
+	
+	<select id="getClassListByOrder" resultMap="classMgrMap">
+		SELECT * FROM (
+		    SELECT row_number() OVER (ORDER BY class_code DESC) AS rn, "CLASS".*
+		    FROM (
+		        SELECT * FROM (
+					SELECT * FROM "CLASS"
+					WHERE class_code <include refid="not" /> IN<![CDATA[(SELECT DISTINCT class_code FROM "ORDER" WHERE order_process <= 1)
+                    )]]> <include refid="classSearch" /> 
+		        )"CLASS" WHERE class_type = #{classType} <include refid="classCategorySearch" /> <include refid="classDateSearch" />
+		    )
+		WHERE rn BETWEEN (#{currentPage}-1)*#{messagePerPage}+1 AND #{currentPage}*#{messagePerPage}
+	</select>
+	
+	<select id="classCountByOrder" resultType="int">
+		SELECT COUNT(*) FROM (
+	        SELECT * FROM (
+				SELECT * FROM "CLASS"
+				WHERE class_code <include refid="not" /> IN<![CDATA[(SELECT DISTINCT class_code FROM "ORDER" WHERE order_process <= 1)
+				)]]> <include refid="classSearch" /> 
+        ) WHERE class_type = #{classType} <include refid="classCategorySearch" /> <include refid="classDateSearch" />
+	</select>
 
 </mapper>
+
+
+
+
+
+
+
+
