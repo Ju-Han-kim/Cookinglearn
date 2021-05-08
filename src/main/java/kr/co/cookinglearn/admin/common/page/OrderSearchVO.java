@@ -3,11 +3,7 @@ package kr.co.cookinglearn.admin.common.page;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
 public class OrderSearchVO extends SearchVO{
 	
 	private boolean classType;
@@ -35,6 +31,46 @@ public class OrderSearchVO extends SearchVO{
 			
 			setSeDate(defualtSeDate);
 		}
+	}
+
+	public boolean isClassType() {
+		return classType;
+	}
+
+	public void setClassType(boolean classType) {
+		this.classType = classType;
+	}
+
+	public String getSeDate() {
+		return seDate;
+	}
+
+	public void setSeDate(String seDate) {
+		this.seDate = seDate;
+	}
+
+	public Timestamp getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Timestamp startDate) {
+		this.startDate = startDate;
+	}
+
+	public Timestamp getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Timestamp endDate) {
+		this.endDate = endDate;
+	}
+
+	public int[] getOrderProcess() {
+		return orderProcess;
+	}
+
+	public void setOrderProcess(int[] orderProcess) {
+		this.orderProcess = orderProcess;
 	}
 	
 }

@@ -2,11 +2,6 @@ package kr.co.cookinglearn.admin.model;
 
 import java.sql.Timestamp;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class UserVO {
 
 	private int userNo;
@@ -43,7 +38,77 @@ public class UserVO {
 				+ nickname + ", gender=" + gender + ", regDate=" + regDate + ", adminLevel=" + adminLevel
 				+ ", deleteAccount=" + deleteAccount + ", deleteDay=" + deleteDay + "]";
 	}
-	
-	
 
+	public int getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getUserPassword() {
+		return userPassword;
+	}
+
+	public void setUserPassword(String userPassword) {
+		this.userPassword = userPassword;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public boolean isGender() {
+		return gender;
+	}
+
+	public void setGender(boolean gender) {
+		this.gender = gender;
+	}
+
+	public Timestamp getRegDate() {
+		return regDate;
+	}
+
+	public void setRegDate(Timestamp regDate) {
+		this.regDate = regDate;
+	}
+
+	public int getAdminLevel() {
+		return adminLevel;
+	}
+
+	public void setAdminLevel(int adminLevel) {
+		this.adminLevel = adminLevel;
+	}
+
+	public boolean isDeleteAccount() {
+		return deleteAccount;
+	}
+
+	public void setDeleteAccount(boolean deleteAccount) {
+		this.deleteAccount = deleteAccount;
+	}
+
+	public Timestamp getDeleteDay() {
+		return deleteDay;
+	}
+
+	public void setDeleteDay(Timestamp deleteDay) {
+		this.deleteDay = deleteDay;
+	}
+	
 }

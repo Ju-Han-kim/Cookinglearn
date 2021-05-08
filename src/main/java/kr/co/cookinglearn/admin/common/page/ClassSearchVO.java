@@ -4,11 +4,6 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class ClassSearchVO extends SearchVO {
 	
 	private boolean classType;
@@ -51,4 +46,53 @@ public class ClassSearchVO extends SearchVO {
 			setSeDate(defualtSeDate);
 		}
 	}
+
+	public boolean isClassType() {
+		return classType;
+	}
+
+	public void setClassType(boolean classType) {
+		this.classType = classType;
+	}
+
+	public String getSeDate() {
+		return seDate;
+	}
+
+	public void setSeDate(String seDate) {
+		this.seDate = seDate;
+	}
+
+	public Timestamp getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Timestamp startDate) {
+		this.startDate = startDate;
+	}
+
+	public Timestamp getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Timestamp endDate) {
+		this.endDate = endDate;
+	}
+
+	public String getClassCategory() {
+		return classCategory;
+	}
+
+	public void setClassCategory(String classCategory) {
+		this.classCategory = classCategory;
+	}
+
+	public boolean isComplete() {
+		return complete;
+	}
+
+	public void setComplete(boolean complete) {
+		this.complete = complete;
+	}
+	
 }

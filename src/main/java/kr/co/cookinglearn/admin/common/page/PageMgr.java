@@ -2,11 +2,6 @@ package kr.co.cookinglearn.admin.common.page;
 
 import org.springframework.web.util.UriComponentsBuilder;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class PageMgr {
 	
 	private PageVO paging;
@@ -68,6 +63,66 @@ public class PageMgr {
 				.queryParam("keyword", ((ClassSearchVO)paging).getKeyword())
 				.build().toString();
 		return uri;
+	}
+
+	public PageVO getPaging() {
+		return paging;
+	}
+
+	public void setPaging(PageVO paging) {
+		this.paging = paging;
+	}
+
+	public int getTotalContents() {
+		return totalContents;
+	}
+
+	public void setTotalContents(int totalContents) {
+		this.totalContents = totalContents;
+	}
+
+	public int getTotalPage() {
+		return totalPage;
+	}
+
+	public void setTotalPage(int totalPage) {
+		this.totalPage = totalPage;
+	}
+
+	public int getStartPage() {
+		return startPage;
+	}
+
+	public void setStartPage(int startPage) {
+		this.startPage = startPage;
+	}
+
+	public int getEndPage() {
+		return endPage;
+	}
+
+	public void setEndPage(int endPage) {
+		this.endPage = endPage;
+	}
+
+	public boolean isPrev() {
+		return prev;
+	}
+
+	public void setPrev(boolean prev) {
+		this.prev = prev;
+	}
+
+	public boolean isNext() {
+		return next;
+	}
+
+	public void setNext(boolean next) {
+		this.next = next;
+	}
+
+	public int getDisplayPageBtn() {
+		return displayPageBtn;
 	}
 	
 }

@@ -2,11 +2,6 @@ package kr.co.cookinglearn.admin.model;
 
 import java.sql.Timestamp;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class PointVO {
 
 	private int pointNo;
@@ -28,4 +23,44 @@ public class PointVO {
 		this.pointChange = pointChange;
 	}
 
+	public int getPointNo() {
+		return pointNo;
+	}
+
+	public void setPointNo(int pointNo) {
+		this.pointNo = pointNo;
+	}
+
+	public int getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
+
+	public Timestamp getPointDate() {
+		return pointDate;
+	}
+
+	public void setPointDate(Timestamp pointDate) {
+		this.pointDate = pointDate;
+	}
+
+	public String getPointHistory() {
+		return pointHistory;
+	}
+
+	public void setPointHistory(String pointHistory) {
+		this.pointHistory = pointHistory;
+	}
+
+	public String getPointChange() {
+		return pointChange;
+	}
+
+	public void setPointChange(String pointChange) {
+		this.pointChange = pointChange;
+	}
+	
 }

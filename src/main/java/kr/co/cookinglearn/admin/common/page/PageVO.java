@@ -1,10 +1,5 @@
 package kr.co.cookinglearn.admin.common.page;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class PageVO {
 	
 	private int currentPage;
@@ -13,6 +8,22 @@ public class PageVO {
 	public PageVO() {
 		this.currentPage = 1;
 		this.messagePerPage = 10;
+	}
+
+	public int getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+
+	public int getMessagePerPage() {
+		return messagePerPage;
+	}
+
+	public void setMessagePerPage(int messagePerPage) {
+		this.messagePerPage = messagePerPage;
 	}
 	
 }

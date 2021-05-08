@@ -1,10 +1,5 @@
 package kr.co.cookinglearn.admin.common.page;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class SearchVO extends PageVO{
 	
 	private String condition;
@@ -13,6 +8,22 @@ public class SearchVO extends PageVO{
 	public SearchVO() {
 		this.condition = "";
 		this.keyword = "";
+	}
+
+	public String getCondition() {
+		return condition;
+	}
+
+	public void setCondition(String condition) {
+		this.condition = condition;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 	
 }
