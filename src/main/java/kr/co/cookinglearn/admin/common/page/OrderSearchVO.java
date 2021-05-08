@@ -17,7 +17,7 @@ public class OrderSearchVO extends SearchVO{
 		this.startDate = null;
 		this.endDate = null;
 		this.seDate = "";
-		this.orderProcess = new int[] {0,1,2,3,4};
+		this.orderProcess = new int[] {0,1,2,3};
 		
 		setDate();
 	}
