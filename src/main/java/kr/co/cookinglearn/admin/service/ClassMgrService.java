@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import kr.co.cookinglearn.admin.common.page.ClassSearchVO;
 import kr.co.cookinglearn.admin.model.ClassVO;
 import kr.co.cookinglearn.admin.repository.IClassMgrMapper;
+import kr.co.cookinglearn.admin.service.interfaces.IClassMgrService;
 
 @Service
 public class ClassMgrService implements IClassMgrService {

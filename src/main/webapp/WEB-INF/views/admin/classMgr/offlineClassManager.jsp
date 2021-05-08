@@ -16,9 +16,9 @@
 		</ul>
 		--%>
 		<!-- 임시메뉴 -->
-		<a href="#">예정강의</a> 
-		<a href="#">완료대기</a>
-		<a href="#">완료강의</a>
+		<a href="<c:url value='/admin/class/off1' />">예정강의</a> 
+		<a href="<c:url value='/admin/class/off2' />">완료대기</a>
+		<a href="<c:url value='/admin/class/off3' />">완료강의</a>
 		<br>
 		<form>
 			<fieldset>

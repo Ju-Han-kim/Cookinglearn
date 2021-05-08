@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import kr.co.cookinglearn.admin.common.page.SearchVO;
 import kr.co.cookinglearn.admin.model.UserVO;
 import kr.co.cookinglearn.admin.repository.IUserMgrMapper;
+import kr.co.cookinglearn.admin.service.interfaces.IUserMgrService;
 
 @Service
 public class UserMgrService implements IUserMgrService {

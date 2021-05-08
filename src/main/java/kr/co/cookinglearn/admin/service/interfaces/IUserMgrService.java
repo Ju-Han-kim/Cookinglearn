@@ -1,4 +1,4 @@
-package kr.co.cookinglearn.admin.service;
+package kr.co.cookinglearn.admin.service.interfaces;
 
 import java.util.List;
 

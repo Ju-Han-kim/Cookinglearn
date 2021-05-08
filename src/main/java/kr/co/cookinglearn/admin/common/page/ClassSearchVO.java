@@ -34,9 +34,9 @@ public class ClassSearchVO extends SearchVO {
 			Date from = new Date();
 			Date to = new Date(from.getTime() + 60*60*24*364*1000L);
 			
-			String defuautSeDate = sdf.format(from) + " ~ " + sdf.format(to);
+			String defualtSeDate = sdf.format(from) + " ~ " + sdf.format(to);
 			
-			setSeDate(defuautSeDate);
+			setSeDate(defualtSeDate);
 		}
 	}
 	
@@ -46,9 +46,9 @@ public class ClassSearchVO extends SearchVO {
 			Date to = new Date();
 			Date from = new Date(to.getTime() - 60*60*24*364*1000L);
 			
-			String defuautSeDate = sdf.format(from) + " ~ " + sdf.format(to);
+			String defualtSeDate = sdf.format(from) + " ~ " + sdf.format(to);
 			
-			setSeDate(defuautSeDate);
+			setSeDate(defualtSeDate);
 		}
 	}
 }

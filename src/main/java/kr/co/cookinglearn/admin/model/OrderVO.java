@@ -20,7 +20,7 @@ public class OrderVO {
 	private int orderProcess;
 
 	public OrderVO() {
-
+		
 	}
 
 	public OrderVO(int orderNo, int userNo, int classCode, int pointUse, int payment, String paymentMethod,
@@ -37,4 +37,11 @@ public class OrderVO {
 		this.orderProcess = orderProcess;
 	}
 
+	@Override
+	public String toString() {
+		return "OrderVO [orderNo=" + orderNo + ", userNo=" + userNo + ", classCode=" + classCode + ", pointUse="
+				+ pointUse + ", payment=" + payment + ", paymentMethod=" + paymentMethod + ", paymentDate="
+				+ paymentDate + ", limitDate=" + limitDate + ", orderProcess=" + orderProcess + "]";
+	}
+	
 }

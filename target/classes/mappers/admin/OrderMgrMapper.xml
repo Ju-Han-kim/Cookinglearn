@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="kr.co.cookinglearn.admin.repository.IOrderMgrMapper">
+
+	<resultMap id="orderMgrMap" type="kr.co.cookinglearn.admin.model.OrderVO">
+		<id property="orderNo" column="order_no"/>
+		<result property="userNo" column="user_no"/>
+		<result property="classCode" column="class_code"/>
+		<result property="pointUse" column="point_use"/>
+		<result property="payment" column="payment"/>
+		<result property="paymentMethod" column="payment_method"/>
+		<result property="paymentDate" column="payment_date"/>
+		<result property="limitDate" column="limit_date"/>
+		<result property="orderProcess" column="order_process"/>
+	</resultMap>
+	
+	<sql id="orderSearch">
+		<if test="condition == 'className'">
+			WHERE class_name LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="condition == 'classContent'">
+			WHERE class_content LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="condition == 'classNameContent'">
+			WHERE class_name LIKE '%'||#{keyword}||'%' OR class_content LIKE '%'||#{keyword}||'%'
+		</if>
+	</sql>
+	
+	<sql id="orderProcessSearch">
+		<if test="orderProcess != null">
+			AND order_process IN 
+			<foreach collection="orderProcess" item="process" open="(" separator="," close=")">
+				#{process}
+			</foreach>
+		</if>
+	</sql>
+	
+	<sql id="dateSearch">
+		<if test="startDate != null">
+			AND limit_date BETWEEN #{startDate} AND #{endDate}
+		</if>
+	</sql>
+	
+	<select id="getOrderList" resultMap="orderMgrMap">
+		SELECT * FROM (
+		    SELECT row_number() OVER (ORDER BY order_no DESC) AS rn, "ORDER".*
+		    FROM (
+			        SELECT * FROM "ORDER" JOIN "CLASS" USING(class_code)
+			        <include refid="orderSearch" /> 
+		        )"ORDER" WHERE class_type = #{classType} <include refid="orderProcessSearch" /> <include refid="dateSearch" />
+		    )
+		WHERE rn BETWEEN (#{currentPage}-1)*#{messagePerPage}+1 AND #{currentPage}*#{messagePerPage}
+	</select>
+	
+	<select id="orderCount" resultType="int">
+		SELECT COUNT(*) FROM (
+	        SELECT * FROM "ORDER" JOIN "CLASS" USING(class_code)
+	        <include refid="orderSearch" /> 
+        ) WHERE class_type = #{classType} <include refid="orderProcessSearch" /> <include refid="dateSearch" />
+	</select>
+	
+	<select id="getOrderInfo" resultMap="orderMgrMap">
+		SELECT * FROM "ORDER"
+		WHERE order_no=#{orderNo}
+	</select> 
+	
+	
+	
+	
+	
+	
+
+
+
+</mapper>

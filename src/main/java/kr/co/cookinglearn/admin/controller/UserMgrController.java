@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.cookinglearn.admin.common.page.PageMgr;
 import kr.co.cookinglearn.admin.common.page.SearchVO;
-import kr.co.cookinglearn.admin.service.IUserMgrService;
+import kr.co.cookinglearn.admin.service.interfaces.IUserMgrService;
 
 @Controller
 @RequestMapping("/admin/user")
