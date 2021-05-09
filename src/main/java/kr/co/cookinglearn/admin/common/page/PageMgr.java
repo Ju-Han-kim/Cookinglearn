@@ -79,6 +79,16 @@ public class PageMgr {
 		
 		return uriComponent.build().toString();
 	}
+	
+	public String mkQnaUri(int currentPage) {
+		String uri = UriComponentsBuilder.newInstance().queryParam("currentPage", currentPage)
+				.queryParam("messagePerPage", paging.getMessagePerPage())
+				.queryParam("complete", ((QnaSearchVO)paging).isComplete())
+				.queryParam("condition", ((QnaSearchVO)paging).getCondition())
+				.queryParam("keyword", ((QnaSearchVO)paging).getKeyword())
+				.build().toString();
+		return uri;
+	}
 
 	public PageVO getPaging() {
 		return paging;
