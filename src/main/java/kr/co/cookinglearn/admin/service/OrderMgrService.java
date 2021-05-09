@@ -25,6 +25,7 @@ public class OrderMgrService implements IOrderMgrService {
 
 	@Override
 	public int orderCount(OrderSearchVO search) {
+		calcDate(search);
 		return mapper.orderCount(search);
 	}
 
@@ -34,19 +35,17 @@ public class OrderMgrService implements IOrderMgrService {
 	}
 	
 	private void calcDate(OrderSearchVO search) {
-		if(!search.getSeDate().equals("")) {
-			Timestamp startDate;
-			Timestamp endDate;
-			
-			/* TimeStamp format Setting */
-			String sDate = search.getSeDate().substring(0, 10);
-			String eDate = search.getSeDate().substring(13, 23);
-			startDate = Timestamp.valueOf(sDate + " 00:00:00");
-			endDate = Timestamp.valueOf(eDate + " 23:59:59");
-			
-			search.setStartDate(startDate);
-			search.setEndDate(endDate);
-		}
+		Timestamp startDate;
+		Timestamp endDate;
+		
+		/* TimeStamp format Setting */
+		String sDate = search.getSeDate().substring(0, 10);
+		String eDate = search.getSeDate().substring(13, 23);
+		startDate = Timestamp.valueOf(sDate + " 00:00:00");
+		endDate = Timestamp.valueOf(eDate + " 23:59:59");
+		
+		search.setStartDate(startDate);
+		search.setEndDate(endDate);
 	}
 
 }

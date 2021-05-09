@@ -28,12 +28,12 @@ public class OrderMgrMapperTest {
 		
 		OrderSearchVO search = new OrderSearchVO();
 		
-		int[] orderList = {3};
+		int[] orderList = {1};
 		
 		search.setCurrentPage(1);
 		search.setMessagePerPage(10);
-		search.setStartDate(Timestamp.valueOf("2021-05-01 00:00:00.0"));
-		search.setEndDate(Timestamp.valueOf("2021-05-08 24:59:59.99"));
+		search.setStartDate(Timestamp.valueOf("2021-05-09 00:00:00.0"));
+		search.setEndDate(Timestamp.valueOf("2021-05-09 24:59:59.99"));
 		search.setOrderProcess(orderList);
 		
 		List<OrderViewVO> orders = mapper.getOrderList(search);
@@ -48,7 +48,6 @@ public class OrderMgrMapperTest {
 		
 	}
 	*/
-	
 	/*
 	//검색 구분자를 전달받아 현재 페이지의 주문 수 반환테스트
 	@Test
@@ -56,12 +55,12 @@ public class OrderMgrMapperTest {
 		
 		OrderSearchVO search = new OrderSearchVO();
 		
-		int[] orderList = {1,3};
+		int[] orderList = {1};
 		
 		search.setCurrentPage(1);
 		search.setMessagePerPage(10);
-		search.setStartDate(Timestamp.valueOf("2021-05-01 00:00:00.0"));
-		search.setEndDate(Timestamp.valueOf("2021-05-08 24:59:59.99"));
+		search.setStartDate(Timestamp.valueOf("2021-05-09 00:00:00.0"));
+		search.setEndDate(Timestamp.valueOf("2021-05-09 24:59:59.99"));
 		search.setOrderProcess(orderList);
 		
 		int orderCount = mapper.orderCount(search);
@@ -70,7 +69,6 @@ public class OrderMgrMapperTest {
 		
 	}
 	*/
-	
 	/*
 	//주문번호를 받아 주문정보 반환테스트
 	@Test
