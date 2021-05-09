@@ -14,7 +14,7 @@
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
-	
+
 	<!-- Mapping for static resource(html, css, js, img) -->
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/css/**" location="/resources/css/" />
@@ -45,8 +45,6 @@
 			</beans:props>
 		</beans:property>
 	</beans:bean>
-
-	
 	
 	<context:component-scan base-package="kr.co.cookinglearn" />
 	

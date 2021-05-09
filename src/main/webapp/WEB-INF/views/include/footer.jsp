@@ -61,11 +61,10 @@
       <i class="far fa-arrow-alt-circle-up"></i>
     </button>
     <script>
-	    const message = "${msg}";
-		if(message === "modSuccess") {
-			alert("의견이 성공적으로 접수되었습니다.");
-		}
+       const message = "${msg}";
+      if(message === "modSuccess") {
+         alert("의견이 성공적으로 접수되었습니다.");
+      }
     </script>
   </body>
 </html>
-

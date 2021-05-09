@@ -28,7 +28,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="<c:url value='/css/style.css'/>" />
-    <link rel="stylesheet" href="resources/css/style.css" />
+    <link rel="stylesheet" href="/resources/css/style.css" />
     <script src="<c:url value='/js/main.js'/>" defer></script>
     <style type="text/css">
       * {
@@ -252,48 +252,48 @@
   </head>
   <body>
     <!-- 로그인 전 Header -->
-	<c:if test="${empty login.nickname}">
-		<header id="header">
-			<div class="header__brandicon">
-				<a href=""> 
-					<img src="<c:url value='/img/brandicon.png'/>" alt="브랜드 로고" width="250px" />
-				</a>
-			</div>
-			<div class="header__right">
-				<a class="button--signin" href="<c:url value="/user/login"/>">로그인</a> 
-				<a class="button--signup"href="<c:url value="/user/join"/>">회원가입</a>
-			</div>
-		</header>
-	</c:if>
-	
-	<!-- 로그인 후 Header -->
-	<c:if test="${not empty login.nickname}">	
-		<header id="header">
-			<div class="header__brandicon">
-				<a href=""> 
-					<img src="<c:url value='/img/brandicon.png'/>" alt="브랜드 로고" width="250px" />
-				</a>
-			</div>
-			<div class="header__right--loggedin">
-		        <a class="button--cart" href="/">
-					<i class="fas fa-shopping-cart"></i>
-		        </a>
-		        <div class="dropdown">
-		          	<a class="button--user" href="/">
-		            	<i class="fas fa-user"></i>
-		          	</a>
-		          	<div class="dropdown-content">
-			            <a href="/">마이페이지</a>
-			            <a href="/">내 강의</a>
-			            <a href="/">로그아웃</a>
-		          	</div>
-		        </div>
-		        <h4><c:out value="${login.nickname}"/>님 환영합니다!</h4>
-			</div>
-		</header>
-	</c:if>
-	
-	<!-- Navbar-->
+   <c:if test="${empty login.nickname}">
+      <header id="header">
+         <div class="header__brandicon">
+            <a href=""> 
+               <img src="<c:url value='/img/brandicon.png'/>" alt="브랜드 로고" width="250px" />
+            </a>
+         </div>
+         <div class="header__right">
+            <a class="button--signin" href="<c:url value="/user/login"/>">로그인</a> 
+            <a class="button--signup"href="<c:url value="/user/join"/>">회원가입</a>
+         </div>
+      </header>
+   </c:if>
+   
+   <!-- 로그인 후 Header -->
+   <c:if test="${not empty login.nickname}">   
+      <header id="header">
+         <div class="header__brandicon">
+            <a href=""> 
+               <img src="<c:url value='/img/brandicon.png'/>" alt="브랜드 로고" width="250px" />
+            </a>
+         </div>
+         <div class="header__right--loggedin">
+              <a class="cart" href="<c:url value="/order/cart" />">
+               <i class="fas fa-shopping-cart"></i>
+              </a>
+              <div class="dropdown">
+                   <a class="button--user" href="/">
+                     <i class="fas fa-user"></i>
+                   </a>
+                   <div class="dropdown-content">
+                     <a href="/">마이페이지</a>
+                     <a href="/">내 강의</a>
+                     <a href="/">로그아웃</a>
+                   </div>
+              </div>
+              <h4><c:out value="${login.nickname}"/>님 환영합니다!</h4>
+         </div>
+      </header>
+   </c:if>
+   
+   <!-- Navbar-->
     <nav id="navbar">
       <div class="navbar__menu">
         <ul class="navbar__menu">
