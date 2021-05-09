@@ -84,4 +84,10 @@ public class QnaVO {
 		this.answer = answer;
 	}
 
+	@Override
+	public String toString() {
+		return "QnaVO [qnaNo=" + qnaNo + ", userNo=" + userNo + ", title=" + title + ", writer=" + writer
+				+ ", qnaContent=" + qnaContent + ", regDate=" + regDate + ", answer=" + answer + "]";
+	}
+	
 }

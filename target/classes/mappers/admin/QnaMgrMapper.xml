@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="kr.co.cookinglearn.admin.repository.IQnaMgrMapper">
+
+	<resultMap id="qnaMgrMap" type="kr.co.cookinglearn.admin.model.QnaVO">
+		<id property="qnaNo" column="qna_no"/>
+		<result property="userNo" column="user_no"/>
+		<result property="title" column="title"/>
+		<result property="writer" column="writer"/>
+		<result property="qnaContent" column="qna_content"/>
+		<result property="regDate" column="reg_date"/>
+		<result property="answer" column="answer"/>
+	</resultMap>
+	
+	<sql id="qnaSearch">
+		<if test="condition == 'writer'">
+			WHERE writer LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="condition == 'titleContent'">
+			WHERE title LIKE '%'||#{keyword}||'%' OR qna_content LIKE '%'||#{keyword}||'%'
+		</if>
+	</sql>
+	
+	<sql id="not">
+		<if test="complete">
+			NOT
+		</if>
+	</sql>
+
+	<select id="getQnaList" resultMap="qnaMgrMap">
+		SELECT * FROM(
+			SELECT row_number() OVER (ORDER BY qna_no DESC) AS rn, qna.* 
+			FROM (
+				SELECT * FROM qna
+				<include refid="qnaSearch" />
+			)qna WHERE answer IS <include refid="not" /> NULL
+		)
+		WHERE rn BETWEEN (#{currentPage}-1)*#{messagePerPage}+1 AND #{currentPage}*#{messagePerPage}
+	</select>
+	
+	<select id="qnaCount" resultType="int">
+		SELECT COUNT(*) FROM(
+			SELECT * FROM qna
+			<include refid="qnaSearch" />
+		) WHERE answer IS <include refid="not" /> NULL
+	</select>
+
+	<update id="setAnswer">
+		UPDATE qna
+		SET answer = #{answer}
+		WHERE qna_no = #{qnaNo}
+	</update>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>
