@@ -27,6 +27,6 @@
 	</bean>
 	
 	<!-- MyBatis Scan -->
-	<mybatis-spring:scan base-package="kr.co.cookinglearn.repository"/>
+	<mybatis-spring:scan base-package="kr.co.cookinglearn.qna.repository"/>
 	
 </beans>

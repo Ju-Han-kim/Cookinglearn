@@ -1,8 +1,8 @@
-package kr.co.cookinglearn.model;
+package kr.co.cookinglearn.qna.model;
 
 import java.sql.Timestamp;
 
-public class OpinionVO {
+public class QnaVO {
 	
 	private int opinionNo;
 	private String content;
