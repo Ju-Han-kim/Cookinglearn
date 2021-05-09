@@ -7,7 +7,7 @@
 
 	<!-- content -->
 	<div class="content">
-		<h3>온라인 주문관리</h3>
+		<h3>오프라인 주문관리</h3>
 		<form>
 			<fieldset>
 				<legend>주문검색</legend>
@@ -37,7 +37,7 @@
 					<th>강의이름</th>
 					<th>신청자ID</th>
 					<th>결제일자</th>
-					<th>만료일자</th>
+					<th>수강일자</th>
 					<th>진행상태</th>
 					<th>결제금액</th>
 				</tr>
@@ -60,15 +60,15 @@
 			</table>
 			<div class="paging">
 				<c:if test="${pageMgr.prev}">
-					<a href="<c:url value='/admin/order/on${pageMgr.mkOrderUri(1)}'/>"><i class="fas fa-angle-double-left"></i></a>
-					<a href="<c:url value='/admin/order/on${pageMgr.mkOrderUri(pageMgr.startPage-1)}'/>"><i class="fas fa-angle-left"></i></a>
+					<a href="<c:url value='/admin/order/off${pageMgr.mkOrderUri(1)}'/>"><i class="fas fa-angle-double-left"></i></a>
+					<a href="<c:url value='/admin/order/off${pageMgr.mkOrderUri(pageMgr.startPage-1)}'/>"><i class="fas fa-angle-left"></i></a>
 				</c:if>
 				<c:forEach var="page" begin="${pageMgr.startPage}" end="${pageMgr.endPage}">
-					<a href="<c:url value='/admin/order/on${pageMgr.mkOrderUri(page)}'/>">${page}</a>
+					<a href="<c:url value='/admin/order/off${pageMgr.mkOrderUri(page)}'/>">${page}</a>
 				</c:forEach>
 				<c:if test="${pageMgr.next}">
-					<a href="<c:url value='/admin/order/on${pageMgr.mkOrderUri(pageMgr.endPage+1)}'/>"><i class="fas fa-angle-right"></i></a>
-					<a href="<c:url value='/admin/order/on${pageMgr.mkOrderUri(pageMgr.totalPage)}'/>"><i class="fas fa-angle-double-right"></i></a>
+					<a href="<c:url value='/admin/order/off${pageMgr.mkOrderUri(pageMgr.endPage+1)}'/>"><i class="fas fa-angle-right"></i></a>
+					<a href="<c:url value='/admin/order/off${pageMgr.mkOrderUri(pageMgr.totalPage)}'/>"><i class="fas fa-angle-double-right"></i></a>
 				</c:if>
 			</div>
 		</div>
@@ -97,14 +97,4 @@
 	});
 	
 </script>
-
-
-
-
-
-
-
-
-
-
 

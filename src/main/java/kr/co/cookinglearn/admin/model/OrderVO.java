@@ -22,7 +22,7 @@ public class OrderVO {
 			process = "결제완료";
 			break;
 		case 1:
-			process = "수강중";
+			process = "수강확정";
 			break;
 		case 2:
 			process = "수강완료";

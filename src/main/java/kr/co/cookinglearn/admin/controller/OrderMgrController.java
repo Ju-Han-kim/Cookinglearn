@@ -31,4 +31,18 @@ public class OrderMgrController {
 		return "admin/orderMgr/onlineOrderManager";
 	}
 	
+	//주문관리-오프라인 mapping
+	@GetMapping("/off")
+	public String offlineOrderMgr(OrderSearchVO search, Model model) {
+	
+		model.addAttribute("menu", "Order");
+		
+		search.setClassType(false);
+		model.addAttribute("pageMgr", new PageMgr(search, service.orderCount(search)));
+		model.addAttribute("search", search);
+		model.addAttribute("orderList",service.getOrderList(search));
+		
+		return "admin/orderMgr/offlineOrderManager";
+	}
+	
 }
