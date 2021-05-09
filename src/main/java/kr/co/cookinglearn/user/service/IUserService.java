@@ -5,23 +5,23 @@ import java.util.List;
 import kr.co.cookinglearn.user.model.UserVO;
 
 public interface IUserService {
-	
-	//¾ÆÀÌµğ Áßº¹ Ã¼Å© ±â´É
-		int checkId(String account);
-		
-		//È¸¿ø Á¤º¸ ÀüÃ¼ Á¶È¸ ±â´É
-		List<UserVO> selectAll();
-		
-		//È¸¿ø Á¤º¸ ¼öÁ¤
-	    void changeInfo(UserVO user);
-		
-		//È¸¿ø °¡ÀÔ ±â´É
-		void register(UserVO user);
-		
-		//È¸¿ø Á¤º¸ Á¶È¸ ±â´É
-		UserVO selectOne(String account);
-		
-		//È¸¿ø Å»Åğ ±â´É
-		void delete(String account);
-	
+
+	//ì•„ì´ë”” ì¤‘ë³µ ì²´í¬ ê¸°ëŠ¥
+	int checkId(String account);
+
+	//íšŒì› ì •ë³´ ì „ì²´ ì¡°íšŒ ê¸°ëŠ¥
+	List<UserVO> selectAll();
+
+	//íšŒì› ì •ë³´ ìˆ˜ì •
+	void changeInfo(UserVO user);
+
+	//íšŒì› ê°€ì… ê¸°ëŠ¥
+	void register(UserVO user);
+
+	//íšŒì› ì •ë³´ ì¡°íšŒ ê¸°ëŠ¥
+	UserVO selectOne(String account);
+
+	//íšŒì› íƒˆí‡´ ê¸°ëŠ¥
+	void delete(String account);
+
 }

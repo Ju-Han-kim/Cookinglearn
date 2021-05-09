@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 public class UserVO {
 	
 	private int userNo;
-	private String userId; //ÀÌ¸ŞÀÏ
+	private String userId; //ì´ë©”ì¼
 	private String userPassword;
 	private String nickname;
 	private int gender;

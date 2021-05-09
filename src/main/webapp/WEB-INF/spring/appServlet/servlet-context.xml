@@ -14,6 +14,8 @@
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/admin/css/**" location="/resources/admin/css/" />
+	<resources mapping="/admin/img/**" location="/resources/admin/img/" />
 
 	<!-- Mapping for static resource(html, css, js, img) -->
 	<resources mapping="/resources/**" location="/resources/" />
@@ -48,5 +50,13 @@
 	
 	<context:component-scan base-package="kr.co.cookinglearn" />
 	
+	<beans:bean id="classInterceptor" class="kr.co.cookinglearn.admin.common.interceptor.ClassInterceptor" />
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/admin/class/off1"/>
+			<beans:ref bean="classInterceptor"/>
+		</interceptor>
+	</interceptors>
 	
 </beans:beans>

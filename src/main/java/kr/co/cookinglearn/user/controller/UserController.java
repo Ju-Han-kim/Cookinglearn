@@ -24,118 +24,118 @@ import kr.co.cookinglearn.user.service.IUserService;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-	
-	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-	
-	@Autowired
-	private IUserService service;
-	
-	@Autowired
-	private JavaMailSender mailSender;
-	
-	
-	//È¸¿ø°¡ÀÔ ´©¸£¸é ¾à°ü µ¿ÀÇ Ã¢À¸·Î º¸³¿
-	@GetMapping("/join")
-	public String signUpAgree() {
-		logger.info("È¸¿ø°¡ÀÔ ¾à°üµ¿ÀÇ ÆäÀÌÁö ÁøÀÔ");
-		return "user/sign_up_agreement";
-	}
-	
-	//¾à°üµ¿ÀÇ µ¿ÀÇÇÕ´Ï´Ù ´©¸£¸é °¡ÀÔ form Ã¢À¸·Î º¸³¿.
-	@GetMapping("/register")
-	public String write() {
-		logger.info("È¸¿ø°¡ÀÔ ÆäÀÌÁö ÁøÀÔ");
-		return "user/join_form";
-	}
-	
-	
-	//È¸¿ø°¡ÀÔ
-	@PostMapping("/register")
-	public String register(UserVO user) {
-		logger.info("È¸¿ø°¡ÀÔ ½ÃÀÛ");
-		
-		
-		service.register(user);
-		
-		
-		logger.info("È¸¿ø °¡ÀÔ ¿Ï·á!");
-		
-		return "redirect:/";
-	}
-	
-	//·Î±×ÀÎ ÆäÀÌÁö ÀÌµ¿
-	@GetMapping("/login")
-	public String login() {
-		logger.info("·Î±×ÀÎÆäÀÌÁö ÁøÀÔ!");
-		return "user/login";
-	}
-	
-	//·Î±×ÀÎ ±â´É
-	@PostMapping("/loginCheck")
-	public String loginCheck(UserVO inputData, HttpSession session, RedirectAttributes ra) {
-		System.out.println("/user/loginCheck: POST ¿äÃ»");
-		
-		UserVO dbData = service.selectOne(inputData.getUserId());
-		
-		if(dbData != null) {
-			if(inputData.getUserPassword().equals(dbData.getUserPassword())) {
-				//¼¼¼Ç µ¥ÀÌÅÍ »ı¼º(·Î±×ÀÎ À¯Áö)
-				session.setAttribute("login", dbData);
-				
-			}else {
-				ra.addFlashAttribute("msg","pwFail");
-				return "redirect:/user/login";
-			}
-		}else {
-			ra.addFlashAttribute("msg","idFail");
-			return "redirect:/user/login";
-		}
-		
-		return "redirect:/";
-		
-	}
-	
-	//¾ÆÀÌµğ Áßº¹°Ë»ç ±â´É
-	@RequestMapping(value="/userIdChk", method = RequestMethod.POST)
-	@ResponseBody
-	public String userIdChk(String userId) throws Exception {
-		logger.info("userIdChk ÁøÀÔ");
-		int result = service.checkId(userId);
-		
-		if(result != 0 ) {
-			return "fail"; // Áßº¹ ¾ÆÀÌµğ Á¸Àç
-		} else {
-			return "success"; // »ç¿ë°¡´ÉÇÑ ¾ÆÀÌµğ
-		}
-		
-		
-	}
-	
-	//°èÁ¤ ÀÌ¸ŞÀÏ ÀÎÁõ
-	@GetMapping("/mailCheck")
-	@ResponseBody
-	public void mailCheck(String email) throws Exception {
-		logger.info(email);
-		
-		//ÀÎÁõ¹øÈ£ ³­¼ö »ı¼º
-		Random random = new Random();
-		int checkNum = random.nextInt(888888)+111111;
-		
-		logger.info("ÀÎÁõ¹øÈ£ : " + checkNum);
-		
-		
-		//ÀÌ¸ŞÀÏ º¸³»±â
-		String setFrom = "zeekajoy@gmail.com";
-		String toMail = email;
-		String title = "ÄíÅ··± È¸¿ø°¡ÀÔ °èÁ¤ ÀÎÁõ";
-		String content =
-				"ÄíÅ··± È¸¿ø°¡ÀÔÀ» ÁøÇàÇØÁÖ¼Å¼­ °¨»çÇÕ´Ï´Ù." +
-				"<br><br>" +
-				"ÀÎÁõ ¹øÈ£´Â " + checkNum + "ÀÔ´Ï´Ù." +
-				"<br>" +
-				"°¨»çÇÕ´Ï´Ù.";
-		
-		try {
+   
+   private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+   
+   @Autowired
+   private IUserService service;
+   
+   @Autowired
+   private JavaMailSender mailSender;
+   
+   
+   //íšŒì›ê°€ì… ëˆ„ë¥´ë©´ ì•½ê´€ ë™ì˜ ì°½ìœ¼ë¡œ ë³´ëƒ„
+   @GetMapping("/join")
+   public String signUpAgree() {
+      logger.info("íšŒì›ê°€ì… ì•½ê´€ë™ì˜ í˜ì´ì§€ ì§„ì…");
+      return "user/sign_up_agreement";
+   }
+   
+   //ì•½ê´€ë™ì˜ ë™ì˜í•©ë‹ˆë‹¤ ëˆ„ë¥´ë©´ ê°€ì… form ì°½ìœ¼ë¡œ ë³´ëƒ„.
+   @GetMapping("/register")
+   public String write() {
+      logger.info("íšŒì›ê°€ì… í˜ì´ì§€ ì§„ì…");
+      return "user/join_form";
+   }
+   
+   
+   //íšŒì›ê°€ì…
+   @PostMapping("/register")
+   public String register(UserVO user) {
+      logger.info("íšŒì›ê°€ì… ì‹œì‘");
+      
+      
+      service.register(user);
+      
+      
+      logger.info("íšŒì› ê°€ì… ì™„ë£Œ!");
+      
+      return "redirect:/";
+   }
+   
+   //ë¡œê·¸ì¸ í˜ì´ì§€ ì´ë™
+   @GetMapping("/login")
+   public String login() {
+      logger.info("ë¡œê·¸ì¸í˜ì´ì§€ ì§„ì…!");
+      return "user/login";
+   }
+   
+   //ë¡œê·¸ì¸ ê¸°ëŠ¥
+   @PostMapping("/loginCheck")
+   public String loginCheck(UserVO inputData, HttpSession session, RedirectAttributes ra) {
+      System.out.println("/user/loginCheck: POST ìš”ì²­");
+      
+      UserVO dbData = service.selectOne(inputData.getUserId());
+      
+      if(dbData != null) {
+         if(inputData.getUserPassword().equals(dbData.getUserPassword())) {
+            //ì„¸ì…˜ ë°ì´í„° ìƒì„±(ë¡œê·¸ì¸ ìœ ì§€)
+            session.setAttribute("login", dbData);
+            
+         }else {
+            ra.addFlashAttribute("msg","pwFail");
+            return "redirect:/user/login";
+         }
+      }else {
+         ra.addFlashAttribute("msg","idFail");
+         return "redirect:/user/login";
+      }
+      
+      return "redirect:/";
+      
+   }
+   
+   //ì•„ì´ë”” ì¤‘ë³µê²€ì‚¬ ê¸°ëŠ¥
+   @RequestMapping(value="/userIdChk", method = RequestMethod.POST)
+   @ResponseBody
+   public String userIdChk(String userId) throws Exception {
+      logger.info("userIdChk ì§„ì…");
+      int result = service.checkId(userId);
+      
+      if(result != 0 ) {
+         return "fail"; // ì¤‘ë³µ ì•„ì´ë”” ì¡´ì¬
+      } else {
+         return "success"; // ì‚¬ìš©ê°€ëŠ¥í•œ ì•„ì´ë””
+      }
+      
+      
+   }
+   
+   //ê³„ì • ì´ë©”ì¼ ì¸ì¦
+   @GetMapping("/mailCheck")
+   @ResponseBody
+   public void mailCheck(String email) throws Exception {
+      logger.info(email);
+      
+      //ì¸ì¦ë²ˆí˜¸ ë‚œìˆ˜ ìƒì„±
+      Random random = new Random();
+      int checkNum = random.nextInt(888888)+111111;
+      
+      logger.info("ì¸ì¦ë²ˆí˜¸ : " + checkNum);
+      
+      
+      //ì´ë©”ì¼ ë³´ë‚´ê¸°
+      String setFrom = "zeekajoy@gmail.com";
+      String toMail = email;
+      String title = "ì¿ í‚¹ëŸ° íšŒì›ê°€ì… ê³„ì • ì¸ì¦";
+      String content =
+            "ì¿ í‚¹ëŸ° íšŒì›ê°€ì…ì„ ì§„í–‰í•´ì£¼ì…”ì„œ ê°ì‚¬í•©ë‹ˆë‹¤." +
+            "<br><br>" +
+            "ì¸ì¦ ë²ˆí˜¸ëŠ” " + checkNum + "ì…ë‹ˆë‹¤." +
+            "<br>" +
+            "ê°ì‚¬í•©ë‹ˆë‹¤.";
+      
+      try {
             
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
@@ -148,8 +148,8 @@ public class UserController {
         }catch(Exception e) {
             e.printStackTrace();
         }
-	}
-	
-	
+   }
+   
+   
 
 }

@@ -18,7 +18,7 @@ public class HomeController {
 	
 	@GetMapping("/")
 	public String home() {
-		logger.info("¸ŞÀÎ ÆäÀÌÁö µé¾î°¨");
+		logger.info("ë©”ì¸í˜ì´ì§€ ë“¤ì–´ê°");
 
 		return "home";
 	}

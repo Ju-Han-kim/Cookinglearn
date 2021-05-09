@@ -1,0 +1,183 @@
+CREATE TABLE "USER" (
+	user_no	number		NOT NULL,
+	user_id	varchar2(100)		NOT NULL,
+	user_password	varchar2(300)		NOT NULL,
+	nickname	varchar2(100)		NOT NULL,
+	gender	number(1)		NOT NULL,
+	reg_date	date	DEFAULT sysdate	NOT NULL,
+	admin_level	number(1)	DEFAULT 0	NOT NULL,
+	delete_account	number(1),
+	delete_day	date
+);
+
+CREATE TABLE "ORDER" (
+	order_no	number		NOT NULL,
+	user_no	number		NOT NULL,
+	class_code	number		NOT NULL,
+	point_use	number		DEFAULT 0,
+	payment	number		NOT NULL,
+	payment_method	varchar2(100)		NOT NULL,
+	payment_date	date DEFAULT sysdate NOT NULL,
+	limit_date	date,
+	order_process	number	DEFAULT 0
+);
+
+CREATE TABLE "CLASS" (
+	class_code	number		NOT NULL,
+	class_type	number(1)		NOT NULL,
+	class_category	varchar2(50)		NOT NULL,
+	thumbnail_img	varchar2(100)		NOT NULL,
+	class_name	varchar2(100)		NOT NULL,
+	class_content	varchar2(300)		NOT NULL,
+	run_time	number		NOT NULL,
+	start_date	date		NOT NULL,
+	content_img	varchar2(100)		NULL,
+	class_url	varchar2(100)		NULL,
+	price	number		NOT NULL,
+	max_student	number		DEFAULT 0
+);
+
+CREATE TABLE "POINT" (
+	point_no	number		NOT NULL,
+	user_no	number		NOT NULL,
+	point_date	date	DEFAULT sysdate,
+	point_history	varchar2(200),
+	point_change	number
+);
+
+CREATE TABLE REVIEW (
+	review_no	number		NOT NULL,
+	user_no	number		NOT NULL,
+	class_code	number		NOT NULL,
+	writer	varchar2(100)		NOT NULL,
+	review_comment	varchar2(200)		NOT NULL,
+	review_star	number		NOT NULL,
+	reg_date	date DEFAULT sysdate,
+	img	varchar2(100)
+);
+
+CREATE TABLE QNA (
+	qna_no	number		NOT NULL,
+	user_no	number		NOT NULL,
+	title	varchar2(100)		NOT NULL,
+	writer	varchar2(100)		NOT NULL,
+	qna_content	varchar2(300)		NOT NULL,
+	reg_date	date	DEFAULT sysdate,
+	answer	varchar2(300)		NULL
+);
+
+ALTER TABLE "USER" ADD CONSTRAINT PK_USER PRIMARY KEY (
+	user_no
+);
+
+ALTER TABLE "ORDER" ADD CONSTRAINT PK_ORDER PRIMARY KEY (
+	order_no,
+	user_no,
+	class_code
+);
+
+ALTER TABLE "CLASS" ADD CONSTRAINT PK_CLASS PRIMARY KEY (
+	class_code
+);
+
+ALTER TABLE "POINT" ADD CONSTRAINT PK_POINT PRIMARY KEY (
+	point_no,
+	user_no
+);
+
+ALTER TABLE REVIEW ADD CONSTRAINT PK_REVIEW PRIMARY KEY (
+	review_no,
+	user_no,
+	class_code
+);
+
+ALTER TABLE QNA ADD CONSTRAINT PK_QNA PRIMARY KEY (
+	qna_no,
+	user_no
+);
+
+ALTER TABLE "ORDER" ADD CONSTRAINT FK_USER_TO_ORDER_1 FOREIGN KEY (
+	user_no
+)
+REFERENCES "USER" (
+	user_no
+);
+
+ALTER TABLE "ORDER" ADD CONSTRAINT FK_CLASS_TO_ORDER_1 FOREIGN KEY (
+	class_code
+)
+REFERENCES "CLASS" (
+	class_code
+);
+
+ALTER TABLE "POINT" ADD CONSTRAINT FK_USER_TO_POINT_1 FOREIGN KEY (
+	user_no
+)
+REFERENCES "USER" (
+	user_no
+);
+
+ALTER TABLE REVIEW ADD CONSTRAINT FK_USER_TO_REVIEW_1 FOREIGN KEY (
+	user_no
+)
+REFERENCES "USER" (
+	user_no
+);
+
+ALTER TABLE REVIEW ADD CONSTRAINT FK_CLASS_TO_REVIEW_1 FOREIGN KEY (
+	class_code
+)
+REFERENCES "CLASS" (
+	class_code
+);
+
+ALTER TABLE QNA ADD CONSTRAINT FK_USER_TO_QNA_1 FOREIGN KEY (
+	user_no
+)
+REFERENCES "USER" (
+	user_no
+);
+
+create sequence user_no_seq
+    start with 1
+    maxvalue 2000
+    increment by 1
+    nocycle
+    nocache;
+    
+    create sequence class_code_seq
+    start with 1
+    maxvalue 2000
+    increment by 1
+    nocycle
+    nocache;
+    
+    create sequence review_no_seq
+    start with 1
+    maxvalue 2000
+    increment by 1
+    nocycle
+    nocache;
+    
+    create sequence point_no_seq
+    start with 1
+    maxvalue 2000
+    increment by 1
+    nocycle
+    nocache;
+    
+    create sequence qna_no_seq
+    start with 1
+    maxvalue 2000
+    increment by 1
+    nocycle
+    nocache;
+    
+    create sequence order_no_seq
+    start with 1
+    maxvalue 2000
+    increment by 1
+    nocycle
+    nocache;
+
+    ALTER TABLE QNA ADD answer_date date;
