@@ -252,7 +252,7 @@
   </head>
   <body>
     <!-- 로그인 전 Header -->
-	<c:if test="${empty param.userName}">
+	<c:if test="${empty login.nickname}">
 		<header id="header">
 			<div class="header__brandicon">
 				<a href=""> 
@@ -260,14 +260,14 @@
 				</a>
 			</div>
 			<div class="header__right">
-				<a class="button--signin" href="/">로그인</a> 
-				<a class="button--signup"href="/">회원가입</a>
+				<a class="button--signin" href="<c:url value="/user/login"/>">로그인</a> 
+				<a class="button--signup"href="<c:url value="/user/join"/>">회원가입</a>
 			</div>
 		</header>
 	</c:if>
 	
 	<!-- 로그인 후 Header -->
-	<c:if test="${not empty param.userName}">	
+	<c:if test="${not empty login.nickname}">	
 		<header id="header">
 			<div class="header__brandicon">
 				<a href=""> 
@@ -288,7 +288,7 @@
 			            <a href="/">로그아웃</a>
 		          	</div>
 		        </div>
-		        <h4><c:out value="${param.userName}"/>님 환영합니다!</h4>
+		        <h4><c:out value="${login.nickname}"/>님 환영합니다!</h4>
 			</div>
 		</header>
 	</c:if>
