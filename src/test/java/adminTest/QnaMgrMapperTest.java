@@ -1,5 +1,7 @@
 package adminTest;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -75,21 +77,12 @@ public class QnaMgrMapperTest {
 		
 		qna.setQnaNo(1);
 		qna.setAnswer("테스트 답변입니다.");
+		qna.setAnswerDate(new Timestamp(new Date().getTime()));
 		
 		mapper.setAnswer(qna);
 		
 	}
 	*/
-
-
-
-
-
-
-
-
-
-
 
 
 

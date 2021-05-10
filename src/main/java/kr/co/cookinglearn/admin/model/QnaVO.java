@@ -11,13 +11,15 @@ public class QnaVO {
 	private String qnaContent;
 	private Timestamp regDate;
 	private String answer;
+	private Timestamp answerDate;
+	
 
 	public QnaVO() {
 
 	}
-
+	
 	public QnaVO(int qnaNo, int userNo, String title, String writer, String qnaContent, Timestamp regDate,
-			String answer) {
+			String answer, Timestamp answerDate) {
 		super();
 		this.qnaNo = qnaNo;
 		this.userNo = userNo;
@@ -26,6 +28,7 @@ public class QnaVO {
 		this.qnaContent = qnaContent;
 		this.regDate = regDate;
 		this.answer = answer;
+		this.answerDate = answerDate;
 	}
 
 	public int getQnaNo() {
@@ -83,11 +86,20 @@ public class QnaVO {
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
+	
+	public Timestamp getAnswerDate() {
+		return answerDate;
+	}
+
+	public void setAnswerDate(Timestamp answerDate) {
+		this.answerDate = answerDate;
+	}
 
 	@Override
 	public String toString() {
 		return "QnaVO [qnaNo=" + qnaNo + ", userNo=" + userNo + ", title=" + title + ", writer=" + writer
-				+ ", qnaContent=" + qnaContent + ", regDate=" + regDate + ", answer=" + answer + "]";
+				+ ", qnaContent=" + qnaContent + ", regDate=" + regDate + ", answer=" + answer + ", answerDate="
+				+ answerDate + "]";
 	}
-	
+
 }
