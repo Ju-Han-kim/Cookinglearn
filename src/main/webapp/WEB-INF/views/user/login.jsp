@@ -5,58 +5,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>로그인</title>
-<link rel="stylesheet" href="/resources/css/user/login.css">
+<meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      쿠킹런 - 요리를 배울 수 있는 온오프라인 클래스 | 온오프라인 강의 플랫폼
+    </title>
+    <meta
+      name="description"
+      content="요리 입문부터 심화까지 업계 최고 요리사들에게 배울 수 있는 곳. 우리는 맛있고 건강한 매일을 추구합니다...."
+    />
+    <meta name="author" content="권우희, 김주한, 양다정, 유한기, 최준우" />
+    <link rel="icon" type="image/png" href="<c:url value='/img/favicon.png' />" />
+    <script
+      src="https://kit.fontawesome.com/bab51a57cc.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&family=Noto+Sans+KR:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+	<link rel="stylesheet" href="/resources/css/user/login.css">
+	<link
+      href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&family=Noto+Sans+KR:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
 </head>
-
 <body>
-
-<div class="wrapper">
-	<form action="<c:url value="/user/loginCheck"/>" method="post">
-	<div class="wrap">
-		<div class="logo_wrap">
-			<span>쿠킹런</span>
-		</div>
+    <div class="logo">
+        <a href="/">CookingLearn</a>
+    </div>
+    <div class="login_title">
+        <h2>로그인</h2>
+    </div>
+    <form action="<c:url value="/user/loginCheck"/>" method="post">
 		<div class="login_wrap"> 
-			<div class="id_wrap">
-				<div class="id_input_box">
-					<input type="text" name="userId" class="id_input" placeholder="이메일 계정을 입력해주세요." size="30"/>
-				</div>
-			</div>
-			<div class="pw_wrap">
-				<div class="pw_input_box">
-					<input type="password" name="userPassword" class="pw_input" placeholder="비밀번호를 입력해주세요." size="30"/>
-				</div>
-			</div>
-			<div class="login_submit_wrap">
-				<input type="submit" class="login_submit" value="로그인" />
-			</div>			
+			<input type="text" name="userId" class="id_input" placeholder="이메일 계정을 입력해주세요"/>
+			<input type="password" name="userPassword" class="pw_input" placeholder="비밀번호를 입력해주세요"/>
+			<input type="submit" class="login_submit" value="로그인" />		
+            <hr>
 		</div>
-		
-		
-	</div>
 	</form>
 	<div class="button_wrap">
-		<div style="display: inline-block">
-		    <input type="button" onclick="location.href='<c:url value="/user/join"/>'" value="회원 가입" class="join_button"/>
-		</div>
-		<div style="display: inline-block">
-     		<input type="button" onclick="location.href='<c:url value=""/>'" value="비밀번호 찾기" class="pwFind_button"/>
-		</div>
+		<input type="button" onclick="location.href='<c:url value="/user/join"/>'" value="회원 가입" class="join_button"/>
+     	<input type="button" onclick="location.href='<c:url value=""/>'" value="비밀번호 찾기" class="pwFind_button"/>
 	</div>
 </div>
-
-
-
-	
-	
-	
-	
-	
-	
-	
-
 <script>
 		const result = "${msg}"
 		if(result === "idFail"){
@@ -65,6 +60,5 @@
 			alert("비밀번호가 일치 하지 않습니다!")
 		}
 </script>
-
 </body>
 </html>

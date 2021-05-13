@@ -46,7 +46,7 @@
               />
               <textarea
                 id="customerSend"
-                name="content"
+                name="qnaContent"
                 class="form-comment"
                 placeholder="불편사항이나 제안사항&ZeroWidthSpace;&ZeroWidthSpace;이 있으신가요?&#13;&#10;쿠킹런에 전하고 싶은 문의를 남겨주세요."
                 spellcheck="false"
@@ -61,9 +61,12 @@
       <i class="far fa-arrow-alt-circle-up"></i>
     </button>
     <script>
-       const message = "${msg}";
+      const message = "${msg}";
       if(message === "modSuccess") {
          alert("의견이 성공적으로 접수되었습니다.");
+      }
+      if(message === "modFail") {
+    	  alert("해당 서비스 이용을 위해선 로그인이 필요합니다.")
       }
     </script>
   </body>
