@@ -82,13 +82,17 @@
 					<th>작성자</th>
 					<th>작성일자</th>
 				</tr>
-				<tr>
-					<td>1</td>
-					<td>2</td>
-					<td>3</td>
-					<td>4</td>
-					<td>5</td>
-				</tr>
+				<c:forEach var="qna" items="${qnaList}">
+					<tr>
+						<td>${qna.qnaNo}</td>
+						<td>${qna.title}</td>
+						<td>${qna.qnaContent}</td>
+						<td>${qna.writer}</td>
+						<td>
+							<fmt:formatDate pattern="yyyy-MM-dd" value="${qna.regDate}" />
+						</td>
+					</tr>
+				</c:forEach>
 			</table>
 
 		</div>

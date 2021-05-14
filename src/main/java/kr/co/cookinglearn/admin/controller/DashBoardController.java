@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.cookinglearn.admin.service.interfaces.IDashBoardService;
-import net.sf.json.JSONArray;
 
 @Controller
 @RequestMapping("/admin")
@@ -22,7 +21,7 @@ public class DashBoardController {
 		
 		model.addAttribute("todayWork", service.todayWork());
 		model.addAttribute("dailySales", service.dailySales());
-		
+		model.addAttribute("qnaList", service.getQnaList());
 		return "admin/dashBoard/dashBoard";
 	}
 	

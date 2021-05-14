@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.cookinglearn.admin.common.page.ClassSearchVO;
 import kr.co.cookinglearn.admin.common.page.QnaSearchVO;
+import kr.co.cookinglearn.admin.model.QnaVO;
 import kr.co.cookinglearn.admin.model.process.DashBoardProcessVO;
 import kr.co.cookinglearn.admin.model.process.DashBoardSalesVO;
 import kr.co.cookinglearn.admin.model.process.DashBoardTodayVO;
@@ -202,4 +203,38 @@ public class DashBoardService implements IDashBoardService {
 		}
 		return dailySales;
 	}
+	
+	//qna리스트 반환
+	@Override
+	public List<QnaVO> getQnaList() {
+		
+		QnaSearchVO search = new QnaSearchVO();
+		search.setComplete(false);
+		
+		List<QnaVO> TopQnaList = new ArrayList<QnaVO>();
+		List<QnaVO> qnaList = qnaMapper.getQnaList(search);
+		
+		for(int i=0; i<3; i++) {
+			TopQnaList.add(qnaList.get(i));
+		}
+		return TopQnaList;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
