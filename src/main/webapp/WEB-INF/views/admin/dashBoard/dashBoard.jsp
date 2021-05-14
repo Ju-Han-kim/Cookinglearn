@@ -52,16 +52,25 @@
 		<table border=1>
 			<tr>
 				<th>날짜</th>
-				<th>온라인</th>
-				<th>오프라인</th>
-				<th>반품</th>
+				<th>온라인(건/원)</th>
+				<th>오프라인(건/원)</th>
+				<th>반품(건/원)</th>
 			</tr>
-			<tr>
-				<td>1</td>
-				<td>2</td>
-				<td>3</td>
-				<td>4</td>
-			</tr>
+			<c:forEach var="daily" items="${dailySales}">
+				<tr>
+					<td>
+						<fmt:formatDate pattern="yyyy-MM-dd" value="${daily.paymentDate}"/>	
+					</td>
+					<td>
+						<fmt:formatNumber pattern="#,###" value="${daily.onClass}" /> / <fmt:formatNumber pattern="#,###" value="${daily.onPayment}" /></td>
+					<td>
+						<fmt:formatNumber pattern="#,###" value="${daily.offClass}" /> / <fmt:formatNumber pattern="#,###" value="${daily.offPayment}" /></td>
+					<td>
+						<fmt:formatNumber pattern="#,###" value="${daily.returnClass}" /> / <fmt:formatNumber pattern="#,###" value="${daily.returnPayment}" /></td>
+				</tr>
+			</c:forEach>
+			
+			
 		</table>
 		<div style="clear:left;">
 			<h3>처리할 문의</h3>
@@ -81,20 +90,22 @@
 					<td>5</td>
 				</tr>
 			</table>
+
 		</div>
 	</div>
-	
+
 <jsp:include page="../include/footer.jsp" />
 
 <script>
+	let labels = new Array();
+	let onClass = new Array();
+	let offClass = new Array();
 
-	const labels = [
-		'day1',
-		'day2',
-		'day3',
-		'day4',
-		'day5',
-	];
+	<c:forEach var="daily" items="${dailySales}">
+		labels.push("<fmt:formatDate pattern="MM/dd" value="${daily.paymentDate}"/>");
+		onClass.push("${daily.onClass}");
+		offClass.push("${daily.offClass}");
+	</c:forEach>
 	
 	const data = {
 		labels: labels,
@@ -102,13 +113,13 @@
 			label: 'online',
 			backgroundColor: 'rgb(255, 99, 132)',
 			borderColor: 'rgb(255, 99, 132)',
-			data: [0, 10, 5, 2, 20]
+			data: onClass
 		},
 		{
 			label: 'offline',
 			backgroundColor: 'rgb(100, 100, 132)',
 			borderColor: 'rgb(100, 100, 132)',
-			data: [40, 50, 30, 10, 0]
+			data: offClass
 		}]
 	};
 
@@ -118,8 +129,7 @@
 	};
 		
 	let myChart = new Chart(document.getElementById('myChart'),config);
-
-
+	
 </script>
 
 

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.cookinglearn.admin.service.interfaces.IDashBoardService;
+import net.sf.json.JSONArray;
 
 @Controller
 @RequestMapping("/admin")
@@ -15,10 +16,12 @@ public class DashBoardController {
 	@Autowired
 	private IDashBoardService service;
 	
+	//현황관리 페이지 mapping
 	@GetMapping("/")
 	public String dashBoardView(Model model) {
 		
 		model.addAttribute("todayWork", service.todayWork());
+		model.addAttribute("dailySales", service.dailySales());
 		
 		return "admin/dashBoard/dashBoard";
 	}

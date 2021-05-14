@@ -2,6 +2,7 @@ package kr.co.cookinglearn.admin.service;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import kr.co.cookinglearn.admin.common.page.ClassSearchVO;
 import kr.co.cookinglearn.admin.common.page.QnaSearchVO;
 import kr.co.cookinglearn.admin.model.process.DashBoardProcessVO;
+import kr.co.cookinglearn.admin.model.process.DashBoardSalesVO;
 import kr.co.cookinglearn.admin.model.process.DashBoardTodayVO;
 import kr.co.cookinglearn.admin.repository.IClassMgrMapper;
 import kr.co.cookinglearn.admin.repository.IDashBoardMapper;
@@ -123,5 +125,81 @@ public class DashBoardService implements IDashBoardService {
 		todayWork.setQnaCount(qnaCount);
 		return todayWork;
 	}
-
+	
+	
+	//매출현황(최근5일) 반환
+	@Override
+	public List<DashBoardSalesVO> dailySales() {
+		
+		List<DashBoardSalesVO> dailySales = new ArrayList<DashBoardSalesVO>();
+		List<DashBoardProcessVO> salesList = dashBoardMapper.classPaymentCount();
+		DashBoardSalesVO daily = new DashBoardSalesVO();
+		
+		int onClass = 0;
+		int onPayment = 0;
+		int offClass = 0;
+		int offPayment = 0;
+		int returnClass = 0;
+		int returnPayment = 0;
+		
+		int day = 4;
+		
+		for(DashBoardProcessVO sales : salesList) {
+			while(daily.getPaymentDate().compareTo(sales.getPaymentDate()) < 0) {
+				daily.setData(onClass, onPayment, offClass, offPayment, returnClass, returnPayment);
+				dailySales.add(daily);
+				daily = new DashBoardSalesVO();
+				daily.setDay(--day);
+				
+				onClass = 0;
+				onPayment = 0;
+				offClass = 0;
+				offPayment = 0;
+				returnClass = 0;
+				returnPayment = 0;
+			}
+			
+			if(sales.isClassType()) {
+				switch (sales.getOrderProcess()) {
+				case 0:
+				case 1:
+				case 2:
+					onClass += sales.getCount();
+					onPayment += sales.getPayment();
+					break;
+				case 3:
+					returnClass += sales.getCount();
+					returnPayment += sales.getPayment();
+					break;
+				}
+			} else {
+				switch (sales.getOrderProcess()) {
+				case 0:
+				case 1:
+				case 2:
+					offClass += sales.getCount();
+					offPayment += sales.getPayment();
+					break;
+				case 3:
+					returnClass += sales.getCount();
+					returnPayment += sales.getPayment();
+					break;
+				}
+			}
+		}
+		while(day >= 0){
+			daily.setData(onClass, onPayment, offClass, offPayment, returnClass, returnPayment);
+			dailySales.add(daily);
+			daily = new DashBoardSalesVO();
+			daily.setDay(--day);
+			
+			onClass = 0;
+			onPayment = 0;
+			offClass = 0;
+			offPayment = 0;
+			returnClass = 0;
+			returnPayment = 0;
+		}
+		return dailySales;
+	}
 }
