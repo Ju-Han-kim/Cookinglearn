@@ -126,8 +126,25 @@ public class DashBoardTest {
 	*/
 	
 	
+	/******************************************************************/
 	
-	
+	/*
+	//날짜별, 온/오프라인 클래스별, 진행상태별 건수/비용 반환 테스트
+	@Test
+	public void classPaymentCountTest() {
+		
+		List<DashBoardProcessVO> list = dashBoardMapper.classPaymentCount();
+		
+		System.out.println("=======================");
+
+		for(DashBoardProcessVO unit : list) {
+			System.out.println(unit);
+		}
+
+		System.out.println("=======================");
+		
+	}
+	*/
 	
 	
 	
