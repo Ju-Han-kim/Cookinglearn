@@ -14,18 +14,34 @@
 				<th>오늘의 현강강의</th>
 				<th>내일의 현장강의</th>
 				<th>완료대기</th>
-				<th>반품</th>
+				<th>반품(ON/OFF)</th>
 				<th>신규가입</th>
 				<th>문의관리</th>
 			</tr>
 			<tr>
-				<td>1</td>
-				<td>2</td>
-				<td>3</td>
-				<td>4</td>
-				<td>5</td>
-				<td>6</td>
-				<td>7</td>
+				<td>${todayWork.onComplete + todayWork.offComplete} (  
+					<a href="<c:url value='/admin/order/on?orderProcess=0&orderProcess=1&orderProcess=2' />">${todayWork.onComplete}</a> / 
+					<a href="<c:url value='/admin/order/off?orderProcess=0&orderProcess=1&orderProcess=2' />">${todayWork.offComplete}</a> )
+				</td>
+				<td>
+					<a href="<c:url value='/admin/class/off1?seDate=${todayWork.StringSeDate(\'today\')}' />">${todayWork.todayOffClass}</a>
+				</td>
+				<td>
+					<a href="<c:url value='/admin/class/off1?seDate=${todayWork.StringSeDate(\'tomorrow\')}' />">${todayWork.tomorrowOffClass}</a>
+				</td>
+				<td>
+					<a href="<c:url value='/admin/class/off2' />">${todayWork.waitForCompletion}</a>
+				</td>
+				<td>${todayWork.onReturn + todayWork.offReturn} (  
+					<a href="<c:url value='/admin/order/on?orderProcess=3&seDate=${todayWork.StringSeDate(\'today\')}' />">${todayWork.onReturn}</a> / 
+					<a href="<c:url value='/admin/order/off?orderProcess=3&seDate=${todayWork.StringSeDate(\'today\')}' />">${todayWork.offReturn}</a> )
+				</td>
+				<td>
+					<a href="<c:url value='/admin/user/' />">${todayWork.newUser}</a>
+				</td>
+				<td>
+					<a href="<c:url value='/admin/qna/' />">${todayWork.qnaCount}</a>
+				</td>
 			</tr>
 		</table>
 		

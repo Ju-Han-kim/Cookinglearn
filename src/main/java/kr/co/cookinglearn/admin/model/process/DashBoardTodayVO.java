@@ -1,5 +1,8 @@
 package kr.co.cookinglearn.admin.model.process;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class DashBoardTodayVO {
 
 	private int onComplete;
@@ -7,9 +10,32 @@ public class DashBoardTodayVO {
 	private int todayOffClass;
 	private int tomorrowOffClass;
 	private int WaitForCompletion;
-	private int returnOrder;
+	private int onReturn;
+	private int offReturn;
 	private int newUser;
 	private int qnaCount;
+
+	public DashBoardTodayVO() {
+		this.onComplete = 0;
+		this.offComplete = 0;
+		this.todayOffClass = 0;
+		this.tomorrowOffClass = 0;
+		this.WaitForCompletion = 0;
+		this.onReturn = 0;
+		this.offReturn = 0;
+		this.newUser = 0;
+		this.qnaCount = 0;
+	}
+
+	public String StringSeDate(String day) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date seDate = new Date();
+
+		if (day.equals("tomorrow")) {
+			seDate = new Date(seDate.getTime() + 1000L * 60 * 60 * 24);
+		}
+		return sdf.format(seDate) + " ~ " + sdf.format(seDate);
+	}
 
 	public int getOnComplete() {
 		return onComplete;
@@ -51,12 +77,20 @@ public class DashBoardTodayVO {
 		WaitForCompletion = waitForCompletion;
 	}
 
-	public int getReturnOrder() {
-		return returnOrder;
+	public int getOnReturn() {
+		return onReturn;
 	}
 
-	public void setReturnOrder(int returnOrder) {
-		this.returnOrder = returnOrder;
+	public void setOnReturn(int onReturn) {
+		this.onReturn = onReturn;
+	}
+
+	public int getOffReturn() {
+		return offReturn;
+	}
+
+	public void setOffReturn(int offReturn) {
+		this.offReturn = offReturn;
 	}
 
 	public int getNewUser() {
@@ -79,7 +113,8 @@ public class DashBoardTodayVO {
 	public String toString() {
 		return "DashBoardTodayVO [onComplete=" + onComplete + ", offComplete=" + offComplete + ", todayOffClass="
 				+ todayOffClass + ", tomorrowOffClass=" + tomorrowOffClass + ", WaitForCompletion=" + WaitForCompletion
-				+ ", returnOrder=" + returnOrder + ", newUser=" + newUser + ", qnaCount=" + qnaCount + "]";
+				+ ", onReturn=" + onReturn + ", offReturn=" + offReturn + ", newUser=" + newUser + ", qnaCount="
+				+ qnaCount + "]";
 	}
 
 }

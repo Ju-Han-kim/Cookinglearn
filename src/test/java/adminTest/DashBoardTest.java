@@ -110,8 +110,7 @@ public class DashBoardTest {
 		System.out.println("금일 회원가입 user 수 : " + regUser);
 	}
 	*/
-	
-	
+	/*
 	//미처리 문의건 수 반환
 	@Test
 	public void qnaCountTest() {
@@ -123,8 +122,8 @@ public class DashBoardTest {
 		int qnaCount = qnaMapper.qnaCount(search);
 		
 		System.out.println("문의 수 : " + qnaCount);
-		
 	}
+	*/
 	
 	
 	

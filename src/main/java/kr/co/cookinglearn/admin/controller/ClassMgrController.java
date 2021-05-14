@@ -37,7 +37,7 @@ public class ClassMgrController {
 		search.setMinDate();
 		
 		search.setClassType(false);
-		model.addAttribute("offOption", "예정강의");
+		model.addAttribute("offOption", "1");
 		model.addAttribute("pageMgr", new PageMgr(search, service.classCount(search)));
 		model.addAttribute("search", search);
 		model.addAttribute("classList",service.getClassList(search));
@@ -53,7 +53,7 @@ public class ClassMgrController {
 		search.setMaxDate();
 		
 		search.setClassType(false);
-		model.addAttribute("offOption", "완료대기");
+		model.addAttribute("offOption", "2");
 		model.addAttribute("pageMgr", new PageMgr(search, service.classCountByOrder(search)));
 		model.addAttribute("search", search);
 		model.addAttribute("classList",service.getClassListByOrder(search));
@@ -70,7 +70,7 @@ public class ClassMgrController {
 		
 		search.setComplete(false);
 		search.setClassType(false);
-		model.addAttribute("offOption", "완료강의");
+		model.addAttribute("offOption", "3");
 		model.addAttribute("pageMgr", new PageMgr(search, service.classCount(search)));
 		model.addAttribute("search", search);
 		model.addAttribute("classList",service.getClassList(search));
