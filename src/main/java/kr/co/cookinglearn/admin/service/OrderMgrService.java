@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.cookinglearn.admin.common.page.OrderSearchVO;
-import kr.co.cookinglearn.admin.model.OrderViewVO;
+import kr.co.cookinglearn.admin.model.process.OrderViewVO;
 import kr.co.cookinglearn.admin.repository.IOrderMgrMapper;
 import kr.co.cookinglearn.admin.service.interfaces.IOrderMgrService;
 

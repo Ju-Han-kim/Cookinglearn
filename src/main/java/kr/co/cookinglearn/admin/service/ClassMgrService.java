@@ -43,6 +43,7 @@ public class ClassMgrService implements IClassMgrService {
 	
 	@Override
 	public int classCountByOrder(ClassSearchVO search) {
+		calcDate(search);
 		return mapper.classCountByOrder(search);
 	}
 	

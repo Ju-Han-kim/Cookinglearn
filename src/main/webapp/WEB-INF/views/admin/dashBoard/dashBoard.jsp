@@ -8,7 +8,7 @@
 	<!-- content -->
 	<div class="content">
 		<h3>오늘의 할 일</h3>
-		<table>
+		<table border=1>
 			<tr>
 				<th>결제완료(ON/OFF)</th>
 				<th>오늘의 현강강의</th>
@@ -33,7 +33,7 @@
 		<div style="width:550px;height:300px;float:left;">
 			<canvas id="myChart"></canvas>
 		</div>
-		<table>
+		<table border=1>
 			<tr>
 				<th>날짜</th>
 				<th>온라인</th>
@@ -49,7 +49,7 @@
 		</table>
 		<div style="clear:left;">
 			<h3>처리할 문의</h3>
-			<table>
+			<table border=1>
 				<tr>
 					<th>문의번호</th>
 					<th>제목</th>

@@ -18,4 +18,7 @@ public interface IUserMgrMapper {
 	
 	//검색조건에 맞는 전체 고객 수를 반환
 	int userCount(SearchVO search);
+	
+	//오늘 날짜를 입력받아 가입한 회원 수 반환
+	int regCount(String today);
 }

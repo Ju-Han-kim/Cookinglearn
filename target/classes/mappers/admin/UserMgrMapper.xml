@@ -49,7 +49,11 @@
 		<include refid="userSearch" />
 	</select>
 	
-	
+	<select id="regCount" resultType="int">
+		SELECT COUNT(*)
+		FROM "USER"
+		WHERE reg_date LIKE #{today}||'%'		
+	</select>
 	
 	
 
