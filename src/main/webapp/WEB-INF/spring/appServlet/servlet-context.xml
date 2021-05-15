@@ -54,7 +54,8 @@
 	
 	<interceptors>
 		<interceptor>
-			<mapping path="/admin/class/off1"/>
+			<mapping path="/admin/class/off/*"/>
+			<mapping path="/admin/class/on/*"/>
 			<beans:ref bean="classInterceptor"/>
 		</interceptor>
 	</interceptors>

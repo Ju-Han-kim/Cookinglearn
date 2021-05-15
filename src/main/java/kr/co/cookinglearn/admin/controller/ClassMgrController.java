@@ -50,7 +50,7 @@ public class ClassMgrController {
 	
 	//오프라인 강의 상세현황 페이지 Mapping
 	@GetMapping("/off/{classCode}")
-	public String offlineClassContent(@PathVariable int classCode, Model model, RedirectAttributes ra, int offOption) {
+	public String offlineClassContent(@PathVariable int classCode, Model model, RedirectAttributes ra, @RequestParam(name="offOption", defaultValue="1" ) int offOption) {
 		ClassVO classInfo = service.getClassInfo(classCode);
 		
 		if(!classInfo.isClassType()) {
