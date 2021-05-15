@@ -92,6 +92,11 @@
 				)]]> <include refid="classSearch" /> 
         ) WHERE class_type = #{classType} <include refid="classCategorySearch" /> <include refid="classDateSearch" />
 	</select>
+	
+	<delete id="classDelete">
+		DELETE FROM "CLASS"
+		WHERE class_code = #{class_code}
+	</delete>
 
 </mapper>
 

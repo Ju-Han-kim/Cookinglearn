@@ -62,4 +62,17 @@ public class ClassMgrService implements IClassMgrService {
 			search.setEndDate(endDate);
 		}
 	}
+	
+	@Override
+	public boolean classDelete(int classCode) {
+		boolean flag = true;
+		
+		try {
+			mapper.classDelete(classCode);
+		} catch (Exception e) {
+			flag = false;
+		}
+		
+		return flag;
+	}
 }

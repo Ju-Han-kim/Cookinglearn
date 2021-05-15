@@ -62,7 +62,9 @@
 					<tr>
 						<td>${classInfo.classCode}</td>
 						<td>${classInfo.classCategory}</td>
-						<td>${classInfo.className}</td>
+						<td>
+							<a href="<c:url value='/admin/class/off/${classInfo.classCode}${pageMgr.mkClassUri(pageMgr.paging.currentPage)}&offOption=${offOption}' />">${classInfo.className}</a>
+						</td>
 						<td>${classInfo.price}</td>
 						<td>
 							<fmt:formatDate pattern="yyyy-MM-dd(E)" value="${classInfo.startDate}"/>
@@ -132,6 +134,17 @@
 	    day = day >= 10 ? day : '0' + day; 
 	    return  year + '-' + month + '-' + day;
 	}
+	
+	const msg = "${msg}";
+	
+	if(msg === "noClass"){
+		alert('유효하지 않은 값입니다. 다시 확인해주세요');
+	} else if(msg === "deleteSuccess"){
+		alert('성공적으로 삭제되었습니다!');
+	} else if (msg === "deleteFail"){
+		alert('신청인원이 있어 강의삭제가 불가능합니다.');
+	}
+	
 </script>
 
 

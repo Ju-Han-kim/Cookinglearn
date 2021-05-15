@@ -209,8 +209,15 @@ public class ClassMgrMapperTest {
 	}
 	*/
 
-
-
+	/*
+	//클래스 번호를 받아 클래스삭제 테스트
+	@Test
+	public void classDeleteTest() {
+		int classCode = 10;
+		
+		mapper.classDelete(classCode);
+	}
+	*/
 
 
 
