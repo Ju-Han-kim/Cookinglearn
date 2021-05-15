@@ -10,6 +10,9 @@
 		<h3>온라인 강의 상세현황</h3>
 		<div style="height:500px; border: 1px solid red">
 			${classInfo.classCode}번 강의정보 
+			<c:if test="${classInfo.classContent != null}">
+				${classInfo.classContent}
+			</c:if>
 		</div>
 		<button id="list-btn">목록</button> 
 		<button id="update-btn">수정</button> 

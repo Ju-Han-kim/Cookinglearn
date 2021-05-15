@@ -75,4 +75,18 @@ public class ClassMgrService implements IClassMgrService {
 		
 		return flag;
 	}
+	
+	@Override
+	public void regClass(ClassVO classInfo) {
+		
+		classInfo.setRunTime(classInfo.getRunTime()*60*24);
+		
+		//classInfo 임의 데이터 설정
+		classInfo.setThumbnailImg("/img/on_0");
+		classInfo.setContentImg("");
+		classInfo.setClassUrl("");
+		classInfo.setStartDate(Timestamp.valueOf("2021-05-15 24:59:59.99"));
+		
+		mapper.regClass(classInfo);
+	}
 }

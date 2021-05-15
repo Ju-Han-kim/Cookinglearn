@@ -19,6 +19,8 @@ public class DashBoardController {
 	@GetMapping("/")
 	public String dashBoardView(Model model) {
 		
+		model.addAttribute("menu", "DashBoard");
+		
 		model.addAttribute("todayWork", service.todayWork());
 		model.addAttribute("dailySales", service.dailySales());
 		model.addAttribute("qnaList", service.getQnaList());

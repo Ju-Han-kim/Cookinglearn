@@ -91,6 +91,7 @@
 				</c:if>
 			</div>
 		</div>
+		<button id="reg-btn">강의등록</button>
 	</div>
 
 <jsp:include page="../include/footer.jsp" />	
@@ -123,6 +124,11 @@
 		}
 
 		$("#seDate").daterangepicker(option);
+		
+		
+		$("#reg-btn").click(function() {
+			location.href="/admin/class/regoff";
+		});
 		
 	});
 	

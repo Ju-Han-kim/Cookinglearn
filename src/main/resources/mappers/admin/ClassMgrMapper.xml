@@ -97,6 +97,15 @@
 		DELETE FROM "CLASS"
 		WHERE class_code = #{class_code}
 	</delete>
+	
+	<insert id="regClass">
+		INSERT INTO "CLASS" 
+		VALUES (
+			CLASS_CODE_SEQ.NEXTVAL, #{classType}, #{classCategory}, 
+			#{thumbnailImg}, #{className}, #{classContent}, #{runTime}, 
+			#{startDate}, #{contentImg}, #{classUrl}, #{price}, #{maxStudent}
+		)
+	</insert>
 
 </mapper>
 

@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -218,7 +219,30 @@ public class ClassMgrMapperTest {
 		mapper.classDelete(classCode);
 	}
 	*/
+	
+	/*
+	//강의등록 단위테스트
+	@Test
+	public void regClassTest() {
+		
+		ClassVO classInfo = new ClassVO();
+		
+		classInfo.setClassType(false);
+		classInfo.setClassCategory("한식");
+		classInfo.setThumbnailImg("/img/0");
+		classInfo.setClassName("강의이름25");
+		classInfo.setClassContent("상세내용25");
+		classInfo.setRunTime(60);
+		classInfo.setStartDate(Timestamp.valueOf("2021-05-15 24:59:59.99"));
+		classInfo.setContentImg("");
+		classInfo.setClassUrl("");
+		classInfo.setPrice(60000);
+		classInfo.setMaxStudent(4);
+		
+		mapper.regClass(classInfo);
 
+	}
+	*/
 
 
 

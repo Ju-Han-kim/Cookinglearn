@@ -25,4 +25,7 @@ public interface IClassMgrService {
 	//클래스 번호를 받아 클래스 삭제
 	boolean classDelete(int classCode);
 	
+	//강의 등록
+	void regClass(ClassVO classInfo);
+	
 }
