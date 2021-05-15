@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	 
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<!-- Hikari Connection Pool -->
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521/XEPDB1" />
+		<property name="username" value="cook" />
+		<property name="password" value="cook" />
+	</bean>
+	
+	<!-- Hikari Database Source Bean -->
+	<bean id="ds" class="com.zaxxer.hikari.HikariDataSource">
+		<constructor-arg ref="hikariConfig" />
+	</bean>
+	
+	<!-- SqlSessionFactory Class Bean for MyBatis SQL -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="ds" />
+		<property name="mapperLocations" value="classpath:/mappers/**/*Mapper.xml" />
+	</bean>
+	
+	<!-- SqlSession -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+	
+	<context:component-scan base-package="kr.co.cookinglearn.board.domain" />
+	<context:component-scan base-package="kr.co.cookinglearn.board.dao" />
+	<context:component-scan base-package="kr.co.cookinglearn.board.service" />
+
+	<!-- MyBatis Scan -->
+	<mybatis-spring:scan base-package="kr.co.cookinglearn.repository"/>
+	<mybatis-spring:scan base-package="kr.co.cookinglearn.user.repository"/>
+	<mybatis-spring:scan base-package="kr.co.cookinglearn.qna.repository"/>
+	<mybatis-spring:scan base-package="kr.co.cookinglearn.order.repository"/>
+	<mybatis-spring:scan base-package="kr.co.cookinglearn.admin.repository"/>
+	<!-- 
+	<mybatis-spring:scan base-package="kr.co.cookinglearn.board.domain"/>
+	<mybatis-spring:scan base-package="kr.co.cookinglearn.board.dao"/>
+	<mybatis-spring:scan base-package="kr.co.cookinglearn.board.service"/>
+	 -->
+</beans>

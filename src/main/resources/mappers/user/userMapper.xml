@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    
+<mapper namespace="kr.co.cookinglearn.user.repository.IUserMapper">
+	
+	<!--DB컬럼명과 VO클래스의 필드명이 다르므로 ResultMap세팅 -->
+	<resultMap id="userMap" type="kr.co.cookinglearn.user.model.UserVO" >
+	<id property="userId" column="user_id"/>
+	<result property="userPassword" column="user_password" />
+	<result property="nickname" column="nickname" />
+	<result property="gender" column="gender" />
+	<result property="regDate" column="reg_date" />
+	<result property="adminLevel" column="admin_level" />
+	<result property="deleteAccount" column="delete_account" />
+	<result property="deleteDay" column="delete_day" />
+	</resultMap>
+	
+	
+	<!-- 아이디 중복 확인 SQL -->
+	<select id="checkId" resultType="int">
+		SELECT COUNT(*)
+		FROM "USER"
+		WHERE user_id = #{userId}
+	</select>
+	
+	<!-- 회원 가입 SQL -->
+	<insert id="register">
+		INSERT INTO "USER"
+		(user_no, user_id, user_password, nickname, gender)
+		VALUES (user_no_seq.NEXTVAL, #{userId}, #{userPassword}, #{nickname}, #{gender})
+	</insert>
+	
+	<!-- 로그인 회원 정보 조회 SQL -->
+	<select id="selectOne" resultMap="userMap">
+		SELECT * FROM "USER"
+		WHERE user_id = #{userId}
+	</select>
+	
+	
+	
+</mapper>	
