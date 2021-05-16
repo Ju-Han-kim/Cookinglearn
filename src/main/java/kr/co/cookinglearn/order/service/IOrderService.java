@@ -4,13 +4,14 @@ import kr.co.cookinglearn.order.model.OrderVO;
 
 public interface IOrderService {
 	
-	//°áÁ¦ ¿Ï·á ³»¿ª µî·Ï ±â´É
+	//ì£¼ë¬¸ì •ë³´ ë“±ë¡
 	void insert(OrderVO OrderList);
 	
-	//°áÁ¦ ³»¿ª Á¶È¸ ±â´É
+	//ê²°ì œ ë¦¬ìŠ¤íŠ¸ ë°›ì•„ì˜¤ê¸°
 	OrderVO getOrderList(int orderNo);
 	
-	//°áÁ¦ Ãë¼Ò ±â´É (ÇÊ¿äÇÑ°¡?)
+	//ê²°ì œ ì·¨ì†Œí•˜ê¸°
+	
 	
 
 }

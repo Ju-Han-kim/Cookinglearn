@@ -5,12 +5,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/order")
+@RequestMapping("/point")
 public class PointController {
 	
-	@GetMapping("cart")
+	@GetMapping("point")
 	public String cart() {
-		return "order/cart";
+		return "point";
 	}
 	
 	
