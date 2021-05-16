@@ -9,6 +9,9 @@ public interface IUserMapper {
 	//아이디 중복 체크 기능
 	int checkId(String account);
 
+	//닉네임 중복 체크 기능
+	int checkNickname(String nickname);
+	
 	//회원 정보 전체 조회 기능
 	List<UserVO> selectAll();
 

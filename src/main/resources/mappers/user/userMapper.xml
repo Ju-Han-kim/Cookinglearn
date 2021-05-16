@@ -7,14 +7,15 @@
 	
 	<!--DB컬럼명과 VO클래스의 필드명이 다르므로 ResultMap세팅 -->
 	<resultMap id="userMap" type="kr.co.cookinglearn.user.model.UserVO" >
-	<id property="userId" column="user_id"/>
-	<result property="userPassword" column="user_password" />
-	<result property="nickname" column="nickname" />
-	<result property="gender" column="gender" />
-	<result property="regDate" column="reg_date" />
-	<result property="adminLevel" column="admin_level" />
-	<result property="deleteAccount" column="delete_account" />
-	<result property="deleteDay" column="delete_day" />
+		<id property="userId" column="user_id"/>
+		<id property="userNo" column="user_no"/>
+		<result property="userPassword" column="user_password" />
+		<result property="nickname" column="nickname" />
+		<result property="gender" column="gender" />
+		<result property="regDate" column="reg_date" />
+		<result property="adminLevel" column="admin_level" />
+		<result property="deleteAccount" column="delete_account" />
+		<result property="deleteDay" column="delete_day" />
 	</resultMap>
 	
 	
@@ -23,6 +24,13 @@
 		SELECT COUNT(*)
 		FROM "USER"
 		WHERE user_id = #{userId}
+	</select>
+	
+	<!-- 닉네임 중복 확인 SQL -->
+	<select id="checkNickname" resultType="int">
+		SELECT COUNT(*)
+		FROM "USER"
+		WHERE nickname = #{nickname}
 	</select>
 	
 	<!-- 회원 가입 SQL -->

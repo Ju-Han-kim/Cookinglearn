@@ -6,12 +6,13 @@
 
 	<resultMap id="QnaMap" type="kr.co.cookinglearn.qna.model.QnaVO" >
 		<id property="qnaNo" column="qna_no" />
-		<result property="userNo" column="user_no" />
+		<id property="userNo" column="user_no" />
 		<result property="title" column="title" />
 		<result property="writer" column="writer" />
 		<result property="qnaContent" column="qna_content" />
 		<result property="regDate" column="reg_date" />
 		<result property="answer" column="answer" />
+		<result property="answerDate" column="answer_date" />
 	</resultMap>
 	
 	<insert id="insert">

@@ -15,13 +15,12 @@
       name="description"
       content="요리 입문부터 심화까지 업계 최고 요리사들에게 배울 수 있는 곳. 우리는 맛있고 건강한 매일을 추구합니다...."
     />
-    <meta name="author" content="권우희, 김주한, 양다정, 유한기, 최준우" />
+    <meta name="author" content="권우희, 김주한, 양다정, 최준우" />
     <link rel="icon" type="image/png" href="<c:url value='/img/favicon.png' />" />
     <script
       src="https://kit.fontawesome.com/bab51a57cc.js"
       crossorigin="anonymous"
     ></script>
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&family=Noto+Sans+KR:wght@300;400;700&display=swap"
@@ -252,7 +251,7 @@
   </head>
   <body>
     <!-- 로그인 전 Header -->
-   <c:if test="${empty login.nickname}">
+   <c:if test="${empty login}">
       <header id="header">
          <div class="header__brandicon">
             <a href=""> 
@@ -267,7 +266,7 @@
    </c:if>
    
    <!-- 로그인 후 Header -->
-   <c:if test="${not empty login.nickname}">   
+   <c:if test="${login.adminLevel == 0}">   
       <header id="header">
          <div class="header__brandicon">
             <a href=""> 
@@ -283,9 +282,39 @@
                      <i class="fas fa-user"></i>
                    </a>
                    <div class="dropdown-content">
-                     <a href="/">마이페이지</a>
-                     <a href="/">내 강의</a>
-                     <a href="/">로그아웃</a>
+                     <a href="<c:url value="/mypage/my_dashboard" />">마이페이지</a>
+                     <a href="<c:url value="/mypage/my_class" />">내 강의</a>
+                     <a href="<c:url value="/user/logout" />">로그아웃</a>
+                   </div>
+              </div>
+              <h4><c:out value="${login.nickname}"/>님 환영합니다!</h4>
+         </div>
+      </header>
+   </c:if>
+   
+   <!-- 관리자 Header -->
+   <c:if test="${login.adminLevel == 1}">   
+      <header id="header">
+         <div class="header__brandicon">
+            <a href=""> 
+               <img src="<c:url value='/img/brandicon.png'/>" alt="브랜드 로고" width="250px" />
+            </a>
+         </div>
+         <div class="header__right--loggedin">
+         	  <a class="cart" href="<c:url value="/" />">
+         	   <i class="fas fa-user-cog"></i>
+         	  </a>
+              <a class="cart" href="<c:url value="/order/cart" />">
+               <i class="fas fa-shopping-cart"></i>
+              </a>
+              <div class="dropdown">
+                   <a class="button--user" href="/">
+                     <i class="fas fa-user"></i>
+                   </a>
+                   <div class="dropdown-content">
+                     <a href="<c:url value="/mypage/my_dashboard" />">마이페이지</a>
+                     <a href="<c:url value="/mypage/my_class" />">내 강의</a>
+                     <a href="<c:url value="/user/logout" />">로그아웃</a>
                    </div>
               </div>
               <h4><c:out value="${login.nickname}"/>님 환영합니다!</h4>
