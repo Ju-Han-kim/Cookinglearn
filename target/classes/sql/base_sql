@@ -180,4 +180,6 @@ create sequence user_no_seq
     nocycle
     nocache;
 
-    ALTER TABLE QNA ADD answer_date date;
+ALTER TABLE QNA ADD answer_date date;
+
+ALTER TABLE "CLASS" MODIFY class_content varchar(2000);

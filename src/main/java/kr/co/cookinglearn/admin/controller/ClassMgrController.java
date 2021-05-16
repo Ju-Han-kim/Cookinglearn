@@ -150,8 +150,8 @@ public class ClassMgrController {
 	@ResponseBody
 	public String uploadImgFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request)  {
 		JsonObject jsonObject = new JsonObject();
-		String contextRoot = request.getSession().getServletContext().getRealPath("/");
-		String fileRoot = contextRoot+"resources/admin/img/onlineClass/";
+		
+		String fileRoot = "C:/class/img/";
 		String originalFileName = multipartFile.getOriginalFilename();
 		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
 		String savedFileName = "on_" + UUID.randomUUID().toString().substring(0,6) + extension;
@@ -160,7 +160,7 @@ public class ClassMgrController {
 		try {
 			InputStream fileStream = multipartFile.getInputStream();
 			FileUtils.copyInputStreamToFile(fileStream, targetFile);
-			jsonObject.addProperty("url", "/resources/admin/img/onlineClass/"+savedFileName);
+			jsonObject.addProperty("url", "/classImg/"+savedFileName);
 			jsonObject.addProperty("responseCode", "success");
 			
 		} catch (Exception e) {

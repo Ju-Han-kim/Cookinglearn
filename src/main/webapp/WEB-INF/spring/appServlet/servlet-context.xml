@@ -16,6 +16,7 @@
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/admin/css/**" location="/resources/admin/css/" />
 	<resources mapping="/admin/img/**" location="/resources/admin/img/" />
+	<resources mapping="/classImg/**" location="file:///C:/class/img/" />
 
 	<!-- Mapping for static resource(html, css, js, img) -->
 	<resources mapping="/resources/**" location="/resources/" />
