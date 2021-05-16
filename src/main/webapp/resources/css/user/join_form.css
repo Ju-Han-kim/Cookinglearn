@@ -40,6 +40,10 @@ input {
   border: 1.2px solid #b4b4b4;
 }
 
+span {
+	font-size: 12px;
+}
+
 /* Top */
 .logo {
   text-align: center;
@@ -197,3 +201,17 @@ label {
   color: red;
   display: none;
 }
+
+/* 중복아이디 존재하지 않는경우 */
+.nick_input_re_1 {
+  color: green;
+  display: none;
+}
+/* 중복아이디 존재하는 경우 */
+.nick_input_re_2 {
+  color: red;
+  display: none;
+}
+
+
+

@@ -3,6 +3,7 @@ package kr.co.cookinglearn.user.controller;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -54,6 +55,8 @@ public class UserController {
    public String register(UserVO user) {
       logger.info("회원가입 시작");
       
+      System.out.println("register: " + user.getUserId());
+      System.out.println("register: " + user.getUserNo());
       
       service.register(user);
       
@@ -77,6 +80,8 @@ public class UserController {
       
       UserVO dbData = service.selectOne(inputData.getUserId());
       
+      System.out.println("AdminLevel: " + dbData.getAdminLevel());
+      
       if(dbData != null) {
          if(inputData.getUserPassword().equals(dbData.getUserPassword())) {
             //세션 데이터 생성(로그인 유지)
@@ -96,7 +101,7 @@ public class UserController {
    }
    
    //아이디 중복검사 기능
-   @RequestMapping(value="/userIdChk", method = RequestMethod.POST)
+   @PostMapping("/userIdChk")
    @ResponseBody
    public String userIdChk(String userId) throws Exception {
       logger.info("userIdChk 진입");
@@ -104,11 +109,27 @@ public class UserController {
       
       if(result != 0 ) {
          return "fail"; // 중복 아이디 존재
+      } else if (userId == "") {
+    	 return "blank";
       } else {
          return "success"; // 사용가능한 아이디
       }
+   }
+   
+ //아이디 중복검사 기능
+   @PostMapping("/nicknameChk")
+   @ResponseBody
+   public String nicknameChk(String nickname) throws Exception {
+      logger.info("nicknameChk 진입");
+      int result = service.checkNickname(nickname);
       
-      
+      if(result != 0 ) {
+         return "fail"; // 중복 아이디 존재
+      } else if (nickname == "") {
+    	 return "blank";
+      } else {
+         return "success"; // 사용가능한 아이디
+      }
    }
    
    //계정 이메일 인증
@@ -150,6 +171,11 @@ public class UserController {
         }
    }
    
+   @GetMapping("/logout")
+   public void logout(HttpSession session, HttpServletResponse response) throws Exception {
+	   session.invalidate();
+	   service.logout(response);
+   }
    
 
 }

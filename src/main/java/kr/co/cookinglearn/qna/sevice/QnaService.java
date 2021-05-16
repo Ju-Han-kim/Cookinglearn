@@ -13,13 +13,14 @@ import kr.co.cookinglearn.user.model.UserVO;
 @Service
 public class QnaService implements IQnaService {
 	
-	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+	private static final Logger logger = LoggerFactory.getLogger(QnaService.class);
 	
 	@Autowired
 	private IQnaMapper mapper;
 	
 	@Override
 	public void insert(QnaVO qna, UserVO user) {
+		
 		qna.setUserNo(user.getUserNo());
 		qna.setWriter(user.getNickname());
 		mapper.insert(qna);

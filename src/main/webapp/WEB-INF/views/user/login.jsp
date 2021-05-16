@@ -15,7 +15,7 @@
       name="description"
       content="요리 입문부터 심화까지 업계 최고 요리사들에게 배울 수 있는 곳. 우리는 맛있고 건강한 매일을 추구합니다...."
     />
-    <meta name="author" content="권우희, 김주한, 양다정, 유한기, 최준우" />
+    <meta name="author" content="권우희, 김주한, 양다정, 최준우" />
     <link rel="icon" type="image/png" href="<c:url value='/img/favicon.png' />" />
     <script
       src="https://kit.fontawesome.com/bab51a57cc.js"

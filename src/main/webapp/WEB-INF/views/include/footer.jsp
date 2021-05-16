@@ -9,7 +9,7 @@
             <h4>
               경기도 성남시 분당구 판교로 256 7 <br />
               TEL: 031-735-6865 <br />
-              EMAIL: help@cookinglearn.com <br />
+              EMAIL: cookinglearn@hotmail.com <br />
               FAX: 323 5049 <br /><br />
               Copyright ©CookingLearn Inc. All Rights Reserved <br />
             </h4>
