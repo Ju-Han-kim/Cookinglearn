@@ -43,6 +43,7 @@ public class ClassMgrService implements IClassMgrService {
 	
 	@Override
 	public int classCountByOrder(ClassSearchVO search) {
+		calcDate(search);
 		return mapper.classCountByOrder(search);
 	}
 	
@@ -60,5 +61,32 @@ public class ClassMgrService implements IClassMgrService {
 			search.setStartDate(startDate);
 			search.setEndDate(endDate);
 		}
+	}
+	
+	@Override
+	public boolean classDelete(int classCode) {
+		boolean flag = true;
+		
+		try {
+			mapper.classDelete(classCode);
+		} catch (Exception e) {
+			flag = false;
+		}
+		
+		return flag;
+	}
+	
+	@Override
+	public void regClass(ClassVO classInfo) {
+		
+		classInfo.setRunTime(classInfo.getRunTime()*60*24);
+		
+		//classInfo 임의 데이터 설정
+		classInfo.setThumbnailImg("/img/on_0");
+		classInfo.setContentImg("");
+		classInfo.setClassUrl("");
+		classInfo.setStartDate(Timestamp.valueOf("2021-05-15 24:59:59.99"));
+		
+		mapper.regClass(classInfo);
 	}
 }

@@ -11,7 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kr.co.cookinglearn.admin.common.page.OrderSearchVO;
-import kr.co.cookinglearn.admin.model.OrderViewVO;
+import kr.co.cookinglearn.admin.model.process.OrderViewVO;
 import kr.co.cookinglearn.admin.repository.IOrderMgrMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)

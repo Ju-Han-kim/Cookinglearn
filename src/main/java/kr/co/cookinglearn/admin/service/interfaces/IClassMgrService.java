@@ -22,4 +22,10 @@ public interface IClassMgrService {
 	//오프라인 완료대기 강의수를 반환
 	int classCountByOrder(ClassSearchVO search);
 	
+	//클래스 번호를 받아 클래스 삭제
+	boolean classDelete(int classCode);
+	
+	//강의 등록
+	void regClass(ClassVO classInfo);
+	
 }

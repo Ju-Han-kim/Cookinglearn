@@ -3,7 +3,7 @@ package kr.co.cookinglearn.admin.service.interfaces;
 import java.util.List;
 
 import kr.co.cookinglearn.admin.common.page.OrderSearchVO;
-import kr.co.cookinglearn.admin.model.OrderViewVO;
+import kr.co.cookinglearn.admin.model.process.OrderViewVO;
 
 public interface IOrderMgrService {
 

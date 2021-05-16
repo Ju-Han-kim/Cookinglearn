@@ -13,6 +13,7 @@
 		<result property="qnaContent" column="qna_content"/>
 		<result property="regDate" column="reg_date"/>
 		<result property="answer" column="answer"/>
+		<result property="answerDate" column="answer_date"/>
 	</resultMap>
 	
 	<sql id="qnaSearch">
@@ -50,7 +51,7 @@
 
 	<update id="setAnswer">
 		UPDATE qna
-		SET answer = #{answer}
+		SET answer = #{answer}, answer_date = #{answerDate}
 		WHERE qna_no = #{qnaNo}
 	</update>
 

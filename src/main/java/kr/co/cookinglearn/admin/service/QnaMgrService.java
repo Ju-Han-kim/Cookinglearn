@@ -1,5 +1,7 @@
 package kr.co.cookinglearn.admin.service;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,7 @@ public class QnaMgrService implements IQnaMgrService {
 
 	@Override
 	public void setAnswer(QnaVO qna) {
+		qna.setAnswerDate(new Timestamp(new Date().getTime()));
 		mapper.setAnswer(qna);
 	}
 

@@ -62,13 +62,15 @@
 					<tr>
 						<td>${classInfo.classCode}</td>
 						<td>${classInfo.classCategory}</td>
-						<td>${classInfo.className}</td>
+						<td>
+							<a href="<c:url value='/admin/class/off/${classInfo.classCode}${pageMgr.mkClassUri(pageMgr.paging.currentPage)}&offOption=${offOption}' />">${classInfo.className}</a>
+						</td>
 						<td>${classInfo.price}</td>
 						<td>
 							<fmt:formatDate pattern="yyyy-MM-dd(E)" value="${classInfo.startDate}"/>
 						</td>
 						<td>
-							<c:if test="${offOption == '완료대기'}">
+							<c:if test="${offOption == 2}">
 								<button>상세정보</button>
 							</c:if>
 						</td>
@@ -77,18 +79,19 @@
 			</table>
 			<div class="paging">
 				<c:if test="${pageMgr.prev}">
-					<a href="<c:url value='/admin/class/off${pageMgr.mkClassUri(1)}'/>"><i class="fas fa-angle-double-left"></i></a>
-					<a href="<c:url value='/admin/class/off${pageMgr.mkClassUri(pageMgr.startPage-1)}'/>"><i class="fas fa-angle-left"></i></a>
+					<a href="<c:url value='/admin/class/off${offOption}${pageMgr.mkClassUri(1)}'/>"><i class="fas fa-angle-double-left"></i></a>
+					<a href="<c:url value='/admin/class/off${offOption}${pageMgr.mkClassUri(pageMgr.startPage-1)}'/>"><i class="fas fa-angle-left"></i></a>
 				</c:if>
 				<c:forEach var="page" begin="${pageMgr.startPage}" end="${pageMgr.endPage}">
-					<a href="<c:url value='/admin/class/off${pageMgr.mkClassUri(page)}'/>">${page}</a>
+					<a href="<c:url value='/admin/class/off${offOption}${pageMgr.mkClassUri(page)}'/>">${page}</a>
 				</c:forEach>
 				<c:if test="${pageMgr.next}">
-					<a href="<c:url value='/admin/class/off${pageMgr.mkClassUri(pageMgr.endPage+1)}'/>"><i class="fas fa-angle-right"></i></a>
-					<a href="<c:url value='/admin/class/off${pageMgr.mkClassUri(pageMgr.totalPage)}'/>"><i class="fas fa-angle-double-right"></i></a>
+					<a href="<c:url value='/admin/class/off${offOption}${pageMgr.mkClassUri(pageMgr.endPage+1)}'/>"><i class="fas fa-angle-right"></i></a>
+					<a href="<c:url value='/admin/class/off${offOption}${pageMgr.mkClassUri(pageMgr.totalPage)}'/>"><i class="fas fa-angle-double-right"></i></a>
 				</c:if>
 			</div>
 		</div>
+		<button id="reg-btn">강의등록</button>
 	</div>
 
 <jsp:include page="../include/footer.jsp" />	
@@ -112,15 +115,20 @@
 				showDropdowns: true
 		};
 		
-		if(offOption === "예정강의") {
+		if(offOption === 1) {
 			option["minDate"] = new Date(now);
-		} else if(offOption === "완료대기") {
+		} else if(offOption === 2) {
 			option["maxDate"] = new Date(now);
-		} else if(offOption === "완료강의") {
+		} else if(offOption === 3) {
 			option["maxDate"] = new Date(now);
 		}
 
 		$("#seDate").daterangepicker(option);
+		
+		
+		$("#reg-btn").click(function() {
+			location.href="/admin/class/regoff";
+		});
 		
 	});
 	
@@ -132,6 +140,17 @@
 	    day = day >= 10 ? day : '0' + day; 
 	    return  year + '-' + month + '-' + day;
 	}
+	
+	const msg = "${msg}";
+	
+	if(msg === "noClass"){
+		alert('유효하지 않은 값입니다. 다시 확인해주세요');
+	} else if(msg === "deleteSuccess"){
+		alert('성공적으로 삭제되었습니다!');
+	} else if (msg === "deleteFail"){
+		alert('신청인원이 있어 강의삭제가 불가능합니다.');
+	}
+	
 </script>
 
 

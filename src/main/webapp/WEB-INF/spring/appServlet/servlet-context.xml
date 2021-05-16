@@ -16,6 +16,7 @@
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/admin/css/**" location="/resources/admin/css/" />
 	<resources mapping="/admin/img/**" location="/resources/admin/img/" />
+	<resources mapping="/classImg/**" location="file:///C:/class/img/" />
 
 	<!-- Mapping for static resource(html, css, js, img) -->
 	<resources mapping="/resources/**" location="/resources/" />
@@ -48,13 +49,19 @@
 		</beans:property>
 	</beans:bean>
 	
+	<!-- 웹에디터 -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="200000000"></beans:property>
+	</beans:bean>
+	
 	<context:component-scan base-package="kr.co.cookinglearn" />
 	
 	<beans:bean id="classInterceptor" class="kr.co.cookinglearn.admin.common.interceptor.ClassInterceptor" />
 	
 	<interceptors>
 		<interceptor>
-			<mapping path="/admin/class/off1"/>
+			<mapping path="/admin/class/off/*"/>
+			<mapping path="/admin/class/on/*"/>
 			<beans:ref bean="classInterceptor"/>
 		</interceptor>
 	</interceptors>

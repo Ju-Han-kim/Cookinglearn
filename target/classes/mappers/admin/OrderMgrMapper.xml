@@ -5,7 +5,7 @@
     
 <mapper namespace="kr.co.cookinglearn.admin.repository.IOrderMgrMapper">
 
-	<resultMap id="orderMgrMap" type="kr.co.cookinglearn.admin.model.OrderViewVO">
+	<resultMap id="orderMgrMap" type="kr.co.cookinglearn.admin.model.process.OrderViewVO">
 		<id property="orderNo" column="order_no"/>
 		<result property="userNo" column="user_no"/>
 		<result property="classCode" column="class_code"/>

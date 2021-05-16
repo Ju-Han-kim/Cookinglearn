@@ -1,4 +1,6 @@
-package kr.co.cookinglearn.admin.model;
+package kr.co.cookinglearn.admin.model.process;
+
+import kr.co.cookinglearn.admin.model.OrderVO;
 
 public class OrderViewVO extends OrderVO {
 

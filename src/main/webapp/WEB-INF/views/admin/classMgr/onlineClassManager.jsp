@@ -52,7 +52,9 @@
 					<tr>
 						<td>${classInfo.classCode}</td>
 						<td>${classInfo.classCategory}</td>
-						<td>${classInfo.className}</td>
+						<td>
+							<a href="<c:url value='/admin/class/on/${classInfo.classCode}${pageMgr.mkClassUri(pageMgr.paging.currentPage)}' />">${classInfo.className}</a>
+						</td>
 						<td>${classInfo.runTime}</td>
 						<td>${classInfo.price}</td>
 						<td>
@@ -75,11 +77,22 @@
 				</c:if>
 			</div>
 		</div>
+		<button id="reg-btn">강의등록</button>
 	</div>
 
 <jsp:include page="../include/footer.jsp" />	
 
 <script>
+	
+	const msg = "${msg}";
+	
+	if(msg === "noClass"){
+		alert('유효하지 않은 값입니다. 다시 확인해주세요');
+	} else if(msg === "deleteSuccess"){
+		alert('성공적으로 삭제되었습니다!');
+	} else if (msg === "deleteFail"){
+		alert('신청인원이 있어 강의삭제가 불가능합니다.');
+	}
 	
 	$(function() {
 
@@ -97,7 +110,13 @@
 			
 		});
 		
+		$("#reg-btn").click(function() {
+			location.href="/admin/class/regon";
+		});
+		
 	});
+	
+	
 </script>
 
 

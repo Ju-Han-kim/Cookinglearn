@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="kr.co.cookinglearn.admin.repository.IDashBoardMapper">
+
+	<resultMap id="dashBoardMap" type="kr.co.cookinglearn.admin.model.process.DashBoardProcessVO">
+		<result property="classType" column="class_type"/>
+		<result property="orderProcess" column="order_process"/>
+		<result property="count" column="count"/>
+		<result property="paymentDate" column="payment_date"/>
+		<result property="payment" column="payment"/>
+	</resultMap>
+	
+	<select id="classOrderCount" resultMap="dashBoardMap">
+		SELECT class_type, order_process, COUNT(*) AS count
+		FROM "ORDER" JOIN "CLASS" USING(class_code)
+		WHERE payment_date LIKE #{today}||'%'
+		GROUP BY class_type, order_process
+	</select>
+	
+	<select id="classPaymentCount" resultMap="dashBoardMap">
+		SELECT to_date(payment_date,'yy/MM/DD') AS payment_date, class_type, order_process, COUNT(*) AS count, SUM(payment) payment
+		FROM "ORDER" JOIN "CLASS" USING(class_code) 
+		GROUP BY to_date(payment_date,'yy/MM/DD'), class_type, order_process
+		HAVING to_date(payment_date,'yy/MM/DD') > to_date(sysdate - 5,'yy/MM/DD')
+		ORDER BY to_date(payment_date,'yy/MM/DD'), class_type, order_process
+	</select>
+	
+	
+	
+
+
+
+</mapper>
