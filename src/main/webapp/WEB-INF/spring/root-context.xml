@@ -43,6 +43,7 @@
 	<mybatis-spring:scan base-package="kr.co.cookinglearn.qna.repository"/>
 	<mybatis-spring:scan base-package="kr.co.cookinglearn.order.repository"/>
 	<mybatis-spring:scan base-package="kr.co.cookinglearn.admin.repository"/>
+	<mybatis-spring:scan base-package="kr.co.cookinglearn.point.repository"/>
 	
 	<!-- 
 	<mybatis-spring:scan base-package="kr.co.cookinglearn.board.domain"/>
