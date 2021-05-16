@@ -297,12 +297,12 @@
     <nav id="navbar">
       <div class="navbar__menu">
         <ul class="navbar__menu">
-          <li class="navbar__menu__item"><a href="/">전체</a></li>
-          <li class="navbar__menu__item"><a href="/">한식</a></li>
-          <li class="navbar__menu__item"><a href="/">분식</a></li>
-          <li class="navbar__menu__item"><a href="/">중식</a></li>
-          <li class="navbar__menu__item"><a href="/">일식</a></li>
-          <li class="navbar__menu__item"><a href="/">양식</a></li>
+          <li class="navbar__menu__item"><a href="/board/list">전체</a></li>
+          <li class="navbar__menu__item"><a href="/board/kategorie-list?kategorie=kor">한식</a></li>
+          <li class="navbar__menu__item"><a href="/board/kategorie-list?kategorie=sna">분식</a></li>
+          <li class="navbar__menu__item"><a href="/board/kategorie-list?kategorie=chi">중식</a></li>
+          <li class="navbar__menu__item"><a href="/board/kategorie-list?kategorie=jap">일식</a></li>
+          <li class="navbar__menu__item"><a href="/board/kategorie-list?kategorie=usa">양식</a></li>
           <li class="navbar__menu__item"><a href="/">오프라인</a></li>
         </ul>
       </div>

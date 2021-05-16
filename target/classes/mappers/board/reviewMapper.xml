@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.cookinglearn.board.mappers.board">
+<resultMap type="kr.co.cookinglearn.board.domain.ReviewVO" id="review">
+		<id property="reviewNo" column="review_no"/>
+		<result property="userNo" column="user_no"/>
+		<result property="classCode" column="class_code"/>
+		<result property="writer" column="writer"/>
+		<result property="reviewComment" column="review_comment"/>
+		<result property="reviewStar" column="review_star"/>
+		<result property="regDate" column="reg_date"/>
+		<result property="img" column="img"/>
+	</resultMap>
+
+<!-- 댓글 조회 -->
+	<select id="reviewList" resultMap="review">
+    	SELECT
+		    review_no,
+		    user_no,
+		    class_code,
+		    writer,
+		    review_comment,
+		    review_star,
+		    reg_date,
+		    img
+		FROM
+    		review
+    	WHERE class_code = #{class_code}
+	</select>
+
+</mapper>
