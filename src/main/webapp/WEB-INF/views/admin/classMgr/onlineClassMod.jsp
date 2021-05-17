@@ -126,6 +126,16 @@
 		//Thumbnail 업로드
 		$("#thumbnailImgFile").change(function(e) {
 			if(e.target.files[0] != null){
+				$.ajax({
+					data : {
+						"filePath" : thumbnailImg
+					},
+					type : "POST",
+					url : "/admin/class/delimg",
+					success : function() {
+					}
+				});
+				
 				data = new FormData();
 				data.append("file", e.target.files[0]);
 				data.append("classType", "on");

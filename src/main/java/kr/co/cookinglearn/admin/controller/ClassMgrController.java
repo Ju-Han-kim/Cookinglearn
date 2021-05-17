@@ -187,6 +187,20 @@ public class ClassMgrController {
 		return a;
 	}
 	
+	//등록된 이미지 삭제
+	@PostMapping("/delimg")
+	@ResponseBody
+	public void deleteImgFile(String filePath) {
+		
+		File targetFile = new File("C:/class/img/" + filePath.substring(10));	
+		
+		try {
+			FileUtils.deleteQuietly(targetFile);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	//강의등록 실행
 	@PostMapping("/regClass")
 	public String registerClass(ClassVO classInfo, Model model, RedirectAttributes ra) {

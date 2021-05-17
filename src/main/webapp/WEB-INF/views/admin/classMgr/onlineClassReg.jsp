@@ -127,6 +127,18 @@
 		//Thumbnail 업로드
 		$("#thumbnailImgFile").change(function(e) {
 			if(e.target.files[0] != null){
+				if(thumbnailImg != ""){
+					$.ajax({
+						data : {
+							"filePath" : thumbnailImg
+						},
+						type : "POST",
+						url : "/admin/class/delimg",
+						success : function() {
+						}
+					});
+				}
+				
 				data = new FormData();
 				data.append("file", e.target.files[0]);
 				data.append("classType", "on");
@@ -140,7 +152,7 @@
 					processData : false,
 					success : function(data) {
 						$("#thumbnailImgArea").html("<img alt='썸네일' src='"+data.url+"'>");
-						thumbnailImg += data.url;
+						thumbnailImg = data.url;
 					}
 				});
 			} else {
