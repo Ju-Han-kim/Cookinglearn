@@ -55,6 +55,15 @@
 			, start_date = #{startDate}
 		</if>
 	</sql>
+	
+	<sql id="url">
+		<if test="classUrl == null">
+			null
+		</if>
+		<if test="classUrl != null">
+			#{classUrl}
+		</if>
+	</sql>
 
 	<select id="getClassList" resultMap="classMgrMap">
 		SELECT * FROM (
@@ -109,7 +118,7 @@
 		VALUES (
 			CLASS_CODE_SEQ.NEXTVAL, #{classType}, #{classCategory}, 
 			#{thumbnailImg}, #{className}, #{classContent}, #{runTime}, 
-			#{startDate}, #{contentImg}, #{classUrl}, #{price}, #{maxStudent}
+			#{startDate}, #{contentImg}, <include refid="url" />, #{price}, #{maxStudent}
 		)
 	</insert>
 	

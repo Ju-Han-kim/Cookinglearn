@@ -173,6 +173,7 @@ public class ClassMgrController {
 		
 		model.addAttribute("menu", "Class");
 		
+		model.addAttribute("classType", false);
 		return "admin/classMgr/offlineClassReg";
 	}
 	
@@ -222,8 +223,11 @@ public class ClassMgrController {
 	public String registerClass(ClassVO classInfo, Model model, RedirectAttributes ra) {
 		
 		service.regClass(classInfo);
+		
+		String classPath = classInfo.isClassType()?"on":"off1";
+		
 		ra.addFlashAttribute("msg", "regSuccess");
-		return "redirect:/admin/class/on";
+		return "redirect:/admin/class/" + classPath;
 	}
 	
 	//온라인강의 수정화면 Mapping

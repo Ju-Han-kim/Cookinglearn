@@ -8,8 +8,11 @@
 	<!-- content -->
 	<div class="content">
 		<h3>오프라인 강의 상세현황</h3>
-		<div style="height:500px; border: 1px solid red">
+		<div style="border: 1px solid red">
 			${classInfo.classCode}번 강의정보 
+			<c:if test="${classInfo.classContent != null}">
+				${classInfo.classContent}
+			</c:if>
 		</div>
 		<button id="list-btn">목록</button> 
 		<button id="update-btn">수정</button> 
@@ -31,18 +34,28 @@
 	const condition = "${param.condition}";
 	const keyword = "${param.keyword}";
 	
-	let classPath = "currentPage="+currentPage
-					+"&seDate="+seDate+"&messagePerPage="+messagePerPage
-					+"&classCategory="+classCategory
-					+"&condition="+condition+"&keyword="+keyword;
-	
 	$(function() {
 		
 		const offOption = "${param.offOption}";
 		
 		//강의 리스트로 다시 이동
 		$("#list-btn").click(function() {
+
+			let classPath = "currentPage="+currentPage
+							+"&seDate="+seDate+"&messagePerPage="+messagePerPage
+							+"&classCategory="+classCategory
+							+"&condition="+condition+"&keyword="+keyword;
+
+			if(messagePerPage == ""){
+				classPath = "";
+			}
+			
 			location.href="/admin/class/off"+offOption+"?"+classPath;
+		});
+		
+		//해당강의 수정으로 이동
+		$("#update-btn").click(function() {
+			location.href="/admin/class/modoff/${classInfo.classCode}";
 		});
 		
 		//삭제

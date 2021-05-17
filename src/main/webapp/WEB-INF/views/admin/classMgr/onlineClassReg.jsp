@@ -191,7 +191,7 @@
 			}
 		});
 		
-		//강의내용 입력여부 검증
+		//강의 url 입력여부 검증
 		$("#classUrl").on("keyup", function() {
 			if($(this).val() === ""){
 				chk3 = false;
@@ -220,20 +220,6 @@
 		
 		
 	});
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 </script>
 

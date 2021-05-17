@@ -53,6 +53,7 @@
 					<th>고유번호</th>
 					<th>카테고리</th>
 					<th>강의이름</th>
+					<th>수강시간</th>
 					<th>수강비용</th>
 					<th>강의일자</th>
 					<th>비고</th>
@@ -65,7 +66,12 @@
 						<td>
 							<a href="<c:url value='/admin/class/off/${classInfo.classCode}${pageMgr.mkClassUri(pageMgr.paging.currentPage)}&offOption=${offOption}' />">${classInfo.className}</a>
 						</td>
-						<td>${classInfo.price}</td>
+						<td>
+							<fmt:formatNumber pattern="#" value="${classInfo.runTime}"/>분
+						</td>
+						<td>
+							<fmt:formatNumber pattern="#,###" value="${classInfo.price}"/>원
+						</td>
 						<td>
 							<fmt:formatDate pattern="yyyy-MM-dd(E)" value="${classInfo.startDate}"/>
 						</td>
@@ -97,6 +103,18 @@
 <jsp:include page="../include/footer.jsp" />	
 
 <script>
+
+	const msg = "${msg}";
+	
+	if(msg === "noClass"){
+		alert('유효하지 않은 값입니다. 다시 확인해주세요');
+	} else if(msg === "deleteSuccess"){
+		alert('성공적으로 삭제되었습니다!');
+	} else if (msg === "deleteFail"){
+		alert('신청인원이 있어 강의삭제가 불가능합니다.');
+	} else if(msg === "regSuccess"){
+		alert("성공적으로 강의가 등록되었습니다!");
+	}
 	
 	$(function() {
 		
@@ -125,7 +143,6 @@
 
 		$("#seDate").daterangepicker(option);
 		
-		
 		$("#reg-btn").click(function() {
 			location.href="/admin/class/regoff";
 		});
@@ -141,15 +158,7 @@
 	    return  year + '-' + month + '-' + day;
 	}
 	
-	const msg = "${msg}";
-	
-	if(msg === "noClass"){
-		alert('유효하지 않은 값입니다. 다시 확인해주세요');
-	} else if(msg === "deleteSuccess"){
-		alert('성공적으로 삭제되었습니다!');
-	} else if (msg === "deleteFail"){
-		alert('신청인원이 있어 강의삭제가 불가능합니다.');
-	}
+
 	
 </script>
 
