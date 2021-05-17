@@ -8,7 +8,7 @@
 	<!-- content -->
 	<div class="content">
 		<h3>온라인 강의 상세현황</h3>
-		<div style="height:500px; border: 1px solid red">
+		<div style="border: 1px solid red">
 			${classInfo.classCode}번 강의정보 
 			<c:if test="${classInfo.classContent != null}">
 				${classInfo.classContent}
@@ -29,21 +29,33 @@
 	
 	const currentPage = "${param.currentPage}";
 	const seDate = "${param.seDate}";
-	const messagePerPage = "${param.messagePerPage}";
+	let messagePerPage = "${param.messagePerPage}";
 	const classCategory = "${param.classCategory}";
 	const condition = "${param.condition}";
 	const keyword = "${param.keyword}";
 	
-	let classPath = "currentPage="+currentPage
-					+"&seDate="+seDate+"&messagePerPage="+messagePerPage
-					+"&classCategory="+classCategory
-					+"&condition="+condition+"&keyword="+keyword;
+
 	
 	$(function() {
 		
 		//강의 리스트로 다시 이동
 		$("#list-btn").click(function() {
+			
+			let classPath = "currentPage="+currentPage
+							+"&seDate="+seDate+"&messagePerPage="+messagePerPage
+							+"&classCategory="+classCategory
+							+"&condition="+condition+"&keyword="+keyword;
+
+			if(messagePerPage == ""){
+				classPath = "";
+			}
+			
 			location.href="/admin/class/on?"+classPath;
+		});
+		
+		//해당강의 수정으로 이동
+		$("#update-btn").click(function() {
+			location.href="/admin/class/modon/${classInfo.classCode}";
 		});
 		
 		//삭제
@@ -55,6 +67,8 @@
 				location.href="/admin/class/delete?classCode="+classCode+"&classType="+classType;
 			}
 		});
+		
+		
 		
 	});
 	

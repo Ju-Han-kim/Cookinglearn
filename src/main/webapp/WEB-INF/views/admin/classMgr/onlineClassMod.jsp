@@ -7,31 +7,34 @@
 
 	<!-- content -->
 	<div class="content">
-		<h3>온라인 강의등록</h3>
+		<h3>온라인 강의수정</h3>
 	
-		<form method="post" action="/admin/class/regClass" enctype="multipart/form-data" id="class-form">
-			강의이름 : <input name="className" id="className" />
-			<textarea id="classContent" name="classContent"></textarea>
+		<form method="post" action="/admin/class/modClass" enctype="multipart/form-data" id="class-form">
+			강의이름 : <input name="className" id="className" value="${classInfo.className}"/>
+			<textarea id="classContent" name="classContent">${classInfo.classContent}</textarea>
 			카테고리 : <select name="classCategory" id="classCategory">
-						<option value="한식" >한식</option>
-						<option value="분식" >분식</option>
-						<option value="중식" >중식</option>
-						<option value="일식" >일식</option>
-						<option value="양식" >양식</option>
+						<option value="한식" ${classInfo.classCategory=="한식"?"selected":""}>한식</option>
+						<option value="분식" ${classInfo.classCategory=="분식"?"selected":""}>분식</option>
+						<option value="중식" ${classInfo.classCategory=="중식"?"selected":""}>중식</option>
+						<option value="일식" ${classInfo.classCategory=="일식"?"selected":""}>일식</option>
+						<option value="양식" ${classInfo.classCategory=="양식"?"selected":""}>양식</option>
 					</select>
 			수강기간 : <select name="runTime" id="runTime">
-						<option value="30" >30일</option>
-						<option value="60" >60일</option>
-						<option value="180" >180일</option>
-						<option value="365" >365일</option>
+						<option value="30" ${classInfo.runTime==(30*60*24)?"selected":""}>30일</option>
+						<option value="60" ${classInfo.runTime==(60*60*24)?"selected":""}>60일</option>
+						<option value="180" ${classInfo.runTime==(180*60*24)?"selected":""}>180일</option>
+						<option value="365" ${classInfo.runTime==(365*60*24)?"selected":""}>365일</option>
 					</select>
-			수강비용 : <input name="price" id="price" /><br>
-			강의링크 : <input name="classUrl" id="classUrl"> <span id="ckeck-btn-area"><a href="#" id="checkUrl">영상확인</a></span><br>
+			수강비용 : <input name="price" id="price" value="${classInfo.price}"/><br>
+			강의링크 : <input name="classUrl" id="classUrl" value="${classInfo.classUrl}" readonly> <span id="ckeck-btn-area"><a href='#' id='modifyUrl'>영상수정</a></span><br>
 			썸네일 : <input type="file" name="file" id="thumbnailImgFile" required> <br>
-			<div id="thumbnailImgArea"></div>
-			<input type="button" id="submit-btn" value="등록">
+			<div id="thumbnailImgArea">
+				<img alt="썸네일" src="${classInfo.thumbnailImg}">
+			</div>
+			<input type="button" id="submit-btn" value="수정">
 			<input type="button" id="list-btn" value="목록">
-			<input type="hidden" name="classType" value="${classType}" />
+			<input type="hidden" name="classCode" value="${classInfo.classCode}" />
+			<input type="hidden" name="classType" value="${classInfo.classType}" />
 			<input type="hidden" name="contentImg" id="contentImg" value="" />
 			<input type="hidden" name="thumbnailImg" id="thumbnailImg" value="" />
 		</form>
@@ -42,8 +45,8 @@
 
 <script>
 
-	let thumbnailImg = "";
-	let contentImg = "";
+	let thumbnailImg = "${classInfo.contentImg}";
+	let contentImg = "${classInfo.thumbnailImg}";
 	
 	const toolbar = [
 		['style', ['style']],
@@ -98,28 +101,24 @@
 	$(function() {
 		
 		//영상확인
-		$("#checkUrl").click(function() {
+		$("#modifyUrl").click(function() {
 			checkUrlFunc();
 		});
 		
 		function checkUrlFunc() {
-			const src = $("#classUrl").val();
-			window.open(src,"영상확인","top=100px, left=100px, height=800px, width=1200px, menubar=no, toolbar=no, location=no")
-			
-			if(confirm("영상을 확정하시겠습니까?")){
-				$("#classUrl").attr("readonly", "");
-				$("#ckeck-btn-area").html("<a href='#' id='modifyUrl'>영상수정</a>");
-				
-				$("#modifyUrl").click(function() {
-					if(confirm("영상을 수정하시겠습니까?")){
-						$("#classUrl").removeAttr("readonly");
-						$("#classUrl").val("");
-						$("#classUrl").focus();
-						$("#ckeck-btn-area").html("<a href='#' id='checkUrl'>영상확인</a>");
-						$("#checkUrl").click(function() {
-							checkUrlFunc();
-						});
+			if(confirm("영상을 수정하시겠습니까?")){
+				$("#classUrl").removeAttr("readonly");
+				$("#classUrl").val("");
+				$("#classUrl").focus();
+				$("#ckeck-btn-area").html("<a href='#' id='checkUrl'>영상확인</a>");
+				$("#checkUrl").click(function() {
+					const src = $("#classUrl").val();
+					window.open(src,"영상확인","top=100px, left=100px, height=800px, width=1200px, menubar=no, toolbar=no, location=no");
+					if(confirm("영상을 확정하시겠습니까?")){
+						$("#classUrl").attr("readonly", "");
+						$("#ckeck-btn-area").html("<a href='#' id='modifyUrl'>영상수정</a>");
 					}
+					checkUrlFunc();
 				});
 			}
 		}
@@ -140,7 +139,7 @@
 					processData : false,
 					success : function(data) {
 						$("#thumbnailImgArea").html("<img alt='썸네일' src='"+data.url+"'>");
-						thumbnailImg += data.url;
+						thumbnailImg = data.url;
 					}
 				});
 			} else {
@@ -149,7 +148,7 @@
 		});
 		
 		//값 검증
-		let chk1 = false, chk2 = false, chk3 = false;
+		let chk1 = true, chk2 = true, chk3 = true;
 		const regNum = RegExp(/^[0-9]*$/); 
 		
 		//강의이름 입력여부 검증
@@ -184,7 +183,7 @@
 			}
 		});
 		
-		//강의등록
+		//강의수정
 		$("#submit-btn").click(function() {
 			
 			if(chk1 && chk2 && chk3){

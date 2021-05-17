@@ -246,5 +246,30 @@ public class ClassMgrMapperTest {
 
 	}
 	*/
+	
+	/*
+	//강의수정 단위테스트
+	@Test
+	public void modClassTest() {
+		
+		ClassVO classInfo = new ClassVO();
+		
+		classInfo.setClassCode(142);
+		classInfo.setClassType(false);
+		classInfo.setClassCategory("한식");
+		classInfo.setThumbnailImg("/img/0");
+		classInfo.setClassName("강의이름25");
+		classInfo.setClassContent("상세내용25");
+		classInfo.setRunTime(60);
+		classInfo.setStartDate(new Timestamp(System.currentTimeMillis()));
+		classInfo.setContentImg("");
+		classInfo.setClassUrl("");
+		classInfo.setPrice(60000);
+		classInfo.setMaxStudent(4);
+		
+		mapper.modClass(classInfo);
+
+	}
+	*/
 
 }

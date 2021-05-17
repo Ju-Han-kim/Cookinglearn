@@ -151,6 +151,15 @@ public class ClassMgrController {
 		return "admin/classMgr/onlineClassReg";
 	}
 	
+	//오프라인 강의등록 화면 Mapping
+	@GetMapping("/regoff")
+	public String regoffClass(Model model) {
+		
+		model.addAttribute("menu", "Class");
+		
+		return "admin/classMgr/offlineClassReg";
+	}
+	
 	//강의등록 이미지 파일저장
 	@PostMapping(value="/regimg", produces = "application/json; charset=utf8")
 	@ResponseBody
@@ -187,19 +196,37 @@ public class ClassMgrController {
 		return "redirect:/admin/class/on";
 	}
 	
-	
-	
-	//오프라인 강의등록 화면 Mapping
-	@GetMapping("/regoff")
-	public String regoffClass(Model model) {
+	//온라인강의 수정화면 Mapping
+	@GetMapping("/modon/{classCode}")
+	public String modonClass(@PathVariable int classCode, Model model, RedirectAttributes ra) {	
 		
 		model.addAttribute("menu", "Class");
 		
-		return "admin/classMgr/offlineClassReg";
+		ClassVO classInfo = service.getClassInfo(classCode);
+		
+		if(classInfo.isClassType()) {
+			model.addAttribute("classInfo", classInfo);
+			return "admin/classMgr/onlineClassMod";
+		} else {
+			ra.addFlashAttribute("msg", "noClass");
+			return "redirect:/admin/class/on";
+		}
+	}
+
+	//오프라인강의 수정화면 Mapping
+	@GetMapping("/modoff")
+	public String modoffClass() {	
+		
+		return "";
 	}
 	
-	
-	
+	//강의수정 실행
+	@PostMapping("/modClass")
+	public String modifyClass(ClassVO classInfo, RedirectAttributes ra) {
+		
+		service.modClass(classInfo);
+		return "redirect:/admin/class/on/"+classInfo.getClassCode()+"?currentPage=1";
+	}
 	
 	
 	

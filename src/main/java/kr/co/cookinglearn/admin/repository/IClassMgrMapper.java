@@ -28,4 +28,7 @@ public interface IClassMgrMapper {
 	//강의 등록
 	void regClass(ClassVO classInfo);
 	
+	//강의 수정
+	void modClass(ClassVO classInfo);
+	
 }

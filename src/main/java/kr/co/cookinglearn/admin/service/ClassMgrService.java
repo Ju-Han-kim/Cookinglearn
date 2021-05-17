@@ -80,8 +80,18 @@ public class ClassMgrService implements IClassMgrService {
 	public void regClass(ClassVO classInfo) {
 		
 		classInfo.setRunTime(classInfo.getRunTime()*60*24);
-		classInfo.setStartDate(new Timestamp(System.currentTimeMillis()));
+		if(classInfo.isClassType()) {
+			classInfo.setStartDate(new Timestamp(System.currentTimeMillis()));
+		}
 		
 		mapper.regClass(classInfo);
+	}
+	
+	@Override
+	public void modClass(ClassVO classInfo) {
+		
+		classInfo.setRunTime(classInfo.getRunTime()*60*24);
+		
+		mapper.modClass(classInfo);
 	}
 }

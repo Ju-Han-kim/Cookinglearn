@@ -23,7 +23,9 @@ public class PageVO {
 	}
 
 	public void setMessagePerPage(int messagePerPage) {
-		this.messagePerPage = messagePerPage;
+		if(messagePerPage != 0) {
+			this.messagePerPage = messagePerPage;
+		}
 	}
 	
 }

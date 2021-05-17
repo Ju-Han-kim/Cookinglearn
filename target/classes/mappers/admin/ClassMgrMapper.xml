@@ -49,6 +49,12 @@
 			NOT
 		</if>
 	</sql>
+	
+	<sql id="startDate">
+		<if test="startDate != null">
+			, start_date = #{startDate}
+		</if>
+	</sql>
 
 	<select id="getClassList" resultMap="classMgrMap">
 		SELECT * FROM (
@@ -106,6 +112,15 @@
 			#{startDate}, #{contentImg}, #{classUrl}, #{price}, #{maxStudent}
 		)
 	</insert>
+	
+	<update id="modClass">
+		UPDATE "CLASS"
+		SET class_name = #{className}, class_content = #{classContent},
+		class_category = #{classCategory}, run_time = #{runTime}, 
+		price = #{price}, class_url = #{classUrl}, thumbnail_img = #{thumbnailImg}, 
+		content_img = #{contentImg}, max_student = #{maxStudent} <include refid="startDate" />
+		WHERE class_code = #{classCode}
+</update>
 
 </mapper>
 
