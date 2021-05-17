@@ -55,8 +55,12 @@
 						<td>
 							<a href="<c:url value='/admin/class/on/${classInfo.classCode}${pageMgr.mkClassUri(pageMgr.paging.currentPage)}' />">${classInfo.className}</a>
 						</td>
-						<td>${classInfo.runTime}</td>
-						<td>${classInfo.price}</td>
+						<td>
+							<fmt:formatNumber pattern="#" value="${classInfo.runTime/24/60}"/>일
+						</td>
+						<td>
+							<fmt:formatNumber pattern="#,###" value="${classInfo.price}"/>원
+						</td>
 						<td>
 							<fmt:formatDate pattern="yyyy-MM-dd(E)" value="${classInfo.startDate}"/>
 						</td>
@@ -92,7 +96,10 @@
 		alert('성공적으로 삭제되었습니다!');
 	} else if (msg === "deleteFail"){
 		alert('신청인원이 있어 강의삭제가 불가능합니다.');
+	} else if(msg === "regSuccess"){
+		alert("성공적으로 강의가 등록되었습니다!");
 	}
+
 	
 	$(function() {
 

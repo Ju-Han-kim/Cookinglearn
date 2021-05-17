@@ -9,7 +9,7 @@
 	<div class="content">
 		<h3>온라인 강의등록</h3>
 	
-		<form method="post" action="/admin/class/regClass">
+		<form method="post" action="/admin/class/regClass" enctype="multipart/form-data" id="class-form">
 			강의이름 : <input name="className" id="className" />
 			<textarea id="classContent" name="classContent"></textarea>
 			카테고리 : <select name="classCategory" id="classCategory">
@@ -25,11 +25,14 @@
 						<option value="180" >180일</option>
 						<option value="365" >365일</option>
 					</select>
-			수강비용 : <input name="price" id="price" />
-			썸네일 : 
-			강의링크 : 
-			<input type="submit" value="등록">
+			수강비용 : <input name="price" id="price" /><br>
+			강의링크 : <input name="classUrl" id="classUrl"> <span id="ckeck-btn-area"><a href="#" id="checkUrl">영상확인</a></span><br>
+			썸네일 : <input type="file" name="file" id="thumbnailImgFile" required> <br>
+			<div id="thumbnailImgArea"></div>
+			<input type="button" id="submit-btn" value="등록">
 			<input type="hidden" name="classType" value="${classType}" />
+			<input type="hidden" name="contentImg" id="contentImg" value="" />
+			<input type="hidden" name="thumbnailImg" id="thumbnailImg" value="" />
 		</form>
 	
 	</div>
@@ -37,6 +40,9 @@
 <jsp:include page="../include/footer.jsp" />
 
 <script>
+
+	let thumbnailImg = "";
+	let contentImg = "";
 	
 	const toolbar = [
 		['style', ['style']],
@@ -72,19 +78,127 @@
 	function uploadImageFile(file, el) {
 		data = new FormData();
 		data.append("file", file);
+		data.append("classType", "on");
+		data.append("part", "/");
 		$.ajax({
 			contentType : false,
 			data : data,
 			type : "POST",
-			url : "/admin/class/regon",
+			url : "/admin/class/regimg",
 			enctype : 'multipart/form-data',
 			processData : false,
 			success : function(data) {
 				$(el).summernote('editor.insertImage', data.url);
-				console.log(data.responseCode);
+				contentImg += "|"+data.url;
 			}
 		});
 	};
+	
+	$(function() {
+		
+		//영상확인
+		$("#checkUrl").click(function() {
+			checkUrlFunc();
+		});
+		
+		function checkUrlFunc() {
+			const src = $("#classUrl").val();
+			window.open(src,"영상확인","top=100px, left=100px, height=800px, width=1200px, menubar=no, toolbar=no, location=no")
+			
+			if(confirm("영상을 확정하시겠습니까?")){
+				$("#classUrl").attr("readonly", "");
+				$("#ckeck-btn-area").html("<a href='#' id='modifyUrl'>영상수정</a>");
+				
+				$("#modifyUrl").click(function() {
+					if(confirm("영상을 수정하시겠습니까?")){
+						$("#classUrl").removeAttr("readonly");
+						$("#classUrl").val("");
+						$("#classUrl").focus();
+						$("#ckeck-btn-area").html("<a href='#' id='checkUrl'>영상확인</a>");
+						$("#checkUrl").click(function() {
+							checkUrlFunc();
+						});
+					}
+				});
+			}
+		}
+		
+		//Thumbnail 업로드
+		$("#thumbnailImgFile").change(function(e) {
+			if(e.target.files[0] != null){
+				data = new FormData();
+				data.append("file", e.target.files[0]);
+				data.append("classType", "on");
+				data.append("part", "/thumbnail/");
+				$.ajax({
+					contentType : false,
+					data : data,
+					type : "POST",
+					url : "/admin/class/regimg",
+					enctype : 'multipart/form-data',
+					processData : false,
+					success : function(data) {
+						$("#thumbnailImgArea").html("<img alt='썸네일' src='"+data.url+"'>");
+						thumbnailImg += data.url;
+					}
+				});
+			} else {
+				$("#thumbnailImgArea").html("");
+			}
+		});
+		
+		//값 검증
+		let chk1 = false, chk2 = false, chk3 = false;
+		const regNum = RegExp(/^[0-9]*$/); 
+		
+		//강의이름 입력여부 검증
+		$("#className").on("keyup", function() {
+			if($(this).val() === ""){
+				chk1 = false;
+			} else {
+				chk1 = true;
+			}
+		});
+		
+		//수강비용 숫자입력검증, 입력여부검증
+		$("#price").on("keyup", function() {
+			if($(this).val() === ""){
+				chk2 = false;
+			} else if(!regNum.test($(this).val())) {
+				alert("수강비용은 숫자만 입력가능합니다!");
+				$("#price").val("");
+				$("#price").focus();
+				chk2 = false;
+			} else {
+				chk2 = true;
+			}
+		});
+		
+		//강의내용 입력여부 검증
+		$("#classUrl").on("keyup", function() {
+			if($(this).val() === ""){
+				chk3 = false;
+			} else {
+				chk3 = true;
+			}
+		});
+		
+		//강의등록
+		$("#submit-btn").click(function() {
+			
+			if(chk1 && chk2 && chk3){
+				$("#contentImg").val(contentImg);
+				$("#thumbnailImg").val(thumbnailImg);
+				$("#class-form").submit();
+			} else {
+				alert("입력값을 확인해주세요!");
+			}
+			
+		});
+		
+		
+		
+	});
 	
 	
 	

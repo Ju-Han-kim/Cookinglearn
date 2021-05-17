@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,6 +46,9 @@ public class ClassMgrController {
 	//온라인 강의 상세현황 페이지 Mapping
 	@GetMapping("/on/{classCode}")
 	public String onlineClassContent(@PathVariable int classCode, Model model, RedirectAttributes ra) {
+		
+		model.addAttribute("menu", "Class");
+		
 		ClassVO classInfo = service.getClassInfo(classCode);
 		
 		if(classInfo.isClassType()) {
@@ -62,6 +63,9 @@ public class ClassMgrController {
 	//오프라인 강의 상세현황 페이지 Mapping
 	@GetMapping("/off/{classCode}")
 	public String offlineClassContent(@PathVariable int classCode, Model model, RedirectAttributes ra, @RequestParam(name="offOption", defaultValue="1" ) int offOption) {
+		
+		model.addAttribute("menu", "Class");
+		
 		ClassVO classInfo = service.getClassInfo(classCode);
 		
 		if(!classInfo.isClassType()) {
@@ -141,26 +145,28 @@ public class ClassMgrController {
 	@GetMapping("/regon")
 	public String regonClass(Model model) {
 		
+		model.addAttribute("menu", "Class");
+		
 		model.addAttribute("classType", true);
 		return "admin/classMgr/onlineClassReg";
 	}
 	
-	//온라인 강의등록 이미지 파일저장
-	@PostMapping(value="/regon", produces = "application/json; charset=utf8")
+	//강의등록 이미지 파일저장
+	@PostMapping(value="/regimg", produces = "application/json; charset=utf8")
 	@ResponseBody
-	public String uploadImgFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request)  {
+	public String uploadImgFile(@RequestParam("file") MultipartFile multipartFile, String part, String classType)  {
 		JsonObject jsonObject = new JsonObject();
 		
-		String fileRoot = "C:/class/img/";
+		String fileRoot = "C:/class/img/" + classType + part;
 		String originalFileName = multipartFile.getOriginalFilename();
 		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
-		String savedFileName = "on_" + UUID.randomUUID().toString().substring(0,6) + extension;
+		String savedFileName = classType + "_" + UUID.randomUUID().toString().substring(0,6) + extension;
 		
 		File targetFile = new File(fileRoot + savedFileName);	
 		try {
 			InputStream fileStream = multipartFile.getInputStream();
 			FileUtils.copyInputStreamToFile(fileStream, targetFile);
-			jsonObject.addProperty("url", "/classImg/"+savedFileName);
+			jsonObject.addProperty("url", "/classImg/"+classType+part+savedFileName);
 			jsonObject.addProperty("responseCode", "success");
 			
 		} catch (Exception e) {
@@ -172,6 +178,7 @@ public class ClassMgrController {
 		return a;
 	}
 	
+	//강의등록 실행
 	@PostMapping("/regClass")
 	public String registerClass(ClassVO classInfo, Model model, RedirectAttributes ra) {
 		
@@ -184,8 +191,9 @@ public class ClassMgrController {
 	
 	//오프라인 강의등록 화면 Mapping
 	@GetMapping("/regoff")
-	public String regoffClass() {
+	public String regoffClass(Model model) {
 		
+		model.addAttribute("menu", "Class");
 		
 		return "admin/classMgr/offlineClassReg";
 	}
