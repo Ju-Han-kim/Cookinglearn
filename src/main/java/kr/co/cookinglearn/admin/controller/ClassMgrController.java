@@ -2,6 +2,7 @@ package kr.co.cookinglearn.admin.controller;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.List;
 import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
@@ -30,6 +31,8 @@ public class ClassMgrController {
 
 	@Autowired
 	private IClassMgrService service;
+	
+	private final String imgRootPath = "C:/class/img/";
 	
 	//온라인 강의관리 페이지 Mapping
 	@GetMapping("/on")
@@ -132,6 +135,19 @@ public class ClassMgrController {
 		
 		String path = classInfo.isClassType() ? "redirect:/admin/class/on" : "redirect:/admin/class/off"+offOption;
 		
+		List<String> contentImgList = service.getContentImg(classInfo.getClassCode());
+		
+		if(contentImgList != null) {
+			for(String contentImg : contentImgList) {
+				try {
+					File targetFile = new File(imgRootPath + contentImg.substring(10));	
+					FileUtils.deleteQuietly(targetFile);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
 		if(service.classDelete(classInfo.getClassCode())) {
 			ra.addFlashAttribute("msg", "deleteSuccess");
 		} else {
@@ -166,7 +182,7 @@ public class ClassMgrController {
 	public String uploadImgFile(@RequestParam("file") MultipartFile multipartFile, String part, String classType)  {
 		JsonObject jsonObject = new JsonObject();
 		
-		String fileRoot = "C:/class/img/" + classType + part;
+		String fileRoot = imgRootPath + classType + part;
 		String originalFileName = multipartFile.getOriginalFilename();
 		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
 		String savedFileName = classType + "_" + UUID.randomUUID().toString().substring(0,6) + extension;
@@ -192,7 +208,7 @@ public class ClassMgrController {
 	@ResponseBody
 	public void deleteImgFile(String filePath) {
 		
-		File targetFile = new File("C:/class/img/" + filePath.substring(10));	
+		File targetFile = new File(imgRootPath + filePath.substring(10));	
 		
 		try {
 			FileUtils.deleteQuietly(targetFile);

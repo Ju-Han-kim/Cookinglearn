@@ -31,4 +31,7 @@ public interface IClassMgrMapper {
 	//강의 수정
 	void modClass(ClassVO classInfo);
 	
+	//강의 이미지 반환
+	String getContentImg(int classCode);
+	
 }

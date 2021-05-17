@@ -109,12 +109,13 @@
 			if(confirm("영상을 확정하시겠습니까?")){
 				$("#classUrl").attr("readonly", "");
 				$("#ckeck-btn-area").html("<a href='#' id='modifyUrl'>영상수정</a>");
-				
+				chk5 = true;
 				$("#modifyUrl").click(function() {
 					if(confirm("영상을 수정하시겠습니까?")){
 						$("#classUrl").removeAttr("readonly");
 						$("#classUrl").val("");
 						$("#classUrl").focus();
+						chk5 = false;
 						$("#ckeck-btn-area").html("<a href='#' id='checkUrl'>영상확인</a>");
 						$("#checkUrl").click(function() {
 							checkUrlFunc();
@@ -153,15 +154,18 @@
 					success : function(data) {
 						$("#thumbnailImgArea").html("<img alt='썸네일' src='"+data.url+"'>");
 						thumbnailImg = data.url;
+						chk4 = true;
 					}
 				});
 			} else {
+				thumbnailImg = "";
 				$("#thumbnailImgArea").html("");
+				chk4 = false;
 			}
 		});
 		
 		//값 검증
-		let chk1 = false, chk2 = false, chk3 = false;
+		let chk1 = false, chk2 = false, chk3 = false, chk4 = false, chk5 = false;
 		const regNum = RegExp(/^[0-9]*$/); 
 		
 		//강의이름 입력여부 검증
@@ -199,7 +203,7 @@
 		//강의등록
 		$("#submit-btn").click(function() {
 			
-			if(chk1 && chk2 && chk3){
+			if(chk1 && chk2 && chk3 && chk4 && chk5){
 				$("#contentImg").val(contentImg);
 				$("#thumbnailImg").val(thumbnailImg);
 				$("#class-form").submit();

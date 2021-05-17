@@ -120,7 +120,13 @@
 		price = #{price}, class_url = #{classUrl}, thumbnail_img = #{thumbnailImg}, 
 		content_img = #{contentImg}, max_student = #{maxStudent} <include refid="startDate" />
 		WHERE class_code = #{classCode}
-</update>
+	</update>
+	
+	<select id="getContentImg" resultType="String">
+		SELECT CONCAT(thumbnail_img, content_img)
+		FROM "CLASS"
+		WHERE class_code = #{classCode}
+	</select>
 
 </mapper>
 

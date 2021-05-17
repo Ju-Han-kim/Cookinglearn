@@ -31,4 +31,7 @@ public interface IClassMgrService {
 	//강의 수정
 	void modClass(ClassVO classInfo);
 	
+	//강의 이미지List 반환
+	List<String> getContentImg(int classCode);
+	
 }

@@ -110,6 +110,7 @@
 				$("#classUrl").removeAttr("readonly");
 				$("#classUrl").val("");
 				$("#classUrl").focus();
+				chk5 = false;
 				$("#ckeck-btn-area").html("<a href='#' id='checkUrl'>영상확인</a>");
 				$("#checkUrl").click(function() {
 					const src = $("#classUrl").val();
@@ -117,6 +118,7 @@
 					if(confirm("영상을 확정하시겠습니까?")){
 						$("#classUrl").attr("readonly", "");
 						$("#ckeck-btn-area").html("<a href='#' id='modifyUrl'>영상수정</a>");
+						chk5 = true;
 					}
 					checkUrlFunc();
 				});
@@ -126,15 +128,17 @@
 		//Thumbnail 업로드
 		$("#thumbnailImgFile").change(function(e) {
 			if(e.target.files[0] != null){
-				$.ajax({
-					data : {
-						"filePath" : thumbnailImg
-					},
-					type : "POST",
-					url : "/admin/class/delimg",
-					success : function() {
-					}
-				});
+				if(thumbnailImg != ""){
+					$.ajax({
+						data : {
+							"filePath" : thumbnailImg
+						},
+						type : "POST",
+						url : "/admin/class/delimg",
+						success : function() {
+						}
+					});
+				}
 				
 				data = new FormData();
 				data.append("file", e.target.files[0]);
@@ -150,15 +154,18 @@
 					success : function(data) {
 						$("#thumbnailImgArea").html("<img alt='썸네일' src='"+data.url+"'>");
 						thumbnailImg = data.url;
+						chk4 = true;
 					}
 				});
 			} else {
+				thumbnailImg = "";
 				$("#thumbnailImgArea").html("");
+				chk4 = false;
 			}
 		});
 		
 		//값 검증
-		let chk1 = true, chk2 = true, chk3 = true;
+		let chk1 = true, chk2 = true, chk3 = true, chk4 = true, chk5 = true;
 		const regNum = RegExp(/^[0-9]*$/); 
 		
 		//강의이름 입력여부 검증
@@ -196,7 +203,7 @@
 		//강의수정
 		$("#submit-btn").click(function() {
 			
-			if(chk1 && chk2 && chk3){
+			if(chk1 && chk2 && chk3 && chk4 && chk5){
 				$("#contentImg").val(contentImg);
 				$("#thumbnailImg").val(thumbnailImg);
 				$("#class-form").submit();

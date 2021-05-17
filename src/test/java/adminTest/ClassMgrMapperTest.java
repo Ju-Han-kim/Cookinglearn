@@ -3,6 +3,7 @@ package adminTest;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -271,5 +272,23 @@ public class ClassMgrMapperTest {
 
 	}
 	*/
+	
+	/*
+	//classCode를 입력받아 contentImg 반환후 split 단위테스트
+	@Test
+	public void contentImgTest() {
+		int classCode = 144;
+		
+		String contentImg = mapper.getContentImg(classCode);
+		
+		List<String> list = Arrays.asList(contentImg.split("\\|"));
+		
+		System.out.println("=======================");
+		for(String cImg : list) {
+			System.out.println(cImg);
+		}
+		System.out.println("=======================");
 
+	}
+	*/
 }

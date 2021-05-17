@@ -1,6 +1,7 @@
 package kr.co.cookinglearn.admin.service;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,4 +95,29 @@ public class ClassMgrService implements IClassMgrService {
 		
 		mapper.modClass(classInfo);
 	}
+	
+	@Override
+	public List<String> getContentImg(int classCode) {
+		List<String> contentImg = null;
+
+		String contentImgStr = mapper.getContentImg(classCode);
+		
+		if(contentImgStr != null) {
+			contentImg = Arrays.asList(contentImgStr.split("\\|"));
+		}
+		
+		return contentImg;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
+
