@@ -34,7 +34,11 @@
 	const condition = "${param.condition}";
 	const keyword = "${param.keyword}";
 	
-
+	const msg = "${msg}";
+	
+	if(msg === "modSuccess"){
+		alert("강의수정이 완료되었습니다!");
+	}
 	
 	$(function() {
 		

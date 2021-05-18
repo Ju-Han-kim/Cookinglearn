@@ -248,10 +248,20 @@ public class ClassMgrController {
 	}
 
 	//오프라인강의 수정화면 Mapping
-	@GetMapping("/modoff")
-	public String modoffClass() {	
+	@GetMapping("/modoff/{classCode}")
+	public String modoffClass(@PathVariable int classCode, Model model, RedirectAttributes ra) {	
 		
-		return "";
+		model.addAttribute("menu", "Class");
+		
+		ClassVO classInfo = service.getClassInfo(classCode);
+		
+		if(!classInfo.isClassType()) {
+			model.addAttribute("classInfo", classInfo);
+			return "admin/classMgr/offlineClassMod";
+		} else {
+			ra.addFlashAttribute("msg", "noClass");
+			return "redirect:/admin/class/off1";
+		}
 	}
 	
 	//강의수정 실행
@@ -259,7 +269,11 @@ public class ClassMgrController {
 	public String modifyClass(ClassVO classInfo, RedirectAttributes ra) {
 		
 		service.modClass(classInfo);
-		return "redirect:/admin/class/on/"+classInfo.getClassCode()+"?currentPage=1";
+		
+		ra.addFlashAttribute("msg", "modSuccess");
+		
+		String classType = classInfo.isClassType()?"on":"off";
+		return "redirect:/admin/class/"+classType+"/"+classInfo.getClassCode()+"?currentPage=1";
 	}
 	
 	

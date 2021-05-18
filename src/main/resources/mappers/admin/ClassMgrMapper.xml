@@ -126,7 +126,7 @@
 		UPDATE "CLASS"
 		SET class_name = #{className}, class_content = #{classContent},
 		class_category = #{classCategory}, run_time = #{runTime}, 
-		price = #{price}, class_url = #{classUrl}, thumbnail_img = #{thumbnailImg}, 
+		price = #{price}, class_url = <include refid="url" />, thumbnail_img = #{thumbnailImg}, 
 		content_img = #{contentImg}, max_student = #{maxStudent} <include refid="startDate" />
 		WHERE class_code = #{classCode}
 	</update>

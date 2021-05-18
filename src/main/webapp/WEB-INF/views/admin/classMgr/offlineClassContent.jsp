@@ -34,9 +34,19 @@
 	const condition = "${param.condition}";
 	const keyword = "${param.keyword}";
 	
+	const msg = "${msg}";
+	
+	if(msg === "modSuccess"){
+		alert("강의수정이 완료되었습니다!");
+	}
+	
 	$(function() {
 		
-		const offOption = "${param.offOption}";
+		let offOption = "${param.offOption}";
+		
+		if(offOption == ""){
+			offOption = 1;
+		}
 		
 		//강의 리스트로 다시 이동
 		$("#list-btn").click(function() {
