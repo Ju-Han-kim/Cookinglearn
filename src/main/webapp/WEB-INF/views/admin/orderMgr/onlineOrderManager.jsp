@@ -45,7 +45,9 @@
 				<c:forEach var="orderInfo" items="${orderList}">
 					<tr>
 						<td>${orderInfo.orderNo}</td>
-						<td>${orderInfo.className}</td>
+						<td>
+							<a href="<c:url value='/admin/order/${orderInfo.orderNo}${pageMgr.mkOrderUri(pageMgr.paging.currentPage)}' />">${orderInfo.className}</a>
+						</td>
 						<td>${orderInfo.userId}</td>
 						<td>
 							<fmt:formatDate pattern="yyyy-MM-dd(E)" value="${orderInfo.paymentDate}"/>
@@ -54,7 +56,9 @@
 							<fmt:formatDate pattern="yyyy-MM-dd(E)" value="${orderInfo.limitDate}"/>
 						</td>
 						<td>${orderInfo.getProcess(orderInfo.orderProcess)}</td>
-						<td>${orderInfo.payment}</td>
+						<td>
+							<fmt:formatNumber pattern="#,###" value="${orderInfo.payment}"/>
+						</td>
 					</tr>
 				</c:forEach>
 			</table>

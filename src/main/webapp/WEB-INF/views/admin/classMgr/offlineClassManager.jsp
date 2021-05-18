@@ -75,11 +75,7 @@
 						<td>
 							<fmt:formatDate pattern="yyyy-MM-dd(E)" value="${classInfo.startDate}"/>
 						</td>
-						<td>
-							<c:if test="${offOption == 2}">
-								<button>상세정보</button>
-							</c:if>
-						</td>
+						<td></td>
 					</tr>
 				</c:forEach>
 			</table>

@@ -2,6 +2,7 @@ package kr.co.cookinglearn.admin.common.page;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 
 public class OrderSearchVO extends SearchVO{
@@ -81,6 +82,12 @@ public class OrderSearchVO extends SearchVO{
 
 	public void setOrderProcess(int[] orderProcess) {
 		this.orderProcess = orderProcess;
+	}
+
+	@Override
+	public String toString() {
+		return "OrderSearchVO [classType=" + classType + ", seDate=" + seDate + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", orderProcess=" + Arrays.toString(orderProcess) + "]";
 	}
 	
 }
