@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kr.co.cookinglearn.admin.common.page.ClassSearchVO;
 import kr.co.cookinglearn.admin.model.ClassVO;
+import kr.co.cookinglearn.admin.model.process.ClassStudentsVO;
 import kr.co.cookinglearn.admin.repository.IClassMgrMapper;
 
 
@@ -291,4 +292,33 @@ public class ClassMgrMapperTest {
 
 	}
 	*/
+	
+	/*
+	//선택된 강의의 신청인원 정보 List반환 테스트
+	@Test
+	public void getStudents() {
+		
+		int classCode = 1;
+		
+		List<ClassStudentsVO> list = mapper.getStudents(classCode);
+		
+		System.out.println("================");
+		if(!list.isEmpty()) {
+			for(ClassStudentsVO student : list) {
+				System.out.println(student);
+			}
+		}
+		System.out.println("================");
+		
+	}
+	*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -23,6 +23,7 @@ import com.google.gson.JsonObject;
 import kr.co.cookinglearn.admin.common.page.ClassSearchVO;
 import kr.co.cookinglearn.admin.common.page.PageMgr;
 import kr.co.cookinglearn.admin.model.ClassVO;
+import kr.co.cookinglearn.admin.model.process.ClassStudentsVO;
 import kr.co.cookinglearn.admin.service.interfaces.IClassMgrService;
 
 @Controller
@@ -56,6 +57,9 @@ public class ClassMgrController {
 		
 		if(classInfo.isClassType()) {
 			model.addAttribute("classInfo", classInfo);
+			
+			List<ClassStudentsVO> students = service.getStudents(classCode);
+			model.addAttribute("students", students);
 			return "admin/classMgr/onlineClassContent";
 		} else {
 			ra.addFlashAttribute("msg", "noClass");
@@ -73,6 +77,9 @@ public class ClassMgrController {
 		
 		if(!classInfo.isClassType()) {
 			model.addAttribute("classInfo", classInfo);
+			
+			List<ClassStudentsVO> students = service.getStudents(classCode);
+			model.addAttribute("students", students);
 			return "admin/classMgr/offlineClassContent";
 		} else {
 			ra.addFlashAttribute("msg", "noClass");
@@ -139,11 +146,13 @@ public class ClassMgrController {
 		
 		if(contentImgList != null) {
 			for(String contentImg : contentImgList) {
-				try {
-					File targetFile = new File(imgRootPath + contentImg.substring(10));	
-					FileUtils.deleteQuietly(targetFile);
-				} catch (Exception e) {
-					e.printStackTrace();
+				if(contentImg.length() >= 10) {
+					try {
+						File targetFile = new File(imgRootPath + contentImg.substring(10));	
+						FileUtils.deleteQuietly(targetFile);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		}
@@ -209,13 +218,16 @@ public class ClassMgrController {
 	@ResponseBody
 	public void deleteImgFile(String filePath) {
 		
-		File targetFile = new File(imgRootPath + filePath.substring(10));	
-		
-		try {
-			FileUtils.deleteQuietly(targetFile);
-		} catch (Exception e) {
-			e.printStackTrace();
+		if(filePath.length() >= 10) {
+			File targetFile = new File(imgRootPath + filePath.substring(10));	
+			
+			try {
+				FileUtils.deleteQuietly(targetFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
+		
 	}
 	
 	//강의등록 실행

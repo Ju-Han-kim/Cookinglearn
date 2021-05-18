@@ -37,8 +37,8 @@
 						<td>${user.userId}</td>
 						<td>${user.nickname}</td>
 						<td>
-							<c:if test="${!user.gender}">남자</c:if>
-							<c:if test="${user.gender}">여자</c:if>
+							<c:if test="${user.gender}">남자</c:if>
+							<c:if test="${!user.gender}">여자</c:if>
 						</td>
 						<td>
 							<fmt:formatDate pattern="yyyy-MM-dd(E)" value="${user.regDate}"/>

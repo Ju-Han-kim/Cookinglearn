@@ -20,6 +20,15 @@
 		<result property="maxStudent" column="max_student"/>
 	</resultMap>
 	
+	<resultMap id="studentsMap" type="kr.co.cookinglearn.admin.model.process.ClassStudentsVO">
+		<id property="stuNo" column="stu_no"/>
+		<result property="userId" column="user_id"/>
+		<result property="nickname" column="nickname"/>
+		<result property="gender" column="gender"/>
+		<result property="paymentDate" column="payment_date"/>
+		<result property="orderProcess" column="order_process"/>
+	</resultMap>
+	
 	<sql id="classSearch">
 		<if test="condition == 'className'">
 			WHERE class_name LIKE '%'||#{keyword}||'%'
@@ -135,6 +144,12 @@
 		SELECT CONCAT(thumbnail_img, content_img)
 		FROM "CLASS"
 		WHERE class_code = #{classCode}
+	</select>
+	
+	<select id="getStudents" resultMap="studentsMap">
+		SELECT ROW_NUMBER() OVER(ORDER BY payment_date) AS stu_no, user_id, nickname, gender, payment_date, order_process
+		FROM "ORDER" JOIN "USER" USING(user_no)
+		WHERE class_code = #{classCode}	
 	</select>
 
 </mapper>

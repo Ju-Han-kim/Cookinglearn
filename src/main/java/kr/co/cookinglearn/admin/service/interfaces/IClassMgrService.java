@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.co.cookinglearn.admin.common.page.ClassSearchVO;
 import kr.co.cookinglearn.admin.model.ClassVO;
+import kr.co.cookinglearn.admin.model.process.ClassStudentsVO;
 
 public interface IClassMgrService {
 
@@ -33,5 +34,8 @@ public interface IClassMgrService {
 	
 	//강의 이미지List 반환
 	List<String> getContentImg(int classCode);
+	
+	//강의 신청인원 리스트 반환
+	List<ClassStudentsVO> getStudents(int classCode);
 	
 }

@@ -36,7 +36,7 @@
 			<div id="thumbnailImgArea">
 				<img alt="썸네일" src="${classInfo.thumbnailImg}">
 			</div>
-			<input type="button" id="submit-btn" value="등록">
+			<input type="button" id="submit-btn" value="수정">
 			<input type="button" id="list-btn" value="목록">
 			<input type="hidden" name="classCode" value="${classInfo.classCode}" />
 			<input type="hidden" name="classType" value="${classInfo.classType}" />

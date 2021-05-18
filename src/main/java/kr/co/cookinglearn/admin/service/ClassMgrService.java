@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.cookinglearn.admin.common.page.ClassSearchVO;
 import kr.co.cookinglearn.admin.model.ClassVO;
+import kr.co.cookinglearn.admin.model.process.ClassStudentsVO;
 import kr.co.cookinglearn.admin.repository.IClassMgrMapper;
 import kr.co.cookinglearn.admin.service.interfaces.IClassMgrService;
 
@@ -91,7 +92,9 @@ public class ClassMgrService implements IClassMgrService {
 	@Override
 	public void modClass(ClassVO classInfo) {
 		
-		classInfo.setRunTime(classInfo.getRunTime()*60*24);
+		if(classInfo.isClassType()) {
+			classInfo.setRunTime(classInfo.getRunTime()*60*24);
+		}
 		
 		mapper.modClass(classInfo);
 	}
@@ -109,8 +112,10 @@ public class ClassMgrService implements IClassMgrService {
 		return contentImg;
 	}
 	
-	
-	
+	@Override
+	public List<ClassStudentsVO> getStudents(int classCode) {
+		return mapper.getStudents(classCode);
+	}
 	
 	
 	
