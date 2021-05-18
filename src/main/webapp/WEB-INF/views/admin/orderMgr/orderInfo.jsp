@@ -46,7 +46,7 @@
 			<table border=1>
 				<tr>
 					<th>강의종류</th>
-					<th>강의파트</th>
+					<th>카테고리</th>
 					<th>강의이름</th>
 					<th>
 						<c:if test="${classInfo.classType}">

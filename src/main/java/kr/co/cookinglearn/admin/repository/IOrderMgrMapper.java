@@ -16,4 +16,7 @@ public interface IOrderMgrMapper {
 	//주문번호를 받아 주문정보 반환
 	OrderViewVO getOrderInfo(int orderNo);
 	
+	//고객번호를 받아 주문정보 리스트 반환
+	List<OrderViewVO> getOrderListByUser(int userNo);
+	
 }

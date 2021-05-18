@@ -34,7 +34,9 @@
 				<c:forEach var="user" items="${userList}">
 					<tr>
 						<td>${user.userNo}</td>
-						<td>${user.userId}</td>
+						<td>
+							<a href="<c:url value='/admin/user/${user.userNo}${pageMgr.mkUserUri(pageMgr.paging.currentPage)}'/>">${user.userId}</a>
+						</td>
 						<td>${user.nickname}</td>
 						<td>
 							<c:if test="${user.gender}">남자</c:if>
@@ -42,7 +44,6 @@
 						</td>
 						<td>
 							<fmt:formatDate pattern="yyyy-MM-dd(E)" value="${user.regDate}"/>
-							
 						</td>
 						<td>${user.adminLevel}</td>
 					</tr>

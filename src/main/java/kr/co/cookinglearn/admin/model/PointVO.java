@@ -62,5 +62,10 @@ public class PointVO {
 	public void setPointChange(String pointChange) {
 		this.pointChange = pointChange;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "PointVO [pointNo=" + pointNo + ", userNo=" + userNo + ", pointDate=" + pointDate + ", pointHistory="
+				+ pointHistory + ", pointChange=" + pointChange + "]";
+	}
 }

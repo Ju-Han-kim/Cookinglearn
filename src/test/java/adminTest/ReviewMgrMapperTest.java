@@ -11,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kr.co.cookinglearn.admin.model.ReviewVO;
+import kr.co.cookinglearn.admin.model.process.ReviewClassVO;
 import kr.co.cookinglearn.admin.repository.IReviewMgrMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -47,7 +48,7 @@ public class ReviewMgrMapperTest {
 	@Test
 	public void getUserReviewTest() {
 		
-		int classCode = 1;
+		int classCode = 2;
 		int userNo = 1;
 		
 		Map<String, Integer> datas = new HashMap<String, Integer>();
@@ -70,10 +71,27 @@ public class ReviewMgrMapperTest {
 	}
 	*/
 	
-	
-	
-	
-	
+	/*
+	//유저번호를 받아 리뷰리스트 반환테스트
+	@Test
+	public void getUserReviewWithClassTest() {
+		
+		int userNo = 2;
+		
+		List<ReviewClassVO> list = mapper.getUserReviewWithClass(userNo);
+		
+		if(!list.isEmpty()) {
+			System.out.println("===================");
+			for(ReviewClassVO review : list) {
+				System.out.println(review);
+			}
+			System.out.println("===================");
+		} else {
+			System.out.println("리뷰가 없습니다.");
+		}
+		
+	}
+	*/
 	
 	
 	
