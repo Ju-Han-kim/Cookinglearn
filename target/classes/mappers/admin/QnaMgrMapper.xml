@@ -55,7 +55,11 @@
 		WHERE qna_no = #{qnaNo}
 	</update>
 
-
+	<select id="getQnaListByUser" resultMap="qnaMgrMap">
+		SELECT *
+		FROM qna
+		WHERE user_no = #{user_no}
+	</select>
 
 
 

@@ -47,7 +47,7 @@ public class OrderMgrController {
 		return "admin/orderMgr/offlineOrderManager";
 	}
 	
-	//주문관리-온라인-상세현황 mapping
+	//주문관리-상세현황 mapping
 	@GetMapping("/{orderNo}")
 	public String orderView(@PathVariable int orderNo,OrderSearchVO search, Model model) {
 		

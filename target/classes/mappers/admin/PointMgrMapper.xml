@@ -19,7 +19,7 @@
 	</select>
 	
 	<select id="getUserPoint" resultType="int">
-		SELECT SUM(point_change) FROM "POINT"
+		SELECT NVL(SUM(point_change), 0) FROM "POINT"
 		WHERE user_no = #{userNo}
 	</select>
 	
