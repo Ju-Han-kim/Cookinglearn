@@ -5,41 +5,54 @@
 
 <jsp:include page="../include/header.jsp" />
 
-	<!-- content -->
-	<div class="content">
+	<div class="container">
 		<h3>온라인 강의수정</h3>
-	
 		<form method="post" action="/admin/class/modClass" enctype="multipart/form-data" id="class-form">
-			강의이름 : <input name="className" id="className" value="${classInfo.className}"/>
-			<textarea id="classContent" name="classContent">${classInfo.classContent}</textarea>
-			카테고리 : <select name="classCategory" id="classCategory">
-						<option value="한식" ${classInfo.classCategory=="한식"?"selected":""}>한식</option>
-						<option value="분식" ${classInfo.classCategory=="분식"?"selected":""}>분식</option>
-						<option value="중식" ${classInfo.classCategory=="중식"?"selected":""}>중식</option>
-						<option value="일식" ${classInfo.classCategory=="일식"?"selected":""}>일식</option>
-						<option value="양식" ${classInfo.classCategory=="양식"?"selected":""}>양식</option>
-					</select>
-			수강기간 : <select name="runTime" id="runTime">
-						<option value="30" ${classInfo.runTime==(30*60*24)?"selected":""}>30일</option>
-						<option value="60" ${classInfo.runTime==(60*60*24)?"selected":""}>60일</option>
-						<option value="180" ${classInfo.runTime==(180*60*24)?"selected":""}>180일</option>
-						<option value="365" ${classInfo.runTime==(365*60*24)?"selected":""}>365일</option>
-					</select>
-			수강비용 : <input name="price" id="price" value="${classInfo.price}"/><br>
-			강의링크 : <input name="classUrl" id="classUrl" value="${classInfo.classUrl}" readonly> <span id="ckeck-btn-area"><a href='#' id='modifyUrl'>영상수정</a></span><br>
-			썸네일 : <input type="file" name="file" id="thumbnailImgFile" required> <br>
-			<div id="thumbnailImgArea">
-				<img alt="썸네일" src="${classInfo.thumbnailImg}">
+			<div class="row">
+				<div class="col-md-12">
+					강의이름 : <input name="className" id="className" value="${classInfo.className}"/>
+				</div>
 			</div>
-			<input type="button" id="submit-btn" value="수정">
-			<input type="button" id="list-btn" value="목록">
-			<input type="hidden" name="classCode" value="${classInfo.classCode}" />
-			<input type="hidden" name="classType" value="${classInfo.classType}" />
-			<input type="hidden" name="contentImg" id="contentImg" value="" />
-			<input type="hidden" name="thumbnailImg" id="thumbnailImg" value="" />
+			<div class="row">
+				<div class="col-md-12">
+					<textarea id="classContent" name="classContent">${classInfo.classContent}</textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					카테고리 : <select name="classCategory" id="classCategory">
+								<option value="한식" ${classInfo.classCategory=="한식"?"selected":""}>한식</option>
+								<option value="분식" ${classInfo.classCategory=="분식"?"selected":""}>분식</option>
+								<option value="중식" ${classInfo.classCategory=="중식"?"selected":""}>중식</option>
+								<option value="일식" ${classInfo.classCategory=="일식"?"selected":""}>일식</option>
+								<option value="양식" ${classInfo.classCategory=="양식"?"selected":""}>양식</option>
+							</select>
+					수강기간 : <select name="runTime" id="runTime">
+								<option value="30" ${classInfo.runTime==(30*60*24)?"selected":""}>30일</option>
+								<option value="60" ${classInfo.runTime==(60*60*24)?"selected":""}>60일</option>
+								<option value="180" ${classInfo.runTime==(180*60*24)?"selected":""}>180일</option>
+								<option value="365" ${classInfo.runTime==(365*60*24)?"selected":""}>365일</option>
+							</select>
+					수강비용 : <input name="price" id="price" value="${classInfo.price}"/><br>
+					강의링크 : <input name="classUrl" id="classUrl" value="${classInfo.classUrl}" readonly> <span id="ckeck-btn-area"><a href='#' id='modifyUrl'>영상수정</a></span><br>
+					썸네일 : <input type="file" name="file" id="thumbnailImgFile" required> <br>
+					<div id="thumbnailImgArea">
+						<img alt="썸네일" src="${classInfo.thumbnailImg}">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<input type="button" id="submit-btn" value="수정">
+					<input type="button" id="list-btn" value="목록">
+					<input type="hidden" name="classCode" value="${classInfo.classCode}" />
+					<input type="hidden" name="classType" value="${classInfo.classType}" />
+					<input type="hidden" name="contentImg" id="contentImg" value="" />
+					<input type="hidden" name="thumbnailImg" id="thumbnailImg" value="" />
+				</div>
+			</div>
 		</form>
-	
-	</div>
+	</div>	
 
 <jsp:include page="../include/footer.jsp" />
 

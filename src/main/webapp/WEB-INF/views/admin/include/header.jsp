@@ -18,10 +18,12 @@
 		<link
 			href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&family=Noto+Sans+KR:wght@300;400;700&display=swap"
 			rel="stylesheet" />
-		<link rel="stylesheet" href="/admin/css/style.css" />
 		
 		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
+		
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+		<link rel="stylesheet" href="/admin/css/style.css" />
+		
 	</head>
 	<body>
 		<!-- Header -->
@@ -37,9 +39,29 @@
 		<nav id="navbar">
 			<div class="navbar__menu">
 				<ul class="navbar__menu">
-					<li class="navbar__menu__item ${menu=='DashBoard'?'menu__selected':''}"><a href="/admin/">현황관리</a></li>
-					<li class="navbar__menu__item ${menu=='Class'?'menu__selected':''}"><a href="#">강의관리</a></li>
-					<li class="navbar__menu__item ${menu=='Order'?'menu__selected':''}"><a href="#">주문관리</a></li>
+					<li class="navbar__menu__item ${menu=='DashBoard'?'menu__selected':''}"><a href="<c:url value='/admin/'/>" >현황관리</a></li>
+					<li class="navbar__menu__item ${menu=='Class'?'menu__selected':''}">
+						<div class="dropdown">
+							<a class="dropdown-toggle" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								강의관리
+							</a>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<a class="dropdown-item" href="<c:url value='/admin/class/on'/>">온라인</a>
+								<a class="dropdown-item" href="<c:url value='/admin/class/off1'/>">오프라인</a>
+							</div>
+						</div>
+					</li>
+					<li class="navbar__menu__item ${menu=='Order'?'menu__selected':''}">
+						<div class="dropdown">
+							<a class="dropdown-toggle" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								주문관리
+							</a>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+								<a class="dropdown-item" href="<c:url value='/admin/order/on'/>">온라인</a>
+								<a class="dropdown-item" href="<c:url value='/admin/order/off'/>">오프라인</a>
+							</div>
+						</div>
+					</li>
 					<li class="navbar__menu__item ${menu=='User'?'menu__selected':''}"><a href="<c:url value='/admin/user/'/>">고객관리</a></li>
 					<li class="navbar__menu__item ${menu=='Qna'?'menu__selected':''}"><a href="<c:url value='/admin/qna/'/>">문의관리</a></li>
 				</ul>

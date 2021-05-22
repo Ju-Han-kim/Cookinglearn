@@ -5,45 +5,58 @@
 
 <jsp:include page="../include/header.jsp" />	
 
-	<!-- content -->
-	<div class="content">
+	<div class="container">
 		<h3>오프라인 강의수정</h3>
-	
 		<form method="post" action="/admin/class/modClass" enctype="multipart/form-data" id="class-form">
-			강의이름 : <input name="className" id="className" value="${classInfo.className}"/>
-			<textarea id="classContent" name="classContent">${classInfo.classContent}</textarea>
-			카테고리 : <select name="classCategory" id="classCategory">
-						<option value="한식" ${classInfo.classCategory=="한식"?"selected":""}>한식</option>
-						<option value="분식" ${classInfo.classCategory=="분식"?"selected":""}>분식</option>
-						<option value="중식" ${classInfo.classCategory=="중식"?"selected":""}>중식</option>
-						<option value="일식" ${classInfo.classCategory=="일식"?"selected":""}>일식</option>
-						<option value="양식" ${classInfo.classCategory=="양식"?"selected":""}>양식</option>
-					</select>
-			최대인원 : <select name="maxStudent" id="maxStudent">
-						<c:forEach var="count" begin="1" end="10">
-							<option value="${count}" ${classInfo.maxStudent==count?"selected":""}>${count}</option>
-						</c:forEach>
-					</select>
-			수강비용 : <input name="price" id="price" value="${classInfo.price}"/><br>
-			수강일자 : <input id="startDate" name="startDate" value="${classInfo.startDate}" readonly>
-			수강시간 : <select name="runTime" id="runTime">
-						<option value="30" ${classInfo.runTime==30?"selected":""}>30분</option>
-						<option value="60" ${classInfo.runTime==60?"selected":""}>60분</option>
-						<option value="90" ${classInfo.runTime==90?"selected":""}>90분</option>
-						<option value="180" ${classInfo.runTime==180?"selected":""}>180분</option>
-					</select><br>
-			썸네일 : <input type="file" name="file" id="thumbnailImgFile" required> <br>
-			<div id="thumbnailImgArea">
-				<img alt="썸네일" src="${classInfo.thumbnailImg}">
+			<div class="row">
+				<div class="col-md-12">
+					강의이름 : <input name="className" id="className" value="${classInfo.className}"/>
+				</div>
 			</div>
-			<input type="button" id="submit-btn" value="수정">
-			<input type="button" id="list-btn" value="목록">
-			<input type="hidden" name="classCode" value="${classInfo.classCode}" />
-			<input type="hidden" name="classType" value="${classInfo.classType}" />
-			<input type="hidden" name="contentImg" id="contentImg" value="" />
-			<input type="hidden" name="thumbnailImg" id="thumbnailImg" value="" />
+			<div class="row">
+				<div class="col-md-12">
+					<textarea id="classContent" name="classContent">${classInfo.classContent}</textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					카테고리 : <select name="classCategory" id="classCategory">
+								<option value="한식" ${classInfo.classCategory=="한식"?"selected":""}>한식</option>
+								<option value="분식" ${classInfo.classCategory=="분식"?"selected":""}>분식</option>
+								<option value="중식" ${classInfo.classCategory=="중식"?"selected":""}>중식</option>
+								<option value="일식" ${classInfo.classCategory=="일식"?"selected":""}>일식</option>
+								<option value="양식" ${classInfo.classCategory=="양식"?"selected":""}>양식</option>
+							</select>
+					최대인원 : <select name="maxStudent" id="maxStudent">
+								<c:forEach var="count" begin="1" end="10">
+									<option value="${count}" ${classInfo.maxStudent==count?"selected":""}>${count}</option>
+								</c:forEach>
+							</select>
+					수강비용 : <input name="price" id="price" value="${classInfo.price}"/><br>
+					수강일자 : <input id="startDate" name="startDate" value="${classInfo.startDate}" readonly>
+					수강시간 : <select name="runTime" id="runTime">
+								<option value="30" ${classInfo.runTime==30?"selected":""}>30분</option>
+								<option value="60" ${classInfo.runTime==60?"selected":""}>60분</option>
+								<option value="90" ${classInfo.runTime==90?"selected":""}>90분</option>
+								<option value="180" ${classInfo.runTime==180?"selected":""}>180분</option>
+							</select><br>
+					썸네일 : <input type="file" name="file" id="thumbnailImgFile" required> <br>
+					<div id="thumbnailImgArea">
+						<img alt="썸네일" src="${classInfo.thumbnailImg}">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<input type="button" id="submit-btn" value="수정">
+					<input type="button" id="list-btn" value="목록">
+					<input type="hidden" name="classCode" value="${classInfo.classCode}" />
+					<input type="hidden" name="classType" value="${classInfo.classType}" />
+					<input type="hidden" name="contentImg" id="contentImg" value="" />
+					<input type="hidden" name="thumbnailImg" id="thumbnailImg" value="" />
+				</div>
+			</div>
 		</form>
-	
 	</div>
 
 <jsp:include page="../include/footer.jsp" />
