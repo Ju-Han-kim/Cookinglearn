@@ -3,6 +3,7 @@ package kr.co.cookinglearn.user.service;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.co.cookinglearn.user.model.UserVO;
 
@@ -27,7 +28,7 @@ public interface IUserService {
 	UserVO selectOne(String account);
 
 	//회원 탈퇴 기능
-	void delete(String account);
+	void delete(String account, HttpSession session, HttpServletResponse response) throws Exception;
 	
 	//로그아웃 기능
 	void logout(HttpServletResponse response) throws Exception;

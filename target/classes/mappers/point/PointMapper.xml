@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="kr.co.cookinglearn.order.repository.IPointMapper">
+
+	<resultMap id="MainpageMap" type="kr.co.cookinglearn.point.model.PointVO" >
+		<id property="pointNo" column="point_no" />
+		<result property="userNo" column="user_no" />
+		<result property="pointDate" column="point_date" />
+		<result property="pointHistory" column="point_history" />
+		<result property="pointChange" column="point_change" />
+	</resultMap>
+	
+	<!-- 포인트 적립 -->
+	<insert id="insert">
+		INSERT INTO "ORDER"
+		(clas, content)
+		VALUES(opinion_seq.NEXTVAL, #{content})
+	</insert>
+	
+	<!-- 포인트사용 -->
+	
+	
+	<!-- 포인트 내역 확인 -->
+	
+</mapper>

@@ -34,8 +34,8 @@
 	
 	<!-- 회원가입 메일 인증 -->
 	<beans:bean id="mailSender"	class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<beans:property name="host" value="smtp.gmail.com" />
-		<beans:property name="port" value="587" /><!-- 465 or 25 -->
+		<beans:property name="host" value="smtp-mail.outlook.com" />
+		<beans:property name="port" value="587" />
 		<beans:property name="username" value="cookinglearn@hotmail.com" />
 		<beans:property name="password" value="cookingforever!" />
 		<beans:property name="defaultEncoding" value="utf-8" />

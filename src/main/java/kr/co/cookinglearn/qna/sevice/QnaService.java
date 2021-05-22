@@ -1,5 +1,7 @@
 package kr.co.cookinglearn.qna.sevice;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,11 @@ public class QnaService implements IQnaService {
 		qna.setUserNo(user.getUserNo());
 		qna.setWriter(user.getNickname());
 		mapper.insert(qna);
+	}
+
+	@Override
+	public List<QnaVO> getList(int userNo) {
+		return mapper.getList(userNo);
 	}
 
 }

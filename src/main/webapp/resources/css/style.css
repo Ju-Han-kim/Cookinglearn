@@ -106,6 +106,7 @@ p {
 #header {
   position: relative;
   width: 100%;
+  min-width: 1100px;
 }
 
 .header__brandicon {
@@ -143,19 +144,6 @@ p {
   border-radius: var(--size-border-radius);
 }
 
-.fa-user-cog {
-  width: 40px;
-  height: 40px;
-  font-size: 20px;
-  border: 2px solid #555;
-  border-radius: 50%;
-  color: var(--color-white);
-  background-color: #555;
-  box-shadow: 0px 0px 2px #888;
-  padding: 9px 7px;
-  margin: 0 2px;
-}
-
 .fa-shopping-cart {
   width: 40px;
   height: 40px;
@@ -182,6 +170,19 @@ p {
   margin: 0 2px;
 }
 
+.fa-user-cog {
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  border: 2px solid #696969;
+  border-radius: 50%;
+  color: var(--color-white);
+  background-color: #696969;
+  box-shadow: 0px 0px 2px #888;
+  padding: 9px 7px;
+  margin: 0 2px; 
+}
+
 .header__right--loggedin h4 {
   display: inline-block;
   margin-left: 10px;
@@ -204,7 +205,7 @@ p {
 }
 
 .dropdown-content a {
-  color: black;
+  color: #555;
   padding: 10px 13px;
   text-decoration: none;
   display: block;
@@ -225,6 +226,7 @@ p {
   position: relative;
   width: 100%;
   display: flex;
+  min-width: 1100px;
   justify-content: space-evenly;
   text-align: justify;
   background-color: var(--color-yello);
@@ -261,6 +263,7 @@ p {
   background-color: var(--color-light-grey);
   width: 100%;
   padding: 30px;
+  min-width: 1100px;
 }
 
 .footer {
@@ -318,6 +321,7 @@ p {
   font-size: 13px;
   background-color: #f5f5f5;
   border: 1px solid #e6e7e8;
+  resize: none;
 }
 
 .footer__comment .form-title {

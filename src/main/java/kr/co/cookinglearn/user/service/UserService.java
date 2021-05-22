@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,7 @@ public class UserService implements IUserService {
 
 	@Override
 	public void changeInfo(UserVO user) {
-
+		mapper.changeInfo(user);
 	}
 
 	@Override
@@ -46,14 +47,20 @@ public class UserService implements IUserService {
 
 	@Override
 	public UserVO selectOne(String account) {
-		int result = mapper.selectOne(account).getAdminLevel();
-		System.out.println("service AdminLevel: " + result);
 		return mapper.selectOne(account);
 	}
 
 	@Override
-	public void delete(String account) {
-
+	public void delete(String account, HttpSession session, HttpServletResponse response) throws Exception {
+		mapper.delete(account);
+		session.invalidate();
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.println("<script>");
+		out.println("location.replace('/');");
+		out.println("alert('회원 탈퇴에 성공했습니다');");
+		out.println("</script>");
+		out.close();
 	}
 
 	@Override
@@ -61,7 +68,7 @@ public class UserService implements IUserService {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		out.println("<script>");
-		out.println("location.href=document.referrer;");
+		out.println("location.replace('/');");
 		out.println("</script>");
 		out.close();
 	}

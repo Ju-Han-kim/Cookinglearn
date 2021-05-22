@@ -4,8 +4,8 @@ const sectionIds = [
     '#header'
     ];
 
-const slidebox = document.querySelector('.slidebox');
-const slideboxHeight = slidebox.getBoundingClientRect().height;
+const navbar = document.querySelector('.navbar__menu');
+const navbarHeight = navbar.getBoundingClientRect().height;
 
 const sections = sectionIds.map(id => document.querySelector(id));
 const navItems = sectionIds.map(id =>
@@ -21,7 +21,7 @@ function scrollIntoView(selector) {
 // Show "arrow up" button when scrolling down
 const arrowUp = document.querySelector('.arrow-up')
 document.addEventListener('scroll', () => {
-    if (window.scrollY > slideboxHeight / 2) {
+    if (window.scrollY > navbarHeight / 2) {
         arrowUp.classList.add('visible');
     } else {
         arrowUp.classList.remove('visible');
@@ -32,4 +32,7 @@ document.addEventListener('scroll', () => {
 arrowUp.addEventListener('click', () => {
     scrollIntoView('#header');
 });
+
+
+
 

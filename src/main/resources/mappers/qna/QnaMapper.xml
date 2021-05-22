@@ -21,4 +21,10 @@
 		VALUES(qna_no_seq.NEXTVAL, #{userNo}, #{title}, #{writer}, #{qnaContent})
 	</insert>
 	
+	<select id="getList" resultMap="QnaMap">
+		SELECT * FROM "QNA"
+		WHERE user_no = #{userNo}
+		ORDER BY qna_no DESC
+	</select>
+	
 </mapper>

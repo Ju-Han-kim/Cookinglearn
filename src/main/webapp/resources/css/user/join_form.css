@@ -40,10 +40,6 @@ input {
   border: 1.2px solid #b4b4b4;
 }
 
-span {
-	font-size: 12px;
-}
-
 /* Top */
 .logo {
   text-align: center;
@@ -100,19 +96,33 @@ span {
   font-weight: bold;
 }
 .id_input {
+  width: 70.3%;
+  float: left;
+  border-bottom: none;
+  border-right: none;
+}
+.id_check_button {
+  width: 25%;
+  float: right;
+  height: 52px;
+  background-color: #ebedee;
+  color: #555;
+  font-size: 15px;
+  border: 1.2px solid #b4b4b4;
+  padding: 0;
   border-bottom: none;
 }
 
 /*이메일 인증 영역 */
 .mail_check_input {
-  width: 67.3%;
+  width: 70.3%;
   float: left;
   border-right: none;
 }
 .mail_check_button {
-  width: 28%;
+  width: 25%;
   float: right;
-  height: 53px;
+  height: 52px;
   background-color: #ebedee;
   color: #555;
   font-size: 15px;
@@ -137,6 +147,7 @@ span {
 }
 
 /* 닉네임 영역 */
+
 .nick_name {
   font-size: 25px;
   font-weight: bold;
@@ -144,11 +155,29 @@ span {
 
 .nick_input {
   margin-top: 10px;
+  width: 70.3%;
+  float: left;
+  border-right: none;
+}
+
+.nick_check_button {
+  margin-top: 10px;
+  width: 25%;
+  float: right;
+  height: 52px;
+  background-color: #ebedee;
+  color: #555;
+  font-size: 15px;
+  border: 1.2px solid #b4b4b4;
+  padding: 0;
 }
 
 /* 성별 영역 */
 .radio-input {
+  float: left;
   margin-top: 10px;
+  margin-bottom: 15px;
+  margin-right: 15px
 }
 
 label {
@@ -165,17 +194,28 @@ label {
   padding: 0;
 }
 
-/* 가입하기 버튼 */
-.join_button_wrap {
-  margin-top: 40px;
-  text-align: center;
+#userId_check,
+#password_check,
+#nickname_check,
+#join_check {
+	display: block;
+	float: left;
+	font-size: 12px;
+	margin: 3px;
+	width: 100%
 }
 
+#join_check {
+	vertical-align: middle;
+	margin-top: 15px;
+}
+
+/* 가입하기 버튼 */
 .join_button {
   margin-left: auto;
   margin-right: auto;
   margin-top: 24px;
-  margin-bottom: 22px;
+  margin-bottom: 50px;
   width: 100%;
   height: 55px;
   background-color: #ffbf00;
@@ -185,33 +225,4 @@ label {
   font-weight: 10px;
   color: white;
 }
-
-/* float 속성 해제 */
-.clearfix {
-  clear: both;
-}
-
-/* 중복아이디 존재하지 않는경우 */
-.id_input_re_1 {
-  color: green;
-  display: none;
-}
-/* 중복아이디 존재하는 경우 */
-.id_input_re_2 {
-  color: red;
-  display: none;
-}
-
-/* 중복아이디 존재하지 않는경우 */
-.nick_input_re_1 {
-  color: green;
-  display: none;
-}
-/* 중복아이디 존재하는 경우 */
-.nick_input_re_2 {
-  color: red;
-  display: none;
-}
-
-
 

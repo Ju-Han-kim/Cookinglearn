@@ -49,7 +49,7 @@
 	</form>
 	<div class="button_wrap">
 		<input type="button" onclick="location.href='<c:url value="/user/join"/>'" value="회원 가입" class="join_button"/>
-     	<input type="button" onclick="location.href='<c:url value=""/>'" value="비밀번호 찾기" class="pwFind_button"/>
+     	<input type="button" onclick="location.href='<c:url value="/user/searchPw"/>'" value="비밀번호 찾기" class="pwFind_button"/>
 	</div>
 </div>
 <script>
