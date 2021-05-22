@@ -68,8 +68,11 @@
     </div>
   </div>
   <script>
+  
+  var chk1 = false
+  
   function fn_nickChk(){
-		
+	  	
 		if($("#nickname").val()=="") {
 			alert("닉네임을 입력 후 중복 확인해주세요");
 		} else {
@@ -84,6 +87,7 @@
 		            }else if(result <= 0){
 		                $(".nick_check_button").attr("value", "Y");
 		                alert("사용가능한 닉네임입니다");
+		                chk1 = true;
 		            }
 		        }
 		    })//ajax end
@@ -94,7 +98,7 @@
 
 	    const getPwCheck= RegExp(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/);
 	    
-	    let chk1 = false, chk2 = false, chk3 = false;
+	    let chk2 = false, chk3 = false;
 	    
 	     //password check
 	    $("#password").on("keyup", function(){

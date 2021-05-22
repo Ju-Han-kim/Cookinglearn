@@ -130,7 +130,7 @@ public class UserController {
       int checkNum = random.nextInt(888888)+111111;
       
       //이메일 보내기
-      String setFrom = "zeekajoy@gmail.com"; // 이거 이메일 바꿔야 함
+      String setFrom = "cookinglearn@hotmail.com"; // 이거 이메일 바꿔야 함
       String toMail = email;
       String title = "쿠킹런 회원가입 계정 인증";
       String content =
@@ -228,7 +228,6 @@ public class UserController {
    
    @PostMapping("/modify")
    public String modified(UserVO update, HttpSession session) {
-	   System.out.println(update.getNickname());
 	   UserVO user = (UserVO) session.getAttribute("login");
 	   update.setUserId(user.getUserId());
 	   service.changeInfo(update);
@@ -244,24 +243,12 @@ public class UserController {
    public int nicknameMod(String nickname, HttpSession session) throws Exception {
 	  UserVO user = (UserVO) session.getAttribute("login");
 	  
-	  System.out.println("nickname: " + nickname + ", session: " + user.getNickname());
-	  System.out.println("nickname == session ? " + (nickname == user.getNickname()));
-	  
-	  if (nickname == user.getNickname()) {
+	  if (nickname.equals(user.getNickname())) {
 		  return -1;
 	  } else {
 		  int result = service.checkNickname(nickname);
 		  return result;
 	  }
    }
-   
-   
-   
-   
-   
-   
-   
-   
-   
 
 }
