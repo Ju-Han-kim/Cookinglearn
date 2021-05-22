@@ -44,3 +44,10 @@
 
 <jsp:include page="include/footer.jsp" />
 
+<script>
+	const msg = "${param.msg}";
+	
+	if(msg === "noadmin"){
+		alert("비정상적인 접근입니다.");
+	}
+</script>

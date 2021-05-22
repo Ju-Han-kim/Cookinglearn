@@ -7,61 +7,77 @@
 <jsp:include page="../include/header.jsp" />
 	
 	<div class="container">
-		<h3>온라인 강의 상세현황</h3>
+		<br>
 		<div class="row">
 			<div class="col-md-12">
-				${classInfo.classCode}번 강의정보 
-				<c:if test="${classInfo.classContent != null}">
-					${classInfo.classContent}
-				</c:if>
+				<div class="card border-secondary mb-3">
+					<div class="card-header"><strong>온라인 강의 상세현황</strong></div>
+					<div class="card-body">
+						${classInfo.classCode}번 강의정보 
+						<c:if test="${classInfo.classContent != null}">
+							${classInfo.classContent}
+						</c:if>
+					</div>
+				</div>
 			</div>
 		</div>
+
+		<div class="row">
+			<div class="col-sm-12">
+				<button class="btn btn-outline-primary" id="list-btn">목록</button> 
+				<button class="btn btn-outline-primary" id="update-btn">수정</button> 
+				<button class="btn btn-outline-primary" id="delete-btn">삭제</button>
+			</div>
+		</div>
+		<br>
 		<div class="row">
 			<div class="col-md-12">
-				<button id="list-btn">목록</button> 
-				<button id="update-btn">수정</button> 
-				<button id="delete-btn">삭제</button>
+				<div class="card border-secondary mb-3">
+					<div class="card-header"><strong>신청자 현황</strong></div>
+					<div class="card-body">
+						<div class="row">
+							<c:if test="${fn:length(students) != 0}">
+								<div class="col-sm-3 text-center">
+									<canvas id="myChart"></canvas>
+								</div>
+								<div class="col-sm-9 text-center">
+									<table class="table table-bordered">
+										<tr>
+											<th scope="col">순번</th>
+											<th scope="col">아이디</th>
+											<th scope="col">닉네임</th>
+											<th scope="col">성별</th>
+											<th scope="col">결제일자</th>
+											<th scope="col">진행상태</th>
+											<th scope="col">비고</th>
+										</tr>
+										<c:forEach var="student" items="${students}">
+											<tr>
+												<td scope="row">${student.stuNo}</td>
+												<td>${student.userId}</td>
+												<td>${student.nickname}</td>
+												<td>
+													<c:if test="${student.gender}">남자</c:if>
+													<c:if test="${!student.gender}">여자</c:if>
+												<td>
+													<fmt:formatDate pattern="yyyy-MM-dd(E)" value="${student.paymentDate}" />
+												</td>
+												<td>${student.getProcess(orderProcess)}</td>
+												<td></td>
+											</tr>
+										</c:forEach>
+									</table>
+								</div>
+							</c:if>
+							<c:if test="${fn:length(students) == 0}">
+								<div class="col-sm-12 text-center">
+									강의를 신청한 수강생이 없습니다.
+								</div>
+							</c:if>
+						</div>
+					</div>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<c:if test="${fn:length(students) != 0}">
-				<div class="col-md-3 text-center">
-					<canvas id="myChart"></canvas>
-				</div>
-				<div class="col-md-9 text-center">
-					<table class="table table-bordered">
-						<tr>
-							<th scope="col">순번</th>
-							<th scope="col">아이디</th>
-							<th scope="col">닉네임</th>
-							<th scope="col">성별</th>
-							<th scope="col">결제일자</th>
-							<th scope="col">진행상태</th>
-							<th scope="col">비고</th>
-						</tr>
-						<c:forEach var="student" items="${students}">
-							<tr>
-								<td scope="row">${student.stuNo}</td>
-								<td>${student.userId}</td>
-								<td>${student.nickname}</td>
-								<td>
-									<c:if test="${student.gender}">남자</c:if>
-									<c:if test="${!student.gender}">여자</c:if>
-								<td>
-									<fmt:formatDate pattern="yyyy-MM-dd(E)" value="${student.paymentDate}" />
-								</td>
-								<td>${student.getProcess(orderProcess)}</td>
-								<td></td>
-							</tr>
-						</c:forEach>
-					</table>
-				</div>
-			</c:if>
-			<c:if test="${fn:length(students) == 0}">
-				<div class="col-md-12">
-					아직 강의를 신청한 수강생이 없습니다.
-				</div>
-			</c:if>
 		</div>
 	</div>
 
@@ -152,15 +168,5 @@
 	};
 
 	let myChart = new Chart(document.getElementById('myChart'),config);
-
-
-
-
-
-
-
-
-
-
 
 </script>

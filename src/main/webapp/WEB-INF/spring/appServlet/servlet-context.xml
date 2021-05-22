@@ -58,12 +58,17 @@
 	<context:component-scan base-package="kr.co.cookinglearn" />
 	
 	<beans:bean id="classInterceptor" class="kr.co.cookinglearn.admin.common.interceptor.ClassInterceptor" />
+	<beans:bean id="adminInterceptor" class="kr.co.cookinglearn.admin.common.interceptor.AdminInterceptor" />
 	
 	<interceptors>
 		<interceptor>
 			<mapping path="/admin/class/off/*"/>
 			<mapping path="/admin/class/on/*"/>
 			<beans:ref bean="classInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/admin/*"/>
+			<beans:ref bean="adminInterceptor"/>
 		</interceptor>
 	</interceptors>
 	

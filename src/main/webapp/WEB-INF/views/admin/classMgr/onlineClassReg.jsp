@@ -6,48 +6,102 @@
 <jsp:include page="../include/header.jsp" />
 
 	<div class="container">
-		<h3>온라인 강의등록</h3>
+		<br>
 		<form method="post" action="/admin/class/regClass" enctype="multipart/form-data" id="class-form">
 			<div class="row">
 				<div class="col-md-12">
-					강의이름 : <input name="className" id="className" />
+					<div class="card border-secondary mb-3">
+						<div class="card-header"><strong>온라인 강의등록</strong></div>
+						<div class="card-body text-secondary">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="row">
+										<label class="col-sm-1 col-form-label">강의이름</label> 
+										<div class="col-sm-11">
+											 <input class="form-control" name="className" id="className" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-md-12">
+									<textarea id="classContent" name="classContent"></textarea>
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<label class="col-sm-1 col-form-label">카테고리</label> 
+								<div class="col-sm-3">
+									<select class="custom-select" id="classCategory" name="classCategory">
+										<option value="한식" >한식</option>
+										<option value="분식" >분식</option>
+										<option value="중식" >중식</option>
+										<option value="일식" >일식</option>
+										<option value="양식" >양식</option>
+									</select>
+								</div>
+								<label class="col-sm-1 col-form-label">수강기간</label> 
+								<div class="col-sm-3">
+									<select class="custom-select" id="runTime" name="runTime">
+										<option value="30" >30일</option>
+										<option value="60" >60일</option>
+										<option value="180" >180일</option>
+										<option value="365" >365일</option>
+									</select>
+								</div>
+								<label class="col-sm-1 col-form-label">수강비용</label> 
+								<div class="col-sm-3">
+									<input class="form-control" name="price" id="price" />
+								</div>
+							</div>
+							<br>
+							
+							<div class="row">
+								<label class="col-sm-1 col-form-label">강의링크</label> 
+								<div class="col-sm-11 input-group mb-3">
+									<input class="form-control" placeholder="URL" name="classUrl" id="classUrl">
+									<div class="input-group-append">
+										<span id="ckeck-btn-area">
+											<button class="btn btn-outline-secondary" type="button" id="checkUrl">영상확인</button>
+										</span>
+									</div>
+								</div>
+							</div>
+							
+							<br>
+							<div class="row">
+								<label class="col-sm-1 col-form-label">썸네일</label> 
+								<div class="col-sm-11">
+									<div class="input-group">
+										<div class="custom-file">
+											<input type="file" class="custom-file-input" name="file" id="thumbnailImgFile">
+											<label class="custom-file-label">파일을 선택해주세요</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-sm-1"></div>
+								<div id="thumbnailImgArea"></div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-12">
-					<textarea id="classContent" name="classContent"></textarea>
+				<div class="col-md-6">
+					<input type="button" class="btn btn-block btn-outline-primary" id="submit-btn" value="등록">
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					카테고리 : <select name="classCategory" id="classCategory">
-								<option value="한식" >한식</option>
-								<option value="분식" >분식</option>
-								<option value="중식" >중식</option>
-								<option value="일식" >일식</option>
-								<option value="양식" >양식</option>
-							</select>
-					수강기간 : <select name="runTime" id="runTime">
-								<option value="30" >30일</option>
-								<option value="60" >60일</option>
-								<option value="180" >180일</option>
-								<option value="365" >365일</option>
-							</select>
-					수강비용 : <input name="price" id="price" /><br>
-					강의링크 : <input name="classUrl" id="classUrl"> <span id="ckeck-btn-area"><a href="#" id="checkUrl">영상확인</a></span><br>
-					썸네일 : <input type="file" name="file" id="thumbnailImgFile" required> <br>
-					<div id="thumbnailImgArea"></div>
+				<div class="col-md-6">
+					<input type="button" class="btn btn-block btn-outline-primary" id="list-btn" value="목록">
 				</div>
+				<input type="hidden" name="classType" value="${classType}" />
+				<input type="hidden" name="contentImg" id="contentImg" value="" />
+				<input type="hidden" name="thumbnailImg" id="thumbnailImg" value="" />
 			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<input type="button" id="submit-btn" value="등록">
-					<input type="button" id="list-btn" value="목록">
-					<input type="hidden" name="classType" value="${classType}" />
-					<input type="hidden" name="contentImg" id="contentImg" value="" />
-					<input type="hidden" name="thumbnailImg" id="thumbnailImg" value="" />
-				</div>
-			</div>
+			<br>
 		</form>
 	</div>
 	
@@ -117,11 +171,11 @@
 		
 		function checkUrlFunc() {
 			const src = $("#classUrl").val();
-			window.open(src,"영상확인","top=100px, left=50px, height=800px, width=1200px, menubar=no, toolbar=no, location=no")
+			window.open(src,"영상확인","top=100px, left=50px, height=800px, width=1200px, menubar=no, toolbar=no, location=no");
 			
 			if(confirm('영상을 확정하시겠습니까?')){
 				$("#classUrl").attr("readonly", "");
-				$("#ckeck-btn-area").html("<a href='#' id='modifyUrl'>영상수정</a>");
+				$("#ckeck-btn-area").html("<button class='btn btn-outline-secondary' type='button' id='modifyUrl'>영상수정</button>");
 				chk5 = true;
 				$("#modifyUrl").click(function() {
 					if(confirm("영상을 수정하시겠습니까?")){
@@ -129,7 +183,7 @@
 						$("#classUrl").val("");
 						$("#classUrl").focus();
 						chk5 = false;
-						$("#ckeck-btn-area").html("<a href='#' id='checkUrl'>영상확인</a>");
+						$("#ckeck-btn-area").html("<button class='btn btn-outline-secondary' type='button' id='checkUrl'>영상확인</button>");
 						$("#checkUrl").click(function() {
 							checkUrlFunc();
 						});

@@ -280,6 +280,8 @@ public class ClassMgrController {
 	@PostMapping("/modClass")
 	public String modifyClass(ClassVO classInfo, RedirectAttributes ra) {
 		
+		System.out.println(classInfo);
+		
 		service.modClass(classInfo);
 		
 		ra.addFlashAttribute("msg", "modSuccess");
