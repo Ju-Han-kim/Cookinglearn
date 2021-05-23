@@ -27,7 +27,7 @@
           </div>
           <!-- Comment -->
           <div class="footer__comment">
-            <form role="form" method="post">
+            <form role="form" action="/" method="post">
               <input
                 type="text"
                 name="title"

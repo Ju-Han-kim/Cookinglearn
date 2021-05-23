@@ -52,7 +52,16 @@
 	          <p id="my_info_rg"><i class="far fa-calendar-check"></i>&nbsp;&nbsp;&nbsp;가입일:&nbsp;&nbsp;<c:out value="${login.regDate}"/></p>
 	          <div class="button_wrapper">
 	            <button type="button" id="update_info-btn" onclick="location.href='/user/modify'">내 정보 수정</button>
-	            <button type="button" id="delete_info-btn" onclick="location.href='/user/delete'">회원 탈퇴</button>
+	            <button type="button" id="delete_info-btn" onclick="delete_account();">회원 탈퇴</button>
+	            <script>
+	            	function delete_account() {
+	            		if (!confirm("정말 회원을 탈퇴하시겠습니까?")) {
+	            			return
+	            	    } else {
+	            	    	location.href="/user/delete";
+	            	    }
+	            	}
+	            </script>
           	  </div>
         	</div>
       	</c:if>

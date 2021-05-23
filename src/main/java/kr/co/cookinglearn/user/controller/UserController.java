@@ -190,11 +190,11 @@ public class UserController {
 	   return "mypage/my_class";
    }
    
-   //mypoint
-   @GetMapping("/mypoint")
-   public String mypoint() {
-	   return "mypage/my_point";
-   }
+//   //mypoint
+//   @GetMapping("/mypoint")
+//   public String mypoint() {
+//	   return "mypage/my_point";
+//   }
    
    //mypayment
    @GetMapping("/mypayment")
