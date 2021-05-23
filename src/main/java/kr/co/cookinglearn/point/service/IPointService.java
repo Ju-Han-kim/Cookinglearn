@@ -1,5 +1,7 @@
 package kr.co.cookinglearn.point.service;
 
+import java.util.ArrayList;
+
 import kr.co.cookinglearn.admin.model.PointVO;
 
 public interface IPointService {
@@ -8,6 +10,6 @@ public interface IPointService {
 	void insert(PointVO addpoint);
 
 	//포인트 리스트 출력
-	PointVO pointList(PointVO user_no);
+	ArrayList<PointVO> pointList(int userNo);
 
 }

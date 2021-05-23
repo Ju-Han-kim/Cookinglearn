@@ -17,6 +17,21 @@
 		<result property="orderProcess" column="order_process" />
 	</resultMap>
 	
+	
+	
+	<!--cartList출력  -->
+	<select id="cartList"  resultType="kr.co.cookinglearn.board.domain.BoardVO">
+		select 
+			class_code,
+		    class_type,
+		    thumbnail_img,
+		    class_name,
+		    price
+		 from "CLASS"
+		 WHERE
+			class_code = #{code} 
+	</select>
+	
 	<!-- 결제완료시 얻어와지는 데이터를 DB에 저장 -->
 	<insert id="insert">
 		INSERT INTO "ORDER"

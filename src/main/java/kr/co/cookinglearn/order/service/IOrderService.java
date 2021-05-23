@@ -1,8 +1,13 @@
 package kr.co.cookinglearn.order.service;
 
+import java.util.List;
+
 import kr.co.cookinglearn.order.model.OrderVO;
 
-public interface IOrderService {
+public interface IOrderService<BoardVO> {
+	
+	//장바구니 
+	List<BoardVO> cartList(int code);
 	
 	//주문정보 등록
 	void insert(OrderVO OrderList);

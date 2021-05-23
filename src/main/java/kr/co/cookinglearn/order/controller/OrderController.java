@@ -1,31 +1,52 @@
 package kr.co.cookinglearn.order.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import kr.co.cookinglearn.board.domain.BoardVO;
+import kr.co.cookinglearn.order.service.OrderService;
+import kr.co.cookinglearn.user.model.UserVO;
 
 @Controller
 @RequestMapping("/order")
 public class OrderController {
 	
+
+	
+	 @Autowired
+	 	private OrderService service;
+	 
 	@GetMapping("/cart")
-	public String cart(HttpSession session) { 
+	public String cart(HttpSession session, Model model) { 		
 		
-		/*
-		//세션이 존재하면 페이지이동 (아직 상품관련내용이 없어서 vo를추가 안함 , 
-		  세션으로 강의 코드 받아오면 상품vo에서 정보 빼오기
-		if(session.getAttribute("classCode") != null) {
-			
+		UserVO uvo = (UserVO) session.getAttribute("login");
+		BoardVO bvo = (BoardVO) session.getAttribute("classCode");
+		
+		
+		if(uvo == null) {		
 			return "order/cart";
+		}else {
+			
+			int code = bvo.getClassCode();  
+			List<BoardVO> cartList = service.cartList(code);
+			model.addAttribute("cartList",cartList);
+					
 		}
-		return "order/emptycart";
-		*/
+		return "order/cart";
 		
 		//일단 세션이 없으니까
-		return "order/cart";
+		//return "order/cart";
 	}
 	
 	@GetMapping("/complete")

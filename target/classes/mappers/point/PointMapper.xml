@@ -15,14 +15,15 @@
 	
 	<!-- 포인트 적립 -->
 	<insert id="insert">
-		INSERT INTO "ORDER"
-		(clas, content)
-		VALUES(opinion_seq.NEXTVAL, #{content})
+
 	</insert>
 	
 	<!-- 포인트사용 -->
 	
 	
 	<!-- 포인트 내역 확인 -->
-	
+	<select id="pointList">
+	select * from "POINT"
+	where user_no = #{userNo}	
+	</select>
 </mapper>
