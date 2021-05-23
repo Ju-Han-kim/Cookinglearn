@@ -62,8 +62,12 @@
 												<td>
 													<fmt:formatDate pattern="yyyy-MM-dd(E)" value="${student.paymentDate}" />
 												</td>
-												<td>${student.getProcess(orderProcess)}</td>
-												<td></td>
+												<td id="process-td${student.userNo}">${student.getProcess(student.orderProcess)}</td>
+												<td>
+													<c:if test="${student.orderProcess == 1}">
+														<button class="btn btn-sm btn-outline-secondary process-btn" id="${student.userNo}">완료처리</button>
+													</c:if>
+												</td>
 											</tr>
 										</c:forEach>
 									</table>
@@ -137,6 +141,32 @@
 			}
 		});
 		
+		//프로세스 변경
+		$(".process-btn").click(function() {
+			if(confirm('수강완료 처리하시겠습니까?')){
+				const classCode = "${classInfo.classCode}";
+				const userNo = $(this).attr("id");
+				
+				const id = "#process-td"+userNo;
+				
+				$.ajax({
+					type: "POST",
+					data:{
+						"classCode": classCode,
+						"userNo": userNo
+					},
+					url:"/admin/class/orderprocess",
+					success: function() {
+						alert("성공적으로 수정되었습니다.");
+						$(id).html("수강완료");
+					},
+					error: function() {
+						console.log("통신오류 : 프로세스변경");
+					}
+				});
+				
+			}
+		});
 		
 	});
 	

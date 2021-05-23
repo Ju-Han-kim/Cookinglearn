@@ -228,7 +228,7 @@
 		
 		//주문자 상세정보 이동
 		$("#userInfo-btn").click(function() {
-			location.href="";
+			location.href="/admin/user/"+"${userInfo.userNo}"+"?currentPage=1";
 		});
 		
 		//강의 상세정보 이동

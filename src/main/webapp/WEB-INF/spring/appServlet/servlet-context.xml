@@ -68,6 +68,10 @@
 		</interceptor>
 		<interceptor>
 			<mapping path="/admin/*"/>
+			<mapping path="/admin/class/*"/>
+			<mapping path="/admin/order/*"/>
+			<mapping path="/admin/user/*"/>
+			<mapping path="/admin/qna/*"/>
 			<beans:ref bean="adminInterceptor"/>
 		</interceptor>
 	</interceptors>

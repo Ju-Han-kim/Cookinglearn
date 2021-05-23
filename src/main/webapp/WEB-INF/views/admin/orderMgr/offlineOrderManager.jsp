@@ -72,7 +72,9 @@
 								<td>
 									<a href="<c:url value='/admin/order/${orderInfo.orderNo}${pageMgr.mkOrderUri(pageMgr.paging.currentPage)}' />">${orderInfo.className}</a>
 								</td>
-								<td>${orderInfo.userId}</td>
+								<td>
+									<a href="<c:url value='/admin/order/${orderInfo.orderNo}${pageMgr.mkOrderUri(pageMgr.paging.currentPage)}' />">${orderInfo.userId}</a>
+								</td>
 								<td>
 									<fmt:formatDate pattern="yyyy-MM-dd(E)" value="${orderInfo.paymentDate}"/>
 								</td>

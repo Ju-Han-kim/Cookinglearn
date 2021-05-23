@@ -5,7 +5,9 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -313,8 +315,25 @@ public class ClassMgrMapperTest {
 	}
 	*/
 	
-	
-	
+	/*
+	//강의번호와 유저번호를 받아 결제내역의 진행상태를 '수강완료(2)'으로 변경테스트
+	@Test
+	public void setProcessTest() {
+		
+		Map<String, Integer> datas = new HashMap<String, Integer>();
+		
+		int userNo = 1;
+		int classCode = 1;
+		int orderProcess = 2;
+		
+		datas.put("userNo", userNo);
+		datas.put("classCode", classCode);
+		datas.put("orderProcess", orderProcess);
+		
+		mapper.setProcess(datas);
+		
+	}
+	*/
 	
 	
 	

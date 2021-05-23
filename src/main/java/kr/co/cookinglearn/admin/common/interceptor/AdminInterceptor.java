@@ -20,7 +20,7 @@ public class AdminInterceptor extends HandlerInterceptorAdapter{
 		//user.model.UserVO 이용
 		UserVO user = (UserVO)session.getAttribute("login");
 		
-		if(user == null || user.getAdminLevel() == 0) {
+		if(user == null || user.getAdminLevel() <= 0) {
 			response.sendRedirect("/?msg=noadmin");
 		}
 		

@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 public class ClassStudentsVO {
 
 	private int stuNo;
+	private int userNo;
 	private String userId;
 	private String nickname;
 	private boolean gender;
@@ -79,10 +80,18 @@ public class ClassStudentsVO {
 	public void setOrderProcess(int orderProcess) {
 		this.orderProcess = orderProcess;
 	}
+	
+	public int getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
 
 	@Override
 	public String toString() {
-		return "ClassStudentsVO [stuNo=" + stuNo + ", userId=" + userId + ", nickname="
+		return "ClassStudentsVO [stuNo=" + stuNo + ", userNo=" + userNo + ", userId=" + userId + ", nickname="
 				+ nickname + ", gender=" + gender + ", paymentDate=" + paymentDate + ", orderProcess=" + orderProcess
 				+ "]";
 	}

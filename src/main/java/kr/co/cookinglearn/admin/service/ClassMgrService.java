@@ -2,13 +2,16 @@ package kr.co.cookinglearn.admin.service;
 
 import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.cookinglearn.admin.common.page.ClassSearchVO;
 import kr.co.cookinglearn.admin.model.ClassVO;
+import kr.co.cookinglearn.admin.model.OrderVO;
 import kr.co.cookinglearn.admin.model.process.ClassStudentsVO;
 import kr.co.cookinglearn.admin.repository.IClassMgrMapper;
 import kr.co.cookinglearn.admin.service.interfaces.IClassMgrService;
@@ -117,7 +120,18 @@ public class ClassMgrService implements IClassMgrService {
 		return mapper.getStudents(classCode);
 	}
 	
-	
+	@Override
+	public void setProcess(OrderVO order) {
+		
+		Map<String, Integer> datas = new HashMap<String, Integer>();
+		
+		datas.put("userNo", order.getUserNo());
+		datas.put("classCode", order.getClassCode());
+		datas.put("orderProcess", 2);
+		
+		mapper.setProcess(datas);
+		
+	}
 	
 	
 	

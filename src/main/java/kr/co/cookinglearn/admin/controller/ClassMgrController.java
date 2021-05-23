@@ -23,6 +23,7 @@ import com.google.gson.JsonObject;
 import kr.co.cookinglearn.admin.common.page.ClassSearchVO;
 import kr.co.cookinglearn.admin.common.page.PageMgr;
 import kr.co.cookinglearn.admin.model.ClassVO;
+import kr.co.cookinglearn.admin.model.OrderVO;
 import kr.co.cookinglearn.admin.model.process.ClassStudentsVO;
 import kr.co.cookinglearn.admin.service.interfaces.IClassMgrService;
 
@@ -280,8 +281,6 @@ public class ClassMgrController {
 	@PostMapping("/modClass")
 	public String modifyClass(ClassVO classInfo, RedirectAttributes ra) {
 		
-		System.out.println(classInfo);
-		
 		service.modClass(classInfo);
 		
 		ra.addFlashAttribute("msg", "modSuccess");
@@ -291,6 +290,14 @@ public class ClassMgrController {
 	}
 	
 	
+	//강의 수강완료 상태전환
+	@PostMapping("/orderprocess")
+	@ResponseBody
+	public void setOrderProcess(OrderVO order) {
+		
+		service.setProcess(order);
+		
+	}
 	
 	
 	
