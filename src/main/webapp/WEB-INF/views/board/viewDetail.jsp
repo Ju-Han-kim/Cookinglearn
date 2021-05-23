@@ -1,6 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib  prefix="spring" uri="http://www.springframework.org/tags" %>
+
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,17 +64,30 @@
 	 <table class="table table-bordered">
 	    <thead>
 	      <tr>
-	        <th>클래스 리뷰</th>
+	        <th>클래스 리뷰<br>
+	        <c:choose>
+	        	<c:when test="${not empty login.nickname}">
+		        	<form action="write" method="POST">
+		        	  <input type="hidden" name="classCode" value="${detail.classCode}">
+			          <textarea cols="50" rows="1" name="reviewComment" placeholder="댓글을 입력하세요." ></textarea>
+			          <button type="submit">작성</button>
+			      	</form>
+		      	</c:when>
+		        <c:otherwise>
+		        	<br>로그인시 댓글창이 활성화 됩니다.
+			    </c:otherwise>
+	        </c:choose>
+	      	</th>
 	      </tr>
 	    </thead>
 	    <tbody>
-			 <c:forEach items="${review}" var="reviewList">
-		   		<tr>
-			     <td>${reviewList.writer} <br/>
-			     	 ${reviewList.reviewComment}</td>
-				</tr>
-			  </c:forEach>
-			 </tbody>
+		  <c:forEach items="${review}" var="reviewList">
+	   		<tr>
+		     <td>${reviewList.writer} <br/>
+	     		 ${reviewList.reviewComment}</td>
+			</tr>
+		  </c:forEach>
+	 	</tbody>
 	  </table>
 	</div>
 	<!-- footer -->

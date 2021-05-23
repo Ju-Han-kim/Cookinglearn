@@ -37,6 +37,13 @@ public class BoardServiceImpl implements BoardService {
 		return dao.reviewList(no);
 	}
 
+	@Override
+	public void write(ReviewVO vo) throws Exception {
+		// TODO Auto-generated method stub
+	
+		dao.write(vo);
+	}
+
 
 	
 }

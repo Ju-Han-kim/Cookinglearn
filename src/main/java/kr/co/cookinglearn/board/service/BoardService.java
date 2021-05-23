@@ -20,4 +20,7 @@ public interface BoardService {
 	//댓글 상세보기
 	public List<ReviewVO> reviewList(int no) throws Exception;
 	
+	//댓글 작성
+	public void write(ReviewVO vo) throws Exception;
+	
 }
