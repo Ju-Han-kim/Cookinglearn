@@ -45,6 +45,10 @@ public class BoardDAOImpl implements BoardDAO {
 		return sql.selectList(namespace + ".reviewList", no);
 	}
 
+	@Override
+	public void write(ReviewVO vo) throws Exception {
 
+		sql.insert(namespace + ".write", vo);
+	}
 
 }

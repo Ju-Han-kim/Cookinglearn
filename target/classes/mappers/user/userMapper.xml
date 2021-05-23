@@ -8,6 +8,7 @@
 	<!--DB컬럼명과 VO클래스의 필드명이 다르므로 ResultMap세팅 -->
 	<resultMap id="userMap" type="kr.co.cookinglearn.user.model.UserVO" >
 	<id property="userId" column="user_id"/>
+	<result property="userNo" column="user_no"/>
 	<result property="userPassword" column="user_password" />
 	<result property="nickname" column="nickname" />
 	<result property="gender" column="gender" />

@@ -38,7 +38,7 @@
 		    class
 	</select>
 	<!-- 게시물 조회 -->
-	<select id="kategorie" resultType="kr.co.cookinglearn.board.domain.BoardVO">
+	<select id="kategorie" resultMap="board">
 		SELECT
 		    class_code,
 		    class_type,

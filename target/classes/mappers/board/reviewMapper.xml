@@ -30,4 +30,21 @@
     	WHERE class_code = #{class_code}
 	</select>
 
+	<insert id="write">
+		INSERT INTO review ( 
+			review_no, 
+			user_no, 
+			class_code, 
+			writer, 
+			review_comment, 
+			review_star
+		) VALUES (
+			REVIEW_NO_SEQ.nextval,
+			#{userNo},
+			#{classCode},
+			#{writer},
+			#{reviewComment},
+			3
+		)
+	</insert>
 </mapper>
