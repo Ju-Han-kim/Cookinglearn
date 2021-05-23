@@ -214,12 +214,15 @@ public class DashBoardService implements IDashBoardService {
 		List<QnaVO> TopQnaList = new ArrayList<QnaVO>();
 		List<QnaVO> qnaList = qnaMapper.getQnaList(search);
 		
-		/*
-		for(int i=0; i<3; i++) {
-			TopQnaList.add(qnaList.get(i));
+		int showListSet = qnaList.size() < 3 ? qnaList.size() : 3;
+		
+		if(!qnaList.isEmpty()) {
+			for(int i=0; i<showListSet; i++) {
+				TopQnaList.add(qnaList.get(i));
+			}
 		}
-		*/
 		return TopQnaList;
+		
 	}
 	
 	

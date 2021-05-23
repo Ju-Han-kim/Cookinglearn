@@ -2,9 +2,8 @@ package kr.co.cookinglearn.admin.controller;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.List;
 import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +23,8 @@ import com.google.gson.JsonObject;
 import kr.co.cookinglearn.admin.common.page.ClassSearchVO;
 import kr.co.cookinglearn.admin.common.page.PageMgr;
 import kr.co.cookinglearn.admin.model.ClassVO;
+import kr.co.cookinglearn.admin.model.OrderVO;
+import kr.co.cookinglearn.admin.model.process.ClassStudentsVO;
 import kr.co.cookinglearn.admin.service.interfaces.IClassMgrService;
 
 @Controller
@@ -32,6 +33,8 @@ public class ClassMgrController {
 
 	@Autowired
 	private IClassMgrService service;
+	
+	private final String imgRootPath = "C:/class/img/";
 	
 	//온라인 강의관리 페이지 Mapping
 	@GetMapping("/on")
@@ -48,10 +51,16 @@ public class ClassMgrController {
 	//온라인 강의 상세현황 페이지 Mapping
 	@GetMapping("/on/{classCode}")
 	public String onlineClassContent(@PathVariable int classCode, Model model, RedirectAttributes ra) {
+		
+		model.addAttribute("menu", "Class");
+		
 		ClassVO classInfo = service.getClassInfo(classCode);
 		
 		if(classInfo.isClassType()) {
 			model.addAttribute("classInfo", classInfo);
+			
+			List<ClassStudentsVO> students = service.getStudents(classCode);
+			model.addAttribute("students", students);
 			return "admin/classMgr/onlineClassContent";
 		} else {
 			ra.addFlashAttribute("msg", "noClass");
@@ -62,10 +71,16 @@ public class ClassMgrController {
 	//오프라인 강의 상세현황 페이지 Mapping
 	@GetMapping("/off/{classCode}")
 	public String offlineClassContent(@PathVariable int classCode, Model model, RedirectAttributes ra, @RequestParam(name="offOption", defaultValue="1" ) int offOption) {
+		
+		model.addAttribute("menu", "Class");
+		
 		ClassVO classInfo = service.getClassInfo(classCode);
 		
 		if(!classInfo.isClassType()) {
 			model.addAttribute("classInfo", classInfo);
+			
+			List<ClassStudentsVO> students = service.getStudents(classCode);
+			model.addAttribute("students", students);
 			return "admin/classMgr/offlineClassContent";
 		} else {
 			ra.addFlashAttribute("msg", "noClass");
@@ -128,6 +143,21 @@ public class ClassMgrController {
 		
 		String path = classInfo.isClassType() ? "redirect:/admin/class/on" : "redirect:/admin/class/off"+offOption;
 		
+		List<String> contentImgList = service.getContentImg(classInfo.getClassCode());
+		
+		if(contentImgList != null) {
+			for(String contentImg : contentImgList) {
+				if(contentImg.length() >= 10) {
+					try {
+						File targetFile = new File(imgRootPath + contentImg.substring(10));	
+						FileUtils.deleteQuietly(targetFile);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		
 		if(service.classDelete(classInfo.getClassCode())) {
 			ra.addFlashAttribute("msg", "deleteSuccess");
 		} else {
@@ -141,26 +171,38 @@ public class ClassMgrController {
 	@GetMapping("/regon")
 	public String regonClass(Model model) {
 		
+		model.addAttribute("menu", "Class");
+		
 		model.addAttribute("classType", true);
 		return "admin/classMgr/onlineClassReg";
 	}
 	
-	//온라인 강의등록 이미지 파일저장
-	@PostMapping(value="/regon", produces = "application/json; charset=utf8")
+	//오프라인 강의등록 화면 Mapping
+	@GetMapping("/regoff")
+	public String regoffClass(Model model) {
+		
+		model.addAttribute("menu", "Class");
+		
+		model.addAttribute("classType", false);
+		return "admin/classMgr/offlineClassReg";
+	}
+	
+	//강의등록 이미지 파일저장
+	@PostMapping(value="/regimg", produces = "application/json; charset=utf8")
 	@ResponseBody
-	public String uploadImgFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request)  {
+	public String uploadImgFile(@RequestParam("file") MultipartFile multipartFile, String part, String classType)  {
 		JsonObject jsonObject = new JsonObject();
 		
-		String fileRoot = "C:/class/img/";
+		String fileRoot = imgRootPath + classType + part;
 		String originalFileName = multipartFile.getOriginalFilename();
 		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
-		String savedFileName = "on_" + UUID.randomUUID().toString().substring(0,6) + extension;
+		String savedFileName = classType + "_" + UUID.randomUUID().toString().substring(0,6) + extension;
 		
 		File targetFile = new File(fileRoot + savedFileName);	
 		try {
 			InputStream fileStream = multipartFile.getInputStream();
 			FileUtils.copyInputStreamToFile(fileStream, targetFile);
-			jsonObject.addProperty("url", "/classImg/"+savedFileName);
+			jsonObject.addProperty("url", "/classImg/"+classType+part+savedFileName);
 			jsonObject.addProperty("responseCode", "success");
 			
 		} catch (Exception e) {
@@ -172,28 +214,90 @@ public class ClassMgrController {
 		return a;
 	}
 	
+	//등록된 이미지 삭제
+	@PostMapping("/delimg")
+	@ResponseBody
+	public void deleteImgFile(String filePath) {
+		
+		if(filePath.length() >= 10) {
+			File targetFile = new File(imgRootPath + filePath.substring(10));	
+			
+			try {
+				FileUtils.deleteQuietly(targetFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	//강의등록 실행
 	@PostMapping("/regClass")
 	public String registerClass(ClassVO classInfo, Model model, RedirectAttributes ra) {
 		
 		service.regClass(classInfo);
+		
+		String classPath = classInfo.isClassType()?"on":"off1";
+		
 		ra.addFlashAttribute("msg", "regSuccess");
-		return "redirect:/admin/class/on";
+		return "redirect:/admin/class/" + classPath;
+	}
+	
+	//온라인강의 수정화면 Mapping
+	@GetMapping("/modon/{classCode}")
+	public String modonClass(@PathVariable int classCode, Model model, RedirectAttributes ra) {	
+		
+		model.addAttribute("menu", "Class");
+		
+		ClassVO classInfo = service.getClassInfo(classCode);
+		
+		if(classInfo.isClassType()) {
+			model.addAttribute("classInfo", classInfo);
+			return "admin/classMgr/onlineClassMod";
+		} else {
+			ra.addFlashAttribute("msg", "noClass");
+			return "redirect:/admin/class/on";
+		}
+	}
+
+	//오프라인강의 수정화면 Mapping
+	@GetMapping("/modoff/{classCode}")
+	public String modoffClass(@PathVariable int classCode, Model model, RedirectAttributes ra) {	
+		
+		model.addAttribute("menu", "Class");
+		
+		ClassVO classInfo = service.getClassInfo(classCode);
+		
+		if(!classInfo.isClassType()) {
+			model.addAttribute("classInfo", classInfo);
+			return "admin/classMgr/offlineClassMod";
+		} else {
+			ra.addFlashAttribute("msg", "noClass");
+			return "redirect:/admin/class/off1";
+		}
+	}
+	
+	//강의수정 실행
+	@PostMapping("/modClass")
+	public String modifyClass(ClassVO classInfo, RedirectAttributes ra) {
+		
+		service.modClass(classInfo);
+		
+		ra.addFlashAttribute("msg", "modSuccess");
+		
+		String classType = classInfo.isClassType()?"on":"off";
+		return "redirect:/admin/class/"+classType+"/"+classInfo.getClassCode()+"?currentPage=1";
 	}
 	
 	
-	
-	//오프라인 강의등록 화면 Mapping
-	@GetMapping("/regoff")
-	public String regoffClass() {
+	//강의 수강완료 상태전환
+	@PostMapping("/orderprocess")
+	@ResponseBody
+	public void setOrderProcess(OrderVO order) {
 		
+		service.setProcess(order);
 		
-		return "admin/classMgr/offlineClassReg";
 	}
-	
-	
-	
-	
-	
 	
 	
 	

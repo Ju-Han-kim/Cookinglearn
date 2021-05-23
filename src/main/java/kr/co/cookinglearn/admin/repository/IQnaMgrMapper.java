@@ -16,4 +16,7 @@ public interface IQnaMgrMapper {
 	//해당 문의정보를 받아 답변내용 등록
 	void setAnswer(QnaVO qna);
 	
+	//유저정보를 받아 해당 유저의 문의내역리스트 반환
+	List<QnaVO> getQnaListByUser(int userNo);
+	
 }

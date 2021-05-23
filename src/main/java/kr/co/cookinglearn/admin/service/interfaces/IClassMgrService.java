@@ -4,6 +4,8 @@ import java.util.List;
 
 import kr.co.cookinglearn.admin.common.page.ClassSearchVO;
 import kr.co.cookinglearn.admin.model.ClassVO;
+import kr.co.cookinglearn.admin.model.OrderVO;
+import kr.co.cookinglearn.admin.model.process.ClassStudentsVO;
 
 public interface IClassMgrService {
 
@@ -27,5 +29,17 @@ public interface IClassMgrService {
 	
 	//강의 등록
 	void regClass(ClassVO classInfo);
+	
+	//강의 수정
+	void modClass(ClassVO classInfo);
+	
+	//강의 이미지List 반환
+	List<String> getContentImg(int classCode);
+	
+	//강의 신청인원 리스트 반환
+	List<ClassStudentsVO> getStudents(int classCode);
+	
+	//강의번호와 유저번호를 받아 결제내역의 진행상태를 '수강완료(2)'으로 변경
+	void setProcess(OrderVO order);
 	
 }

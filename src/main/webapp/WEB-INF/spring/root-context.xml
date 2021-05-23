@@ -11,7 +11,7 @@
 	
 	<!-- Hikari Connection Pool -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
 		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521/XEPDB1" />
 		<property name="username" value="cook" />
 		<property name="password" value="1234" />
@@ -38,7 +38,6 @@
 	<context:component-scan base-package="kr.co.cookinglearn.board.service" />
 
 	<!-- MyBatis Scan -->
-	<mybatis-spring:scan base-package="kr.co.cookinglearn.repository"/>
 	<mybatis-spring:scan base-package="kr.co.cookinglearn.user.repository"/>
 	<mybatis-spring:scan base-package="kr.co.cookinglearn.qna.repository"/>
 	<mybatis-spring:scan base-package="kr.co.cookinglearn.order.repository"/>

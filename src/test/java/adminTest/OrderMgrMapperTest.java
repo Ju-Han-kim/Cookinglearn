@@ -83,8 +83,26 @@ public class OrderMgrMapperTest {
 	}
 	*/
 	
-	
-	
+	/*
+	//고객번호를 받아 주문정보 리스트 반환테스트getOrderListByUser
+	@Test
+	public void getOrderListByUserTest(){
+		
+		int userNo = 1;
+		
+		List<OrderViewVO> orderList = mapper.getOrderListByUser(userNo);
+		
+		if(!orderList.isEmpty()) {
+			System.out.println("===============================");
+			for(OrderViewVO order : orderList) {
+				System.out.println(order);
+			}
+			System.out.println("===============================");
+		} else {
+			System.out.println("주문내역이 존재하지 않습니다.");
+		}
+	}
+	*/
 	
 	
 	

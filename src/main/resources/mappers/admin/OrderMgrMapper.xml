@@ -15,6 +15,8 @@
 		<result property="paymentDate" column="payment_date"/>
 		<result property="limitDate" column="limit_date"/>
 		<result property="orderProcess" column="order_process"/>
+		<result property="classType" column="class_type"/>
+		<result property="classCategory" column="class_category"/>
 		<result property="className" column="class_name"/>
 		<result property="userId" column="user_id"/>
 		<result property="nickname" column="nickname"/>
@@ -71,7 +73,11 @@
 		WHERE order_no=#{orderNo}
 	</select> 
 	
-	
+	<select id="getOrderListByUser" resultMap="orderMgrMap">
+		SELECT * 
+		FROM "ORDER" JOIN "CLASS" USING(class_code)
+		WHERE user_no = #{userNo}
+	</select>
 	
 	
 	

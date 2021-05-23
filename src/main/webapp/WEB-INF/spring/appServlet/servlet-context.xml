@@ -16,6 +16,7 @@
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/admin/css/**" location="/resources/admin/css/" />
 	<resources mapping="/admin/img/**" location="/resources/admin/img/" />
+	<resources mapping="/admin/vendor/**" location="/resources/admin/vendor/" />
 	<resources mapping="/classImg/**" location="file:///C:/class/img/" />
 
 	<!-- Mapping for static resource(html, css, js, img) -->
@@ -57,12 +58,21 @@
 	<context:component-scan base-package="kr.co.cookinglearn" />
 	
 	<beans:bean id="classInterceptor" class="kr.co.cookinglearn.admin.common.interceptor.ClassInterceptor" />
+	<beans:bean id="adminInterceptor" class="kr.co.cookinglearn.admin.common.interceptor.AdminInterceptor" />
 	
 	<interceptors>
 		<interceptor>
 			<mapping path="/admin/class/off/*"/>
 			<mapping path="/admin/class/on/*"/>
 			<beans:ref bean="classInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/admin/*"/>
+			<mapping path="/admin/class/*"/>
+			<mapping path="/admin/order/*"/>
+			<mapping path="/admin/user/*"/>
+			<mapping path="/admin/qna/*"/>
+			<beans:ref bean="adminInterceptor"/>
 		</interceptor>
 	</interceptors>
 	

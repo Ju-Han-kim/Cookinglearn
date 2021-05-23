@@ -94,4 +94,11 @@ public class ReviewVO {
 		this.img = img;
 	}
 
+	@Override
+	public String toString() {
+		return "ReviewVO [reviewNo=" + reviewNo + ", userNo=" + userNo + ", classCode=" + classCode + ", writer="
+				+ writer + ", reviewComment=" + reviewComment + ", reviewStar=" + reviewStar + ", regDate=" + regDate
+				+ ", img=" + img + "]";
+	}
+
 }

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="kr.co.cookinglearn.admin.repository.IReviewMgrMapper">
+
+	<resultMap id="reviewMgrMap" type="kr.co.cookinglearn.admin.model.process.ReviewClassVO">
+		<id property="reviewNo" column="review_no"/>
+		<result property="userNo" column="user_no"/>
+		<result property="classCode" column="class_code"/>
+		<result property="writer" column="writer"/>
+		<result property="reviewComment" column="review_comment"/>
+		<result property="reviewStar" column="review_star"/>
+		<result property="regDate" column="reg_date"/>
+		<result property="img" column="img"/>
+		<result property="classType" column="class_type"/>
+		<result property="classCategory" column="class_category"/>
+		<result property="className" column="class_name"/>
+	</resultMap>
+	
+	<select id="getReview" resultMap="reviewMgrMap">
+		SELECT * 
+		FROM "REVIEW" 
+		WHERE class_code = #{classCode}
+	</select>
+
+	<select id="getUserReview" resultMap="reviewMgrMap">
+		SELECT * 
+		FROM "REVIEW" 
+		WHERE class_code = #{classCode} AND user_no = #{userNo}
+	</select>
+	
+	<select id="getUserReviewWithClass" resultMap="reviewMgrMap">
+		SELECT *
+		FROM "REVIEW" JOIN "CLASS" USING(class_code)
+		WHERE user_no = #{userNo}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+</mapper>

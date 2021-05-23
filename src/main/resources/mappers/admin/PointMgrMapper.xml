@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="kr.co.cookinglearn.admin.repository.IPointMgrMapper">
+
+	<resultMap id="pointMgrMap" type="kr.co.cookinglearn.admin.model.PointVO">
+		<id property="pointNo" column="point_no"/>
+		<result property="userNo" column="user_no"/>
+		<result property="pointDate" column="point_date"/>
+		<result property="pointHistory" column="point_history"/>
+		<result property="pointChange" column="point_change"/>
+	</resultMap>
+	
+	<select id="getUserPointList" resultMap="pointMgrMap">
+		SELECT * FROM "POINT"
+		WHERE user_no = #{userNo}
+	</select>
+	
+	<select id="getUserPoint" resultType="int">
+		SELECT NVL(SUM(point_change), 0) FROM "POINT"
+		WHERE user_no = #{userNo}
+	</select>
+	
+</mapper>

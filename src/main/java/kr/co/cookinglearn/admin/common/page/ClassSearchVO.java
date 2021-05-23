@@ -60,7 +60,9 @@ public class ClassSearchVO extends SearchVO {
 	}
 
 	public void setSeDate(String seDate) {
-		this.seDate = seDate;
+		if(!seDate.equals("")) {
+			this.seDate = seDate;
+		}
 	}
 
 	public Timestamp getStartDate() {

@@ -3,8 +3,11 @@ package adminTest;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +20,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kr.co.cookinglearn.admin.common.page.ClassSearchVO;
 import kr.co.cookinglearn.admin.model.ClassVO;
+import kr.co.cookinglearn.admin.model.process.ClassStudentsVO;
 import kr.co.cookinglearn.admin.repository.IClassMgrMapper;
 
 
@@ -246,5 +250,94 @@ public class ClassMgrMapperTest {
 
 	}
 	*/
+	
+	/*
+	//강의수정 단위테스트
+	@Test
+	public void modClassTest() {
+		
+		ClassVO classInfo = new ClassVO();
+		
+		classInfo.setClassCode(142);
+		classInfo.setClassType(false);
+		classInfo.setClassCategory("한식");
+		classInfo.setThumbnailImg("/img/0");
+		classInfo.setClassName("강의이름25");
+		classInfo.setClassContent("상세내용25");
+		classInfo.setRunTime(60);
+		classInfo.setStartDate(new Timestamp(System.currentTimeMillis()));
+		classInfo.setContentImg("");
+		classInfo.setClassUrl("");
+		classInfo.setPrice(60000);
+		classInfo.setMaxStudent(4);
+		
+		mapper.modClass(classInfo);
 
+	}
+	*/
+	
+	/*
+	//classCode를 입력받아 contentImg 반환후 split 단위테스트
+	@Test
+	public void contentImgTest() {
+		int classCode = 144;
+		
+		String contentImg = mapper.getContentImg(classCode);
+		
+		List<String> list = Arrays.asList(contentImg.split("\\|"));
+		
+		System.out.println("=======================");
+		for(String cImg : list) {
+			System.out.println(cImg);
+		}
+		System.out.println("=======================");
+
+	}
+	*/
+	
+	/*
+	//선택된 강의의 신청인원 정보 List반환 테스트
+	@Test
+	public void getStudents() {
+		
+		int classCode = 1;
+		
+		List<ClassStudentsVO> list = mapper.getStudents(classCode);
+		
+		System.out.println("================");
+		if(!list.isEmpty()) {
+			for(ClassStudentsVO student : list) {
+				System.out.println(student);
+			}
+		}
+		System.out.println("================");
+		
+	}
+	*/
+	
+	/*
+	//강의번호와 유저번호를 받아 결제내역의 진행상태를 '수강완료(2)'으로 변경테스트
+	@Test
+	public void setProcessTest() {
+		
+		Map<String, Integer> datas = new HashMap<String, Integer>();
+		
+		int userNo = 1;
+		int classCode = 1;
+		int orderProcess = 2;
+		
+		datas.put("userNo", userNo);
+		datas.put("classCode", classCode);
+		datas.put("orderProcess", orderProcess);
+		
+		mapper.setProcess(datas);
+		
+	}
+	*/
+	
+	
+	
+	
+	
+	
 }

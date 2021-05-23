@@ -83,9 +83,22 @@ public class QnaMgrMapperTest {
 		
 	}
 	*/
+	/*
+	//유저정보를 받아 해당 유저의 문의내역리스트 반환테스트
+	@Test
+	public void getQnaListTest() {
 
+		int userNo = 2;
 
+		List<QnaVO> list = mapper.getQnaListByUser(userNo);
 
+		System.out.println("========================");
+		for(QnaVO qna : list) {
+			System.out.println(qna);
+		}
+		System.out.println("========================");
+	}
+	*/
 
 
 
