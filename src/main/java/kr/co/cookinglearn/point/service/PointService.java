@@ -1,5 +1,7 @@
 package kr.co.cookinglearn.point.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import kr.co.cookinglearn.admin.model.PointVO;
@@ -17,8 +19,8 @@ public class PointService implements IPointService {
 	}
 
 	@Override
-	public PointVO pointList(PointVO user_no) {
-		return mapper.pointList(user_no);
+	public ArrayList<PointVO> pointList(int userNo) {
+		return mapper.pointList(userNo);
 	}
 
 }
