@@ -28,23 +28,23 @@ public class BoardController {
 	private BoardService reviewService;
 	
 	
-	// 게시물 목록
-	@RequestMapping(value="/list", method=RequestMethod.GET)
+	// 전체 게시물 목록
+	@RequestMapping(value="/online-all", method=RequestMethod.GET)
 	public String getList(Model model) throws Exception{
 		List<BoardVO> list = service.list();
 		model.addAttribute("list", list);
-		return "/board/list";
+		return "/board/online-all";
 	}
 	
 	//카테고리 별 게시글 목록
-	@RequestMapping(value="/kategorie-list", method=RequestMethod.GET)
+	@RequestMapping(value="/online-kat", method=RequestMethod.GET)
 	public String getKategorieList(Model model, String kategorie) throws Exception{
 		List<BoardVO> kategorieList = service.kategorieList(kategorie);
 		model.addAttribute("kategorie", kategorieList);
-		return "/board/kategorie-list";
+		return "/board/online-kat";
 	}
 	
-	// 게시물 조회
+	// 게시물 상세 조회
 	@RequestMapping(value="/viewDetail", method=RequestMethod.GET)
 	public String getView(Model model, int viewDetail) throws Exception {
 		BoardVO detail = service.detail(viewDetail);
@@ -52,24 +52,46 @@ public class BoardController {
 	
 		List<ReviewVO> reviewList = reviewService.reviewList(viewDetail);
 		model.addAttribute("review", reviewList);
-//		System.out.println(viewDetail);
-//		System.out.println(reviewList);
 		return "board/viewDetail";
 	}
 
-	@RequestMapping(value="/write", method=RequestMethod.POST)
-	public String reviewWrite(HttpSession session, @RequestParam String reviewComment, @RequestParam String classCode) throws Exception {
-		UserVO user = (UserVO) session.getAttribute("login");
+	//댓글 작성
+	@RequestMapping(value="/ReviewInsert", method=RequestMethod.POST)
+	public String reviewWrite(HttpSession session, ReviewVO vo, @RequestParam String classCode) throws Exception {
+		UserVO userVO = (UserVO) session.getAttribute("login");
 
-		System.out.println(classCode);
-		ReviewVO vo = new ReviewVO();
-		
-		vo.setUserNo(user.getUserNo());
-		vo.setClassCode(Integer.parseInt(classCode));
-		vo.setWriter(user.getNickname());
-		vo.setReviewComment(reviewComment);
-
-		service.write(vo);
+		//user객체 있을경우 
+		if(userVO != null) {
+			Integer userNo = userVO.getUserNo();
+			String nickname = userVO.getNickname();
+			Integer no = Integer.parseInt(classCode);	
+			
+			vo.setUserNo(userNo);
+			vo.setClassCode(no);
+			vo.setWriter(nickname);
+			
+			service.write(vo);
+		}
+			
 		return "redirect:/board/list";
 	}
+	
+	//장바구니
+	@RequestMapping(value = "/cart",  method=RequestMethod.POST)
+	public String Cart(HttpSession session, int classCode) throws Exception {
+		UserVO userVO = (UserVO) session.getAttribute("login");
+		BoardVO vo = service.detail(classCode);
+		
+		if(userVO != null) {
+			System.out.println(vo.getClassCode());
+			//classCode만 넘김.
+//			session.setAttribute("classCode", vo.getClassCode());
+			
+			//객체 넘김
+			session.setAttribute("classInfo", vo);
+		}
+		return "redirect:/order/cart";
+	}
 }
+
+// 수강 신청 시 : session.setAttribute("ReviewVO", vo);

@@ -19,6 +19,7 @@
 		<result property="price" column="price"/>
 		<result property="maxStudent" column="max_student"/>
 	</resultMap>
+	
 	<!-- 조회 -->
 	<select id="list" resultMap="board">
 		SELECT
@@ -36,8 +37,11 @@
 			max_student
 		FROM
 		    class
+		WHERE
+			class_type = 1
 	</select>
-	<!-- 게시물 조회 -->
+	
+	<!-- 카테고리별 게시물 조회 -->
 	<select id="kategorie" resultMap="board">
 		SELECT
 		    class_code,
@@ -50,7 +54,7 @@
 		FROM
 		    class
 		WHERE
-			class_category=#{class_category} AND class_type=1
+			class_category=#{classCategory} AND class_type=1
 	</select>
 
 	<!-- 상세보기 조회 -->
@@ -71,7 +75,7 @@
 		FROM
 		    "CLASS"
 		WHERE
-			class_code = #{class_code} AND class_type=1
+			class_code = #{classCode} AND class_type=1
 	</select>
 </mapper>
 

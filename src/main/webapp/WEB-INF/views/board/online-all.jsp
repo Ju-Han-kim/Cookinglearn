@@ -120,18 +120,20 @@
               <div class="cli_thumb">
               <div class="cli_caption">
               <c:forEach items="${list}" var = "list">
-				<img src="<spring:url value='/resources/board/img/${list.thumbnailImg}'/>"> <br/>
 				<a href="/board/viewDetail?viewDetail=${list.classCode}">
-                <div class="cli_caption_title">
-                  ${list.className}
-                </div>
-                <div class="cli_caption_price_box">
-                  <strong class="cli_caption_price">
-                  ${list.price}<small>원</small>
-                  </strong>
+					<img src="<spring:url value='/resources/board/img/${list.thumbnailImg}'/>"> <br/>
+	                <div class="cli_caption_title">
+	                  	${list.className}
+	                </div>
+	                <div class="cli_caption_price_box">
+	                  <strong class="cli_caption_price">
+	                  	${list.price}<small>원</small>
+	                  </strong>
+	                </div>
+                </a>
 			  </c:forEach>
               </div>
-                <div class="cli_caption_rv" style="display: inline-block; font-size: 0"></div>
+              <div class="cli_caption_rv" style="display: inline-block; font-size: 0"></div>
               </div>
             </li>
           </ul>

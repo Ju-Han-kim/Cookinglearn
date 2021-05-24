@@ -22,14 +22,13 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public List<BoardVO> list() throws Exception {
 		// TODO Auto-generated method stub
-//		System.out.println("DAO :" + sql.selectList(namespace + ".list"));
 		return sql.selectList(namespace + ".list");
 	}
 	
 	@Override
-	public List<BoardVO> kategorieList(String no) throws Exception {
+	public List<BoardVO> kategorieList(String kategorie) throws Exception {
 		// TODO Auto-generated method stub
-		return sql.selectList(namespace + ".kategorie", no);
+		return sql.selectList(namespace + ".kategorie", kategorie);
 	}
 	
 	@Override
