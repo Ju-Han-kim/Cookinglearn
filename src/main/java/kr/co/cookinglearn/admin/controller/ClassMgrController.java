@@ -130,9 +130,9 @@ public class ClassMgrController {
 		search.setComplete(false);
 		search.setClassType(false);
 		model.addAttribute("offOption", "3");
-		model.addAttribute("pageMgr", new PageMgr(search, service.classCount(search)));
+		model.addAttribute("pageMgr", new PageMgr(search, service.classCountByOrder(search)));
 		model.addAttribute("search", search);
-		model.addAttribute("classList",service.getClassList(search));
+		model.addAttribute("classList",service.getClassListByOrder(search));
 		return "admin/classMgr/offlineClassManager";
 		
 	}

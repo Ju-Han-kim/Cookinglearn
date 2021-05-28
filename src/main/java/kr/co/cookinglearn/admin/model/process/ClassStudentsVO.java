@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class ClassStudentsVO {
 
-	private int stuNo;
+	private int orderNo;
 	private int userNo;
 	private String userId;
 	private String nickname;
@@ -33,12 +33,12 @@ public class ClassStudentsVO {
 		return process;
 	}
 
-	public int getStuNo() {
-		return stuNo;
+	public int getOrderNo() {
+		return orderNo;
 	}
 
-	public void setStuNo(int stuNo) {
-		this.stuNo = stuNo;
+	public void setOrderNo(int orderNo) {
+		this.orderNo = orderNo;
 	}
 
 	public String getUserId() {
@@ -91,9 +91,9 @@ public class ClassStudentsVO {
 
 	@Override
 	public String toString() {
-		return "ClassStudentsVO [stuNo=" + stuNo + ", userNo=" + userNo + ", userId=" + userId + ", nickname="
+		return "ClassStudentsVO [orderNo=" + orderNo + ", userNo=" + userNo + ", userId=" + userId + ", nickname="
 				+ nickname + ", gender=" + gender + ", paymentDate=" + paymentDate + ", orderProcess=" + orderProcess
 				+ "]";
 	}
-
+	
 }

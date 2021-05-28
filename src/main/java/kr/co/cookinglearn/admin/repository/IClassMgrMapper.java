@@ -39,7 +39,7 @@ public interface IClassMgrMapper {
 	//강의 신청인원 리스트 반환
 	List<ClassStudentsVO> getStudents(int classCode);
 	
-	//강의번호와 유저번호를 받아 결제내역의 진행상태를 '수강완료(2)'으로 변경
+	//주문번호를 받아 결제내역의 진행상태를 '수강완료(2)'으로 변경
 	void setProcess(Map<String, Integer> datas);
 	
 }
