@@ -156,7 +156,18 @@
 											<td>${review.classCategory}</td>
 											<td>${review.className}</td>
 											<td>${review.reviewComment}</td>
-											<td>${review.reviewStar}</td>
+											<td>
+												<c:if test="${review.reviewStar != 0}">
+													<c:forEach begin="0" end="${review.reviewStar-1}">
+														<i class="fas fa-star"></i>
+													</c:forEach>
+												</c:if>
+												<c:if test="${review.reviewStar != 5}">
+													<c:forEach begin="${review.reviewStar}" end="4">
+														<i class="far fa-star"></i>
+													</c:forEach>
+												</c:if>
+											</td>
 											<td>
 												<fmt:formatDate pattern="yyyy-MM-dd(E)" value="${review.regDate}" />
 											</td>
@@ -244,7 +255,7 @@
 		
 		//관리자 권환회수 클릭 시
 		$("#revoke-admin-btn").click(function() {
-			grantAdmin();
+			revokeAdmin();
 		});
 		
 	});

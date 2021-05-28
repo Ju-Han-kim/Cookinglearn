@@ -26,8 +26,8 @@
 		    reg_date,
 		    img
 		FROM
-    		review
-    	WHERE class_code = #{class_code}
+    		"REVIEW"
+    	WHERE class_code = #{classCode}
 	</select>
 
 	<insert id="write">

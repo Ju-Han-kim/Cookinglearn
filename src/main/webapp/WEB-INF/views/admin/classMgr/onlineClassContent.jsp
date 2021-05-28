@@ -13,10 +13,13 @@
 				<div class="card border-secondary mb-3">
 					<div class="card-header"><strong>온라인 강의 상세현황</strong></div>
 					<div class="card-body">
-						${classInfo.classCode}번 강의정보 
-						<c:if test="${classInfo.classContent != null}">
-							${classInfo.classContent}
-						</c:if>
+						<div class="row">
+							<div class="col-md-12">
+								<c:if test="${classInfo.classContent != null}">
+									${classInfo.classContent}
+								</c:if>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

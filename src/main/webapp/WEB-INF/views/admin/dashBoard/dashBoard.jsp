@@ -147,13 +147,13 @@
 	const data = {
 		labels: labels,
 		datasets: [{
-			label: 'online',
+			label: '온라인',
 			backgroundColor: 'rgb(255, 99, 132)',
 			borderColor: 'rgb(255, 99, 132)',
 			data: onClass
 		},
 		{
-			label: 'offline',
+			label: '오프라인',
 			backgroundColor: 'rgb(100, 100, 132)',
 			borderColor: 'rgb(100, 100, 132)',
 			data: offClass

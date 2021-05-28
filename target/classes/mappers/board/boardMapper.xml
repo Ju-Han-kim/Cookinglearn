@@ -35,7 +35,7 @@
 			price,
 			max_student
 		FROM
-		    class
+		    "CLASS"
 	</select>
 	<!-- 게시물 조회 -->
 	<select id="kategorie" resultMap="board">
@@ -48,9 +48,9 @@
 		    class_url,
 		    price
 		FROM
-		    class
+		    "CLASS"
 		WHERE
-			class_category=#{class_category} AND class_type=1
+			class_category=#{classCategory} AND class_type=1
 	</select>
 
 	<!-- 상세보기 조회 -->
@@ -71,7 +71,7 @@
 		FROM
 		    "CLASS"
 		WHERE
-			class_code = #{class_code} AND class_type=1
+			class_code = #{classCode} AND class_type=1
 	</select>
 </mapper>
 

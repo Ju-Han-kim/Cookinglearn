@@ -61,7 +61,11 @@
 								<td>
 									<fmt:formatDate pattern="yyyy-MM-dd(E)" value="${user.regDate}"/>
 								</td>
-								<td>${user.adminLevel}</td>
+								<td>
+									<c:if test="${user.adminLevel >= 1}">
+										Admin
+									</c:if>
+								</td>
 							</tr>
 						</c:forEach>
 					</table>
