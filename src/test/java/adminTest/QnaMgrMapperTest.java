@@ -99,13 +99,20 @@ public class QnaMgrMapperTest {
 		System.out.println("========================");
 	}
 	*/
-
-
-
-
-
-
-
+	
+	/*
+	//textArea 글자 치환 테스트
+	@Test
+	public void textTest() {
+		
+		String str = "test\n   \testest";
+		
+		str = str.replaceAll("\n", "<br>");
+		str = str.replaceAll(" ", "&nbsp;");
+		
+		System.out.println(str);
+	}
+	*/
 
 
 

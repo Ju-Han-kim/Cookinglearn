@@ -141,9 +141,9 @@
 							"qnaNo": id,
 							"answer": answer
 						}),
-						success: function() {
+						success: function(returnAnswer) {
 							alert("성공적으로 작성되었습니다!");
-							$("#area"+id).html(answer);
+							$("#area"+id).html(returnAnswer);
 						},
 						error: function() {
 							console.log("답글작성: 통신실패");

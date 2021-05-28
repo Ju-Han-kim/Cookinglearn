@@ -29,9 +29,18 @@ public class QnaMgrService implements IQnaMgrService {
 	}
 
 	@Override
-	public void setAnswer(QnaVO qna) {
+	public String setAnswer(QnaVO qna) {
 		qna.setAnswerDate(new Timestamp(new Date().getTime()));
+		
+		String originAnswer = qna.getAnswer();
+		String chAnswer;
+		chAnswer = originAnswer.replaceAll("\n", "<br>");
+		chAnswer = chAnswer.replaceAll(" ", "&nbsp;");
+		
+		qna.setAnswer(chAnswer);
 		mapper.setAnswer(qna);
+		
+		return chAnswer;
 	}
 
 }

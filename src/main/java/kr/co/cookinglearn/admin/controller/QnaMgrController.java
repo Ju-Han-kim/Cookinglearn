@@ -39,8 +39,9 @@ public class QnaMgrController {
 	
 	//문의관리 답변등록 mapping
 	@PostMapping("/updateAnswer")
-	public void updateAnswer(@RequestBody QnaVO qna) {
-		service.setAnswer(qna);
+	public String updateAnswer(@RequestBody QnaVO qna) {
+
+		return service.setAnswer(qna);
 	}
 	
 	
