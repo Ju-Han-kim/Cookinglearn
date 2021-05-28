@@ -18,6 +18,7 @@
 	<resources mapping="/admin/img/**" location="/resources/admin/img/" />
 	<resources mapping="/admin/vendor/**" location="/resources/admin/vendor/" />
 	<resources mapping="/classImg/**" location="file:///C:/class/img/" />
+	<resources mapping="/board/css/**" location="/resources/board/css/" />
 
 	<!-- Mapping for static resource(html, css, js, img) -->
 	<resources mapping="/resources/**" location="/resources/" />

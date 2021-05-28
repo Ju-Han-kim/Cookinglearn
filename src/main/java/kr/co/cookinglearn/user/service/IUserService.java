@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import kr.co.cookinglearn.user.model.ClassVO;
 import kr.co.cookinglearn.user.model.UserVO;
 
 public interface IUserService {
@@ -32,5 +33,8 @@ public interface IUserService {
 	
 	//로그아웃 기능
 	void logout(HttpServletResponse response) throws Exception;
+	
+	//클래스 시청
+	ClassVO myClassWatch(int classCode);
 
 }

@@ -20,8 +20,37 @@
 		<result property="maxStudent" column="max_student"/>
 	</resultMap>
 	
-	<!-- 조회 -->
+	<!-- 온라인 전체 클래스 -->
 	<select id="list" resultMap="board">
+		SELECT 
+			class_code, class_type, class_category, thumbnail_img, class_name, class_content, run_time, start_date, content_img, class_url, price, max_student
+	    FROM (
+	        SELECT class_code, class_type, class_category, thumbnail_img, class_name, class_content, run_time, start_date, content_img, class_url, price, max_student,
+	            row_number() over(order by class_code DESC) AS rNum
+	        FROM "CLASS"
+	        ) mb
+	    WHERE class_type=1 and rNum BETWEEN #{start} and #{end}
+	        ORDER BY class_code DESC
+	</select>
+	
+	<!-- 온라인 카테고리별 클래스 조회 -->
+	<select id="kategorie" resultMap="board">
+		SELECT
+		    class_code,
+		    class_type,
+		    class_category,
+		    thumbnail_img,
+		    class_name,
+		    class_url,
+		    price
+		FROM
+		    "CLASS"
+		WHERE
+			class_category=#{classCategory} AND class_type=1
+	</select>
+	
+	<!-- 오프라인 클래스 조회 -->
+	<select id="selectOfflineAllClass" resultMap="board">
 		SELECT
 		    class_code,
 			class_type,
@@ -36,13 +65,13 @@
 			price,
 			max_student
 		FROM
-		    class
+		    "CLASS"
 		WHERE
-			class_type = 1
+			class_type = 0
 	</select>
 	
-	<!-- 카테고리별 게시물 조회 -->
-	<select id="kategorie" resultMap="board">
+	<!-- 오프라인 카테고리 별 클래스 조회 -->
+	<select id="selectOfflineKateClass" resultMap="board">
 		SELECT
 		    class_code,
 		    class_type,
@@ -52,12 +81,12 @@
 		    class_url,
 		    price
 		FROM
-		    class
+		    "CLASS"
 		WHERE
-			class_category=#{classCategory} AND class_type=1
+			class_category=#{classCategory} AND class_type=0
 	</select>
-
-	<!-- 상세보기 조회 -->
+	
+	<!-- 온라인 상세보기 조회 -->
 	<select id="detail" resultMap="board">
 		SELECT
 		    class_code,
@@ -75,8 +104,35 @@
 		FROM
 		    "CLASS"
 		WHERE
-			class_code = #{classCode} AND class_type=1
+			class_code=#{classCode} AND class_type=1
 	</select>
+	
+	<!-- 오프라인 상세보기 조회 -->
+	<select id="offlineDetail" resultMap="board">
+		SELECT
+		    class_code,
+			class_type,
+			class_category,
+			thumbnail_img,
+			class_name,
+			class_content,
+			run_time,
+			start_date,
+			content_img,
+			class_url,
+			price,
+			max_student
+		FROM
+		    "CLASS"
+		WHERE
+			class_code=#{classCode} AND class_type=0
+	</select>
+	
+	<!-- 온라인 전체 게시글 가져오기. -->
+	<select id="getOnelineClassCount" resultType="int">
+		SELECT COUNT(class_code) FROM "CLASS" WHERE class_type=1
+	</select>
+	
 </mapper>
 
 <!-- 

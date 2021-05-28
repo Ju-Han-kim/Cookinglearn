@@ -1,10 +1,10 @@
-package kr.co.cookinglearn.board.domain;
+package kr.co.cookinglearn.user.model;
 
 import java.sql.Timestamp;
 
-public class BoardVO {
+public class ClassVO {
 	private int classCode;
-	private boolean classType; //온|오프
+	private boolean classType; //온(1)|오프(0)
 	private String classCategory;
 	private String thumbnailImg;
 	private String className;
@@ -16,11 +16,11 @@ public class BoardVO {
 	private int price;
 	private int maxStudent;
 	
-	public BoardVO() {
+	public ClassVO() {
 		
 	}
 	
-	public BoardVO(int classCode, boolean classType, String classCategory, String thumbnailImg, String className,
+	public ClassVO(int classCode, boolean classType, String classCategory, String thumbnailImg, String className,
 			String classContent, int runTime, Timestamp startDate, String contentImg, String classUrl, int price,
 			int maxStudent) {
 		this.classCode = classCode;
@@ -116,6 +116,4 @@ public class BoardVO {
 				+ ", runTime=" + runTime + ", startDate=" + startDate + ", contentImg=" + contentImg + ", classUrl="
 				+ classUrl + ", price=" + price + ", maxStudent=" + maxStudent + "]";
 	}
-	
-	
 }

@@ -27,10 +27,11 @@
 		    img
 		FROM
     		review
-    	WHERE class_code = #{classCode}
+    	WHERE class_code = #{classCode} 
+    	ORDER BY review_no DESC
 	</select>
 
-	<insert id="write">
+	<insert id="reviewInsert">
 		INSERT INTO review ( 
 			review_no, 
 			user_no, 
@@ -47,4 +48,9 @@
 			3
 		)
 	</insert>
+	
+	<delete id="reviewDelete">
+		DELETE FROM review WHERE review_no = #{reviewNo}
+	</delete>
+
 </mapper>

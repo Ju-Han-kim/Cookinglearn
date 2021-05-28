@@ -19,16 +19,16 @@
 	</div>
 	<div class="class_list">
 	<div class="class_container">
-	   	<c:forEach items="${kategorie}" var="kategorie">
+	   	<c:forEach items="${getOfflineClass}" var="list">
 	    <div class="class_item">
-				<a href="/board/viewDetail?viewDetail=${kategorie.classCode}">
-					<img src="<spring:url value='/resources/board/img/${kategorie.thumbnailImg}'/>" class="img-thumbnail" alt="Cinque Terre" width="200" height="auto"> <br/>
+				<a href="/board/viewDetail?viewDetail=${list.classCode}">
+					<img src="<spring:url value='/resources/board/img/${list.thumbnailImg}'/>" class="img-thumbnail" alt="Cinque Terre" width="200" height="auto"> <br/>
 					<div class="cli_caption_title"> 
-						${kategorie.className} 
+						${list.className} 
 					</div>
 					<div class="cli_caption_price_box">
 	                  	<strong class="cli_caption_price">
-							${kategorie.price}
+							${list.price}
 							<small>
 								원
 							</small> 

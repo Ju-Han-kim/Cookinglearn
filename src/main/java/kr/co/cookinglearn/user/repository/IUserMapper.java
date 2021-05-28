@@ -2,6 +2,7 @@ package kr.co.cookinglearn.user.repository;
 
 import java.util.List;
 
+import kr.co.cookinglearn.user.model.ClassVO;
 import kr.co.cookinglearn.user.model.UserVO;
 
 public interface IUserMapper {
@@ -27,5 +28,6 @@ public interface IUserMapper {
 	//회원 탈퇴 기능
 	void delete(String account);
 	
-
+	//클래스 시청
+	ClassVO myClassWatch(int classCode);
 }

@@ -44,7 +44,7 @@
                         <h4>일본 나가사키 전통 라멘! 나카무라 센세이의 라멘 클래스</h4>
                       </div>
                       <div class="class_button_wrap">
-                        <button class="button_left">시청하기</button>
+                        <button class="button_left" onclick="location.href='myclasswatch' ">시청하기</button>
                         <button class="button_right">삭제하기</button>
                       </div>
                     </div>

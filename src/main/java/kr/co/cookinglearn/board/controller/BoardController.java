@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.cookinglearn.board.domain.BoardVO;
 import kr.co.cookinglearn.board.domain.ReviewVO;
+import kr.co.cookinglearn.board.paging.PagingVO;
 import kr.co.cookinglearn.board.service.BoardService;
 import kr.co.cookinglearn.user.model.UserVO;
 
@@ -27,22 +28,64 @@ public class BoardController {
 	@Inject
 	private BoardService reviewService;
 	
+	// 오프라인 게시물 목록
+	@RequestMapping(value="/offline", method=RequestMethod.GET)
+	public String getOfflineClass(Model model) throws Exception{
+		List<BoardVO> getOfflineClass = service.getOfflineClass();
+		model.addAttribute("getOfflineClass", getOfflineClass);
+		return "/board/offline";
+	}
+
+	// 오프라인 카테고리 별 클래스 목록
+	@RequestMapping(value="/offline-kat", method=RequestMethod.GET)
+	public String getOfflineKateClass(Model model, String kategorie) throws Exception{
+		List<BoardVO> getOfflineKateClass = service.getOfflineKateClass(kategorie);
+		model.addAttribute("kategorie", getOfflineKateClass);
+		return "/board/offline-kat";
+	}
 	
-	// 전체 게시물 목록
+	// 오프라인 게시물 상세 조회
+	@RequestMapping(value="/offline-detail", method=RequestMethod.GET)
+	public String getOfflineKateDetailView(Model model, int viewDetail) throws Exception {
+		BoardVO detail = service.offlineDetail(viewDetail);
+		model.addAttribute("detail", detail);
+	
+		List<ReviewVO> reviewList = reviewService.reviewList(viewDetail);
+		model.addAttribute("review", reviewList);
+		return "board/offline-detail";
+	}
+
+	// 온라인 전체 게시물 목록 + 페이징
 	@RequestMapping(value="/online-all", method=RequestMethod.GET)
-	public String getList(Model model) throws Exception{
-		List<BoardVO> list = service.list();
-		model.addAttribute("list", list);
+	public String getList(Model model, PagingVO vo, 
+			@RequestParam(value="nowPage", required=false)String nowPage,
+			@RequestParam(value="cntPerPage", required=false)String cntPerPage) throws Exception{
+		
+		int total = service.countBoard();
+		if(nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "12";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "12";
+		}
+		
+		vo = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		model.addAttribute("paging", vo);
+		model.addAttribute("list", service.list(vo));
+			
 		return "/board/online-all";
 	}
 	
-	//카테고리 별 게시글 목록
+	// 온라인 카테고리 별 게시글 목록
 	@RequestMapping(value="/online-kat", method=RequestMethod.GET)
 	public String getKategorieList(Model model, String kategorie) throws Exception{
 		List<BoardVO> kategorieList = service.kategorieList(kategorie);
 		model.addAttribute("kategorie", kategorieList);
 		return "/board/online-kat";
 	}
+
 	
 	// 게시물 상세 조회
 	@RequestMapping(value="/viewDetail", method=RequestMethod.GET)
@@ -57,7 +100,7 @@ public class BoardController {
 
 	//댓글 작성
 	@RequestMapping(value="/ReviewInsert", method=RequestMethod.POST)
-	public String reviewWrite(HttpSession session, ReviewVO vo, @RequestParam String classCode) throws Exception {
+	public String reviewInsert(HttpSession session, ReviewVO vo, @RequestParam String classCode) throws Exception {
 		UserVO userVO = (UserVO) session.getAttribute("login");
 
 		//user객체 있을경우 
@@ -70,15 +113,25 @@ public class BoardController {
 			vo.setClassCode(no);
 			vo.setWriter(nickname);
 			
-			service.write(vo);
+			service.reviewInsert(vo);
 		}
 			
-		return "redirect:/board/list";
+		return "redirect:/board/online-all";
 	}
 	
-	//장바구니
+	//댓글 삭제
+	@RequestMapping(value="/reviewDelete", method=RequestMethod.GET)
+	public String reviewDelete(@RequestParam int reviewNo) throws Exception {
+			System.out.println("댓글 삭제");
+			service.reviewDelete(reviewNo);
+			
+		return "redirect:/board/online-all";
+	}
+	
+	
+	//장바구니 세션 생성
 	@RequestMapping(value = "/cart",  method=RequestMethod.POST)
-	public String Cart(HttpSession session, int classCode) throws Exception {
+	public String cart(HttpSession session, int classCode) throws Exception {
 		UserVO userVO = (UserVO) session.getAttribute("login");
 		BoardVO vo = service.detail(classCode);
 		
@@ -92,6 +145,6 @@ public class BoardController {
 		}
 		return "redirect:/order/cart";
 	}
+	
 }
 
-// 수강 신청 시 : session.setAttribute("ReviewVO", vo);

@@ -87,7 +87,7 @@
           <li class="navbar__menu__item"><a href="/board/online-kat?kategorie=중식">중식</a></li>
           <li class="navbar__menu__item"><a href="/board/online-kat?kategorie=일식">일식</a></li>
           <li class="navbar__menu__item"><a href="/board/online-kat?kategorie=양식">양식</a></li>
-          <li class="navbar__menu__item"><a href="/">오프라인</a></li>
+          <li class="navbar__menu__item"><a href="/board/offline">오프라인</a></li>
         </ul>
       </div>
     </nav>

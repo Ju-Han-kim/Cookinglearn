@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.cookinglearn.user.model.ClassVO;
 import kr.co.cookinglearn.user.model.UserVO;
 import kr.co.cookinglearn.user.repository.IUserMapper;
 
@@ -71,6 +72,12 @@ public class UserService implements IUserService {
 		out.println("location.replace('/');");
 		out.println("</script>");
 		out.close();
+	}
+
+	@Override
+	public ClassVO myClassWatch(int classCode) {
+		// TODO Auto-generated method stub
+		return mapper.myClassWatch(classCode);
 	}
 
 }

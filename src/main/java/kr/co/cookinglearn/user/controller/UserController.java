@@ -1,7 +1,5 @@
 package kr.co.cookinglearn.user.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.Random;
 
@@ -18,13 +16,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.cookinglearn.qna.model.QnaVO;
 import kr.co.cookinglearn.qna.sevice.IQnaService;
+import kr.co.cookinglearn.user.model.ClassVO;
 import kr.co.cookinglearn.user.model.UserVO;
 import kr.co.cookinglearn.user.service.IUserService;
 
@@ -190,6 +189,8 @@ public class UserController {
 	   return "mypage/my_class";
    }
    
+
+   
 //   //mypoint
 //   @GetMapping("/mypoint")
 //   public String mypoint() {
@@ -250,5 +251,18 @@ public class UserController {
 		  return result;
 	  }
    }
-
+   
+   //클래스 시청 페이지
+   @GetMapping("/myclasswatch")
+   public String myClassWatch(Model model, @RequestParam String classCode) {
+	   
+	   int classCodeInt = Integer.parseInt(classCode);
+	   
+	   ClassVO classVO = service.myClassWatch(classCodeInt);
+	   
+	   System.out.println(classVO.getClassUrl());
+	   model.addAttribute("classUrl", classVO.getClassUrl());
+	   
+	   return "mypage/my_class_watch";
+   }
 }

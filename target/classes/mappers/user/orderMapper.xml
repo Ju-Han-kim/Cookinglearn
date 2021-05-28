@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    
+<mapper namespace="kr.co.cookinglearn.user.repository.IUserMapper">
+
+<resultMap id="orderMgrMap" type="kr.co.cookinglearn.admin.model.process.OrderViewVO">
+		<id property="orderNo" column="order_no"/>
+		<result property="userNo" column="user_no"/>
+		<result property="classCode" column="class_code"/>
+		<result property="pointUse" column="point_use"/>
+		<result property="payment" column="payment"/>
+		<result property="paymentMethod" column="payment_method"/>
+		<result property="paymentDate" column="payment_date"/>
+		<result property="limitDate" column="limit_date"/>
+		<result property="orderProcess" column="order_process"/>
+		<result property="classType" column="class_type"/>
+		<result property="classCategory" column="class_category"/>
+		<result property="className" column="class_name"/>
+		<result property="userId" column="user_id"/>
+		<result property="nickname" column="nickname"/>
+	</resultMap>
+	
+
+</mapper>

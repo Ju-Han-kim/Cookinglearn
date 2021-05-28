@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.cookinglearn.user.repository.IUserMapper">
+
+	<resultMap type="kr.co.cookinglearn.user.model.ClassVO" id="class">
+		<id property="classCode" column="class_code"/>
+		<result property="classType" column="class_type"/>
+		<result property="classCategory" column="class_category"/>
+		<result property="thumbnailImg" column="thumbnail_img"/>
+		<result property="className" column="class_name"/>
+		<result property="classContent" column="class_content"/>
+		<result property="runTime" column="run_time"/>
+		<result property="startDate" column="start_date"/>
+		<result property="contentImg" column="content_img"/>
+		<result property="classUrl" column="class_url"/>
+		<result property="price" column="price"/>
+		<result property="maxStudent" column="max_student"/>
+	</resultMap>
+	
+	<select id="myClassWatch" resultMap="class">
+		SELECT 
+			class_url FROM "CLASS" 
+		WHERE 
+			class_code = #{classCode}
+	</select>
+	
+</mapper>
+
+<!-- 
+class_code,
+class_type,
+class_category,
+thumbnail_img,
+class_name,
+class_content,
+run_time,
+start_date,
+content_img,
+class_url,
+price,
+max_student
+ -->
