@@ -58,6 +58,8 @@
 			alert("가입되지 않은 아이디입니다. 회원가입을 해주세요!");
 		} else if(result==="pwFail") {
 			alert("비밀번호가 일치 하지 않습니다!")
+		} else if(result==="mailAuth") {
+			alert("메일인증 후 이용해주세요!")
 		}
 </script>
 </body>

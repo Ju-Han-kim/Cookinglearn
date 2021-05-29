@@ -38,11 +38,7 @@ public interface IUserService {
 	//클래스 시청
 	ClassVO myClassWatch(int classCode);
 	
-	//권한 키 변경
-	void updateAuthKey(String userId, String authKey);
-	
-	//권한 상태 변경
-	void updateAuthStatus(String userId, String authKey);
-
+	//계정 활성화
+	void activationUser(String userId);
 
 }

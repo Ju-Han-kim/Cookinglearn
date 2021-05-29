@@ -57,18 +57,12 @@ public class UserController {
    //회원가입 처리
    @PostMapping("/register")
    public void register(UserVO user, HttpServletResponse response) throws IOException {
+	   
 	  //기본 정보 등록
 	  service.register(user);
 	  
 	  //이메일 보내기
-	  String authKey0 = mss.sendAuthMail(user.getUserId());
-	  user.setAuthKey(authKey0);
-	  
-	  String userId = user.getUserId();
-	  String authKey = user.getAuthKey();
-	  
-	  //updating authKey
-	  service.updateAuthKey(userId, authKey);
+	  mss.sendAuthMail(user.getUserId());
 	  
 	  response.setContentType("text/html;charset=utf-8");
 	  PrintWriter out = response.getWriter();
@@ -80,8 +74,8 @@ public class UserController {
    
    //회원가입 이메일 인증 처리
    @GetMapping("/signUpConfirm")
-   public void SignUpConfirm(@RequestParam("email") String userId, @RequestParam("authKey") String authKey, HttpServletResponse response) throws IOException {
-	   service.updateAuthStatus(userId, authKey);
+   public void SignUpConfirm(@RequestParam("email") String userId, HttpServletResponse response) throws IOException {
+	   service.activationUser(userId);
 	   response.setContentType("text/html;charset=utf-8");
 	   PrintWriter out = response.getWriter();
 	   out.println("<script>alert('회원가입에 성공하셨습니다! 로그인 후 이용 가능합니다'); location.href='/' </script>");
@@ -105,16 +99,22 @@ public class UserController {
    @PostMapping("/searchPw")
    public String searchPwByEmail(String userId, HttpServletResponse response) throws Exception {
 	   UserVO user = service.selectOne(userId);
-	   String tmpPw = mss.sendPwMail(userId);
-	   user.setUserPassword(tmpPw);
-	   service.changeInfo(user);
 	   
-	   response.setContentType("text/html;charset=utf-8");
-	   PrintWriter out = response.getWriter();
-	   out.println("<script>alert('입력하신 이메일로 보내진 임시 비밀번호로 로그인을 진행해주세요'); </script>");
-	   out.flush();
+	   if(user != null) {
+		   String tmpPw = mss.sendPwMail(userId);
+		   user.setUserPassword(tmpPw);
+		   service.changeInfo(user);
+		   
+		   response.setContentType("text/html;charset=utf-8");
+		   PrintWriter out = response.getWriter();
+		   out.println("<script>alert('입력하신 이메일로 보내진 임시 비밀번호로 로그인을 진행해주세요'); </script>");
+		   out.flush();
+		   
+		   return "user/login";
+	   } else {
+		   return "redirect:/user/searchPw?msg=noId";
+	   }
 	   
-	   return "user/login";
    }
    
    //로그인 처리
@@ -123,16 +123,20 @@ public class UserController {
       
       UserVO dbData = service.selectOne(inputData.getUserId());
       
-      if ((dbData != null) && (dbData.getDeleteAccount() < 1)/* && (dbData.getAuthStatus() == 1) */) {
-         if(inputData.getUserPassword().equals(dbData.getUserPassword())) {
-            //세션 데이터 생성(로그인 유지)
-            session.setAttribute("login", dbData);
-            
-         }else {
-            ra.addFlashAttribute("msg","pwFail");
-            return "redirect:/user/login";
-         }
-      }else {
+      if ((dbData != null) && (dbData.getDeleteAccount() < 1)) {
+	         if(inputData.getUserPassword().equals(dbData.getUserPassword())) {
+	        	 if(dbData.getAdminLevel() >= 0) {
+		            //세션 데이터 생성(로그인 유지)
+		            session.setAttribute("login", dbData);
+	        	 }else {
+	        		 ra.addFlashAttribute("msg","mailAuth");
+	                 return "redirect:/user/login";
+	        	 }
+	         }else {
+	            ra.addFlashAttribute("msg","pwFail");
+	            return "redirect:/user/login";
+	         }
+      } else {
          ra.addFlashAttribute("msg","idFail");
          return "redirect:/user/login";
       }

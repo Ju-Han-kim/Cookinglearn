@@ -34,10 +34,7 @@ public interface IUserMapper {
 	//클래스 시청
 	ClassVO myClassWatch(int classCode);
 	
-	//setAuthKey
-	void updateAuthKey(@Param("userId") String userId, @Param("authKey") String authKey);
-
-	//updateAuthStatus
-	void updateAuthStatus(@Param("userId") String userId, @Param("authKey") String authKey);
+	//계정 활성화
+	void activationUser(String userId);
 
 }

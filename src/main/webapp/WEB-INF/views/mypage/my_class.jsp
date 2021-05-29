@@ -33,6 +33,7 @@
         <div class="classes">
           <div class="classes_left">
             <h2>수강중인 클래스</h2>
+            
             <div class="classes_wrap_left">
               <div class="class_left">
                   <div class="class">
@@ -51,9 +52,11 @@
                   </div>
               </div>                
             </div>
+            
           </div>
           <div class="classes_right">
             <h2>대기중인 클래스</h2>
+            
             <div class="classes_wrap_right">
               <div class="class_right">
                 <div class="class">
@@ -72,6 +75,7 @@
                 </div>
               </div>
             </div>
+            
           </div>
         </div>
       </div>

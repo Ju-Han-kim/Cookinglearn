@@ -15,7 +15,7 @@ public class UserVO {
 	private Timestamp deleteDay;
 
 	public UserVO() {
-
+		this.deleteAccount = false;
 	}
 
 	public UserVO(int userNo, String userId, String userPassword, String nickname, boolean gender, Timestamp regDate,
