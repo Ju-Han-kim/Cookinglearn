@@ -78,11 +78,31 @@ public class BoardController {
 		return "/board/online-all";
 	}
 	
-	// 온라인 카테고리 별 게시글 목록
+	// 온라인 카테고리 별 게시글 목록 + 페이징
 	@RequestMapping(value="/online-kat", method=RequestMethod.GET)
-	public String getKategorieList(Model model, String kategorie) throws Exception{
-		List<BoardVO> kategorieList = service.kategorieList(kategorie);
-		model.addAttribute("kategorie", kategorieList);
+	public String getKategorieList(Model model, String category,
+			@RequestParam(value="nowPage", required=false)String nowPage,
+			@RequestParam(value="cntPerPage", required=false)String cntPerPage) throws Exception{
+		int total = service.onlineCateCountBoard(category);
+		
+		if(nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "12";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "12";
+		}
+
+		PagingVO vo = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		List<BoardVO> categoryList = service.kategorieList(category, vo);
+		
+		model.addAttribute("paging", vo);
+		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("kategorie", category);
+		
+		
+		
 		return "/board/online-kat";
 	}
 

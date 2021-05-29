@@ -82,11 +82,11 @@
       <div class="navbar__menu">
         <ul class="navbar__menu">
           <li class="navbar__menu__item"><a href="/board/online-all">전체</a></li>
-          <li class="navbar__menu__item"><a href="/board/online-kat?kategorie=한식">한식</a></li>
-          <li class="navbar__menu__item"><a href="/board/online-kat?kategorie=분식">분식</a></li>
-          <li class="navbar__menu__item"><a href="/board/online-kat?kategorie=중식">중식</a></li>
-          <li class="navbar__menu__item"><a href="/board/online-kat?kategorie=일식">일식</a></li>
-          <li class="navbar__menu__item"><a href="/board/online-kat?kategorie=양식">양식</a></li>
+          <li class="navbar__menu__item"><a href="/board/online-kat?category=한식">한식</a></li>
+          <li class="navbar__menu__item"><a href="/board/online-kat?category=분식">분식</a></li>
+          <li class="navbar__menu__item"><a href="/board/online-kat?category=중식">중식</a></li>
+          <li class="navbar__menu__item"><a href="/board/online-kat?category=일식">일식</a></li>
+          <li class="navbar__menu__item"><a href="/board/online-kat?category=양식">양식</a></li>
           <li class="navbar__menu__item"><a href="/board/offline">오프라인</a></li>
         </ul>
       </div>

@@ -1,6 +1,7 @@
 package kr.co.cookinglearn.board.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -37,9 +38,9 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	@Override
-	public List<BoardVO> kategorieList(String kategorie) throws Exception {
+	public List<BoardVO> kategorieList(Map map) throws Exception {
 		// TODO Auto-generated method stub
-		return sql.selectList(namespace + ".kategorie", kategorie);
+		return sql.selectList(namespace + ".category", map);
 	}
 
 	@Override
@@ -79,4 +80,23 @@ public class BoardDAOImpl implements BoardDAO {
 		// TODO Auto-generated method stub
 		return sql.selectOne(namespace + ".getOnelineClassCount");
 	}
+
+	@Override
+	public int onlineCateCountBoard(String classCategory) {
+		// TODO Auto-generated method stub
+		return sql.selectOne(namespace + ".getOnelineClassCateCount", classCategory);
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

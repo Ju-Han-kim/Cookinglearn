@@ -1,6 +1,8 @@
 package kr.co.cookinglearn.board.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import kr.co.cookinglearn.board.domain.BoardVO;
 import kr.co.cookinglearn.board.domain.ReviewVO;
@@ -15,7 +17,7 @@ public interface BoardDAO {
 	public List<BoardVO> list(PagingVO vo) throws Exception;
 	
 	// 온라인 클래스 카테고리 별 목록
-	public List<BoardVO> kategorieList(String no) throws Exception;
+	public List<BoardVO> kategorieList(Map map) throws Exception;
 	
 	//온라인 클래스 상세보기 페이지
 	public BoardVO detail(int no) throws Exception;
@@ -40,6 +42,8 @@ public interface BoardDAO {
 	
 	// 온라인 게시판 개수 가지고 오기.
 	public int countBoard();
+	
+	public int onlineCateCountBoard(String category);
 
 	
 }

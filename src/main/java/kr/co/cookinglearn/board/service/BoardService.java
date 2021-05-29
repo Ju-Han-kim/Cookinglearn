@@ -12,7 +12,7 @@ public interface BoardService {
 	public List<BoardVO> list(PagingVO vo) throws Exception;
 
 	//온라인 카테고리 페이지
-	public List<BoardVO> kategorieList(String no) throws Exception;
+	public List<BoardVO> kategorieList(String category, PagingVO vo) throws Exception;
 
 	//오프라인 페이지
 	public List<BoardVO> getOfflineClass() throws Exception;
@@ -37,5 +37,7 @@ public interface BoardService {
 	
 	// 온라인 게시물 총 갯수
 	public int countBoard();
+	
+	public int onlineCateCountBoard(String category);
 
 }

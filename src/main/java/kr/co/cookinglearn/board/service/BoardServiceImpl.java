@@ -1,6 +1,8 @@
 package kr.co.cookinglearn.board.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -41,8 +43,11 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<BoardVO> kategorieList(String no) throws Exception {
-		return dao.kategorieList(no);
+	public List<BoardVO> kategorieList(String category, PagingVO vo) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("classCategory", category);
+		map.put("vo", vo);
+		return dao.kategorieList(map);
 	}
 
 	@Override
@@ -73,6 +78,11 @@ public class BoardServiceImpl implements BoardService {
 	public int countBoard() {
 		// TODO Auto-generated method stub
 		return dao.countBoard();
+	}
+	
+	public int onlineCateCountBoard(String category) {
+		// TODO Auto-generated method stub
+		return dao.onlineCateCountBoard(category);
 	}
 	
 }
