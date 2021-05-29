@@ -1,6 +1,9 @@
 package kr.co.cookinglearn.user.repository;
 
 import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
 
 import kr.co.cookinglearn.user.model.UserVO;
 
@@ -27,5 +30,10 @@ public interface IUserMapper {
 	//회원 탈퇴 기능
 	void delete(String account);
 	
+	//setAuthKey
+	void updateAuthKey(@Param("userId") String userId, @Param("authKey") String authKey);
+
+	//updateAuthStatus
+	void updateAuthStatus(@Param("userId") String userId, @Param("authKey") String authKey);
 
 }

@@ -52,8 +52,8 @@ public class BoardController {
 	
 		List<ReviewVO> reviewList = reviewService.reviewList(viewDetail);
 		model.addAttribute("review", reviewList);
-//		System.out.println(viewDetail);
-//		System.out.println(reviewList);
+		System.out.println(viewDetail);
+		System.out.println(reviewList);
 		return "board/viewDetail";
 	}
 

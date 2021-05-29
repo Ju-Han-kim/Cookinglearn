@@ -11,7 +11,7 @@
         <h3>안녕하세요 <c:out value="${login.nickname}"/>님!</h3>
         <p>내 포인트: 2100p</p>
         <li class="mypage__navmenu__item">
-          <a href="<c:url value="/user/myclass" />"><i class="fas fa-book"></i>&nbsp;&nbsp;&nbsp;내 강의</a>
+          <a href="<c:url value="/user/myclass" />"><b style="color: #fcba03;" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='#fcba03'"><i class="fas fa-book"></i>&nbsp;&nbsp;&nbsp;내 강의</b></a>
         </li>
         <li class="mypage__navmenu__item">
           <a href="<c:url value="/user/mypoint" />"><i class="fab fa-product-hunt"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;내 포인트</a>

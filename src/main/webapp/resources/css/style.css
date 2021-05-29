@@ -257,6 +257,10 @@ p {
   background-color: var(--color-light-yello);
 }
 
+.active {
+  font-weight: 700;
+}
+
 /* Footer */
 #footer {
   display: table;

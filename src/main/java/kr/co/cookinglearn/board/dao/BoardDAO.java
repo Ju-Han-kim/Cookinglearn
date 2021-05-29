@@ -12,4 +12,5 @@ public interface BoardDAO {
 	public BoardVO detail(int no) throws Exception;
 	public List<ReviewVO> reviewList(int no) throws Exception;
 	public void write(ReviewVO vo) throws Exception;
+	public List<BoardVO> topClass() throws Exception;
 }

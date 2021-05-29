@@ -43,7 +43,12 @@ public class BoardServiceImpl implements BoardService {
 	
 		dao.write(vo);
 	}
-
-
+	
+	//TopClass
+	@Override
+	public List<BoardVO> topClass() throws Exception {
+		return dao.topClass();
+	}
+	
 	
 }

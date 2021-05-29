@@ -1,6 +1,7 @@
 package kr.co.cookinglearn.user.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -32,5 +33,11 @@ public interface IUserService {
 	
 	//로그아웃 기능
 	void logout(HttpServletResponse response) throws Exception;
+	
+	//권한 키 변경
+	void updateAuthKey(String userId, String authKey);
+	
+	//권한 상태 변경
+	void updateAuthStatus(String userId, String authKey);
 
 }

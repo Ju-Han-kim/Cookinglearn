@@ -23,4 +23,7 @@ public interface BoardService {
 	//댓글 작성
 	public void write(ReviewVO vo) throws Exception;
 	
+	//topClass
+	public List<BoardVO> topClass() throws Exception;
+	
 }

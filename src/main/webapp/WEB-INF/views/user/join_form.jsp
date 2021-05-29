@@ -29,13 +29,11 @@
 	<div class="register_title">
 		<h2>회원 가입</h2>
 	</div>
-	<form id="join_form" method="post">
+	<form id="join_form" method="post" action="/user/register">
 		<div class="wrap">
           <div class="id_wrap">
               <input type="text" id="userId" name="userId" class="id_input" placeholder="이메일(아이디)"/>
               <button type="button" class="id_check_button" onclick="fn_idChk();" value="N">중복 확인</button>
-              <input class="mail_check_input" disabled="disabled" placeholder="인증번호" />
-              <button type="button" class="mail_check_button" disabled="disabled">이메일인증</button>
 			  <div id="userId_check"></div>
 			  
           </div>
@@ -221,11 +219,8 @@
 	        const radio = $("#radio-1").is(":checked") || $("#radio-2").is(":checked");
 	        const check = $(".id_check_button").attr('value') == "Y" && $(".nick_check_button").attr('value') == "Y";
 
-	        
 	        if(chk1 && chk2 && chk3 && chk4 && radio && check){
-	            $(".join_form").submit();
-	            alert("환영합니다! 로그인 후 서비스를 이용하실 수 있습니다");
-	            location.replace('/');
+	            $("#join_form").submit();
 	            
 	        } else if (chk1 && chk2 && chk3 && chk4 && check) {
 	        	alert("성별을 입력해주세요");

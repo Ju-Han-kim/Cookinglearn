@@ -98,28 +98,9 @@ input {
 .id_input {
   width: 70.3%;
   float: left;
-  border-bottom: none;
   border-right: none;
 }
 .id_check_button {
-  width: 25%;
-  float: right;
-  height: 52px;
-  background-color: #ebedee;
-  color: #555;
-  font-size: 15px;
-  border: 1.2px solid #b4b4b4;
-  padding: 0;
-  border-bottom: none;
-}
-
-/*이메일 인증 영역 */
-.mail_check_input {
-  width: 70.3%;
-  float: left;
-  border-right: none;
-}
-.mail_check_button {
   width: 25%;
   float: right;
   height: 52px;

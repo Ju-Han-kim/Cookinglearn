@@ -35,7 +35,7 @@
 			price,
 			max_student
 		FROM
-		    class
+		    "CLASS"
 	</select>
 	<!-- 게시물 조회 -->
 	<select id="kategorie" resultMap="board">
@@ -48,9 +48,26 @@
 		    class_url,
 		    price
 		FROM
-		    class
+		    "CLASS"
 		WHERE
-			class_category=#{class_category} AND class_type=1
+			class_category=#{classCategory} AND class_type=1
+	</select>
+	
+	<!-- 최신 클래스 10위 조회 -->
+	<select id="topClass" resultMap="board">
+		SELECT
+		    class_code,
+		    class_type,
+		    class_category,
+		    thumbnail_img,
+		    class_name,
+		    class_url,
+		    price,
+		ROW_NUMBER() OVER (ORDER BY class_code DESC) AS RANK  
+		FROM
+		    "CLASS"
+		WHERE
+			ROWNUM BETWEEN 1 AND 8
 	</select>
 
 	<!-- 상세보기 조회 -->
@@ -71,7 +88,7 @@
 		FROM
 		    "CLASS"
 		WHERE
-			class_code = #{class_code} AND class_type=1
+			class_code = #{classCode} AND class_type=0
 	</select>
 </mapper>
 
