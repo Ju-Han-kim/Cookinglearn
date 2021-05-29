@@ -25,19 +25,19 @@
 						</div>
 						<div class="row text-center">
 							<div class="col-md-6">
-								<img src="/resources/board/icon/time.png"> 강의기간 : <fmt:formatNumber pattern="#,###" value="${classInfo.runTime/24/60}"/>일
+								<img src="/resources/board/icon/time.png" width="50px" height="50px"> 강의시간 : <fmt:formatNumber pattern="#,###" value="${classInfo.runTime}"/>분
 							</div>
 							<div class="col-md-6">
-								<img src="/resources/board/icon/calender.png"> 카테고리 : ${classInfo.classCategory}
+								<img src="/resources/board/icon/calender.png" width="50px" height="50px"> 카테고리 : ${classInfo.classCategory}
 							</div>
 						</div>
 						<br>
 						<div class="row text-center">
 							<div class="col-md-6">
-								<img src="/resources/board/icon/buy.png"> 수강비용 : <fmt:formatNumber pattern="#,###" value="${classInfo.price}"/>원
+								<img src="/resources/board/icon/buy.png" width="50px" height="50px"> 수강비용 : <fmt:formatNumber pattern="#,###" value="${classInfo.price}"/>원
 							</div>
 							<div class="col-md-6">
-								<img src="/resources/board/icon/buy.png"> 최대인원 : ${classInfo.maxStudent}명
+								<img src="/resources/board/icon/person_m.png" width="50px" height="50px"> 최대인원 : ${classInfo.maxStudent}명
 							</div>
 						</div>
 						<br>

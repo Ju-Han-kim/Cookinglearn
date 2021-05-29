@@ -126,7 +126,7 @@ public class ClassMgrService implements IClassMgrService {
 		Map<String, Integer> datas = new HashMap<String, Integer>();
 		
 		datas.put("orderNo", order.getOrderNo());
-		datas.put("orderProcess", 2);
+		datas.put("orderProcess", OrderVO.COMPLETE_CLASS);
 		
 		mapper.setProcess(datas);
 		

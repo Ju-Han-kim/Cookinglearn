@@ -65,6 +65,9 @@
 							<div class="card-header"><strong>관리자권한</strong></div>
 							<div class="card-body text-secondary">
 								<div class="col-md-12" id="adminArea">
+									<c:if test="${userInfo.adminLevel == -1}">
+										탈퇴한 계정입니다.
+									</c:if>
 									<c:if test="${userInfo.adminLevel == 0}">
 										이 계정은 일반계정입니다. 관리자권한을 부여하시겠습니까? &nbsp;<button class="btn btn-sm btn-outline-danger" id="grant-admin-btn">권한부여</button>
 									</c:if>
