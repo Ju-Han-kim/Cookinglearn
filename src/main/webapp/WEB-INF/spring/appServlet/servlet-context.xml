@@ -69,6 +69,10 @@
 		<interceptor>
 			<mapping path="/admin/*"/>
 			<mapping path="/admin/class/*"/>
+			<mapping path="/admin/class/on/*"/>
+			<mapping path="/admin/class/off/*"/>
+			<mapping path="/admin/class/modon/*"/>
+			<mapping path="/admin/class/modoff/*"/>
 			<mapping path="/admin/order/*"/>
 			<mapping path="/admin/user/*"/>
 			<mapping path="/admin/qna/*"/>
