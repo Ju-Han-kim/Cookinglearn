@@ -82,7 +82,7 @@
 								</td>
 								<td>${orderInfo.getProcess(orderInfo.orderProcess)}</td>
 								<td>
-									<fmt:formatNumber pattern="#,###" value="${orderInfo.payment}"/>
+									<fmt:formatNumber pattern="#,###" value="${orderInfo.payment}"/>원
 								</td>
 							</tr>
 						</c:forEach>

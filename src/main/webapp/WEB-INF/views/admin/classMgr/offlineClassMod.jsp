@@ -255,7 +255,15 @@
 				$("#thumbnailImg").val(thumbnailImg);
 				$("#class-form").submit();
 			} else {
-				alert("입력값을 확인해주세요!");
+				if(!chk1){
+					alert("강의이름을 입력해주세요!");
+				}
+				if(!chk2) {
+					alert("수강비용을 입력해주세요!");
+				}
+				if(!chk3) {
+					alert("썸네일을 등록해주세요!");
+				}
 			}
 			
 		});

@@ -171,26 +171,45 @@
 		
 		function checkUrlFunc() {
 			const src = $("#classUrl").val();
-			window.open(src,"영상확인","top=100px, left=50px, height=800px, width=1200px, menubar=no, toolbar=no, location=no");
-			
-			if(confirm('영상을 확정하시겠습니까?')){
-				$("#classUrl").attr("readonly", "");
-				$("#ckeck-btn-area").html("<button class='btn btn-outline-secondary' type='button' id='modifyUrl'>영상수정</button>");
-				chk5 = true;
-				$("#modifyUrl").click(function() {
-					if(confirm("영상을 수정하시겠습니까?")){
-						$("#classUrl").removeAttr("readonly");
-						$("#classUrl").val("");
-						$("#classUrl").focus();
-						chk5 = false;
-						$("#ckeck-btn-area").html("<button class='btn btn-outline-secondary' type='button' id='checkUrl'>영상확인</button>");
-						$("#checkUrl").click(function() {
-							checkUrlFunc();
-						});
-					}
+			openDialog(src,"영상확인","top=100px, left=50px, height=800px, width=1200px, menubar=no, toolbar=no, location=no", function(win) {
+				if(confirm('영상을 확정하시겠습니까?')){
+					$("#classUrl").attr("readonly", "");
+					$("#ckeck-btn-area").html("<button class='btn btn-outline-secondary' type='button' id='modifyUrl'>영상수정</button>");
+					chk3 = true;
+					$("#modifyUrl").click(function() {
+						modUrlFunc();
+					});
+				}
+			});
+		}
+		
+		function modUrlFunc() {
+			if(confirm("영상을 수정하시겠습니까?")){
+				$("#classUrl").removeAttr("readonly");
+				$("#classUrl").val("");
+				$("#classUrl").focus();
+				chk3 = false;
+				$("#ckeck-btn-area").html("<button class='btn btn-outline-secondary' type='button' id='checkUrl'>영상확인</button>");
+				$("#checkUrl").click(function() {
+					checkUrlFunc();
 				});
 			}
 		}
+		
+		const openDialog = function(uri, popupName, options, closeCallback) {
+			const win = window.open(uri, popupName, options);
+			let interval = window.setInterval(function() {
+				try {
+					if (win == null || win.closed) {
+					    window.clearInterval(interval);
+					    closeCallback(win);
+					}
+				}
+				catch (e) {
+				}
+			}, 1000);
+			return win;
+		};
 		
 		//Thumbnail 업로드
 		$("#thumbnailImgFile").change(function(e) {
@@ -232,7 +251,7 @@
 		});
 		
 		//값 검증
-		let chk1 = false, chk2 = false, chk3 = false, chk4 = false, chk5 = false;
+		let chk1 = false, chk2 = false, chk3 = false, chk4 = false;
 		const regNum = RegExp(/^[0-9]*$/); 
 		
 		//강의이름 입력여부 검증
@@ -258,24 +277,28 @@
 			}
 		});
 		
-		//강의 url 입력여부 검증
-		$("#classUrl").on("keyup", function() {
-			if($(this).val() === ""){
-				chk3 = false;
-			} else {
-				chk3 = true;
-			}
-		});
-		
 		//강의등록
 		$("#submit-btn").click(function() {
 			
-			if(chk1 && chk2 && chk3 && chk4 && chk5){
-				$("#contentImg").val(contentImg);
-				$("#thumbnailImg").val(thumbnailImg);
-				$("#class-form").submit();
+			if(chk1 && chk2 && chk3 && chk4){
+				if(confirm($("#className").val()+"(을)를 등록하시겠습니까?")){
+					$("#contentImg").val(contentImg);
+					$("#thumbnailImg").val(thumbnailImg);
+					$("#class-form").submit();
+				}
 			} else {
-				alert("입력값을 확인해주세요!");
+				if(!chk1){
+					alert("강의이름을 입력해주세요!");
+				}
+				if(!chk2) {
+					alert("수강비용을 입력해주세요!");
+				}
+				if(!chk3) {
+					alert("강의 URL을 확인해주세요!");
+				}
+				if(!chk4) {
+					alert("썸네일을 등록해주세요!");
+				}
 			}
 			
 		});

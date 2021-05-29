@@ -170,23 +170,7 @@
 		FROM 
 			"CLASS" 
 		WHERE 
-			class_category=#{classCategory} 
-			AND class_type=1
+			class_category=#{classCategory} AND class_type=1
 	</select>
 	
 </mapper>
-
-<!-- 
-class_code,
-class_type,
-class_category,
-thumbnail_img,
-class_name,
-class_content,
-run_time,
-start_date,
-content_img,
-class_url,
-price,
-max_student
- -->

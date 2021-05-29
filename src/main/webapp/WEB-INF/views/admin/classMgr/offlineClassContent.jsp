@@ -13,10 +13,13 @@
 				<div class="card border-secondary mb-3">
 					<div class="card-header"><strong>오프라인 강의 상세현황</strong></div>
 					<div class="card-body">
-						${classInfo.classCode}번 강의정보 
-						<c:if test="${classInfo.classContent != null}">
-							${classInfo.classContent}
-						</c:if>
+						<div class="row">
+							<div class="col-md-12">
+								<c:if test="${classInfo.classContent != null}">
+									${classInfo.classContent}
+								</c:if>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -51,9 +54,9 @@
 											<th scope="col">진행상태</th>
 											<th scope="col">비고</th>
 										</tr>
-										<c:forEach var="student" items="${students}">
+										<c:forEach var="student" items="${students}" varStatus="status">
 											<tr>
-												<td scope="row">${student.stuNo}</td>
+												<td scope="row">${status.count}</td>
 												<td>${student.userId}</td>
 												<td>${student.nickname}</td>
 												<td>
@@ -62,10 +65,10 @@
 												<td>
 													<fmt:formatDate pattern="yyyy-MM-dd(E)" value="${student.paymentDate}" />
 												</td>
-												<td id="process-td${student.userNo}">${student.getProcess(student.orderProcess)}</td>
-												<td>
+												<td id="process-td${student.orderNo}">${student.getProcess(student.orderProcess)}</td>
+												<td id="process-btn${student.orderNo}">
 													<c:if test="${student.orderProcess == 1}">
-														<button class="btn btn-sm btn-outline-secondary process-btn" id="${student.userNo}">완료처리</button>
+														<button class="btn btn-sm btn-outline-secondary process-btn" id="${student.orderNo}">완료처리</button>
 													</c:if>
 												</td>
 											</tr>
@@ -145,20 +148,22 @@
 		$(".process-btn").click(function() {
 			if(confirm('수강완료 처리하시겠습니까?')){
 				const classCode = "${classInfo.classCode}";
-				const userNo = $(this).attr("id");
+				const orderNo = $(this).attr("id");
 				
-				const id = "#process-td"+userNo;
+				const processId = "#process-td"+orderNo;
+				const btnId = "#process-btn"+orderNo;
 				
 				$.ajax({
 					type: "POST",
 					data:{
 						"classCode": classCode,
-						"userNo": userNo
+						"orderNo": orderNo
 					},
 					url:"/admin/class/orderprocess",
 					success: function() {
 						alert("성공적으로 수정되었습니다.");
-						$(id).html("수강완료");
+						$(processId).html("수강완료");
+						$(btnId).html("");
 					},
 					error: function() {
 						console.log("통신오류 : 프로세스변경");

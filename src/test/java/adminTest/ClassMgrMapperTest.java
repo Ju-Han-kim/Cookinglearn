@@ -316,25 +316,22 @@ public class ClassMgrMapperTest {
 	*/
 	
 	/*
-	//강의번호와 유저번호를 받아 결제내역의 진행상태를 '수강완료(2)'으로 변경테스트
+	//주문번호를 받아 결제내역의 진행상태를 '수강완료(2)'으로 변경테스트
 	@Test
 	public void setProcessTest() {
 		
 		Map<String, Integer> datas = new HashMap<String, Integer>();
 		
-		int userNo = 1;
-		int classCode = 1;
+		int orderNo = 70;
 		int orderProcess = 2;
 		
-		datas.put("userNo", userNo);
-		datas.put("classCode", classCode);
+		datas.put("orderNo", orderNo);
 		datas.put("orderProcess", orderProcess);
 		
 		mapper.setProcess(datas);
 		
 	}
 	*/
-	
 	
 	
 	

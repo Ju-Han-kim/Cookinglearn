@@ -29,7 +29,7 @@
 		<!-- Header -->
 		<header id="header">
 			<div class="header__brandicon">
-				<a href="<c:url value='/admin/'/>"> <img src="<c:url value='/admin/img/brandicon.png'/>"
+				<a href="<c:url value='/'/>"> <img src="<c:url value='/admin/img/brandicon.png'/>"
 					alt="브랜드 로고" />
 				</a>
 			</div>

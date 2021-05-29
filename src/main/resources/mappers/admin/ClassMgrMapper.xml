@@ -21,7 +21,7 @@
 	</resultMap>
 	
 	<resultMap id="studentsMap" type="kr.co.cookinglearn.admin.model.process.ClassStudentsVO">
-		<id property="stuNo" column="stu_no"/>
+		<id property="orderNo" column="order_no"/>
 		<result property="userNo" column="user_no"/>
 		<result property="userId" column="user_id"/>
 		<result property="nickname" column="nickname"/>
@@ -148,15 +148,16 @@
 	</select>
 	
 	<select id="getStudents" resultMap="studentsMap">
-		SELECT ROW_NUMBER() OVER(ORDER BY payment_date) AS stu_no, user_no, user_id, nickname, gender, payment_date, order_process
+		SELECT order_no, user_no, user_id, nickname, gender, payment_date, order_process
 		FROM "ORDER" JOIN "USER" USING(user_no)
 		WHERE class_code = #{classCode}	
+		ORDER BY payment_date
 	</select>
 
 	<update id="setProcess">
 		UPDATE "ORDER"
 		SET order_process = #{orderProcess}
-		WHERE user_no = #{userNo} AND class_code = #{classCode}
+		WHERE order_no = #{orderNo}
 	</update>
 	
 </mapper>

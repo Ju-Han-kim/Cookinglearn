@@ -14,6 +14,6 @@ public interface IQnaMgrService {
 	int qnaCount(QnaSearchVO search);
 
 	//해당 문의정보를 받아 답변내용 등록
-	void setAnswer(QnaVO qna);
+	String setAnswer(QnaVO qna);
 	
 }

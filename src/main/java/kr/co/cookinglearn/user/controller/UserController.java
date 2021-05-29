@@ -123,7 +123,7 @@ public class UserController {
       
       UserVO dbData = service.selectOne(inputData.getUserId());
       
-      if((dbData != null) && (dbData.getDeleteAccount() < 1) && (dbData.getAuthStatus() == 1)) {
+      if ((dbData != null) && (dbData.getDeleteAccount() < 1)/* && (dbData.getAuthStatus() == 1) */) {
          if(inputData.getUserPassword().equals(dbData.getUserPassword())) {
             //세션 데이터 생성(로그인 유지)
             session.setAttribute("login", dbData);
