@@ -16,6 +16,8 @@
 		<result property="adminLevel" column="admin_level" />
 		<result property="deleteAccount" column="delete_account" />
 		<result property="deleteDay" column="delete_day" />
+		<result property="authKey" column="auth_key" />
+		<result property="authStatus" column="auth_status" />
 	</resultMap>
 	
 	
@@ -58,6 +60,20 @@
 		UPDATE "USER"
 		SET user_password = #{userPassword}, nickname = #{nickname}, gender = #{gender}
 		WHERE user_id = #{userId}
+	</update>
+	
+	<!-- 권한키 변경 -->
+	<update id="updateAuthKey">
+		UPDATE "USER"
+		SET auth_key = #{authKey}
+		WHERE user_id = #{userId}
+	</update>
+	
+	<!-- 권한 상태 변경 -->
+	<update id="updateAuthStatus">
+		UPDATE "USER"
+		SET auth_status = '1'
+		WHERE user_id = #{userId} AND auth_key = #{authKey}
 	</update>
 	
 	

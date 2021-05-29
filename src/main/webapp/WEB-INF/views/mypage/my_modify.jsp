@@ -22,7 +22,7 @@
           <a href="<c:url value="/user/myqna" />"><i class="fas fa-question-circle"></i>&nbsp;&nbsp;내 문의</a>
         </li>
         <li class="mypage__navmenu__item">
-          <a href="<c:url value="/user/mypage" />"><i class="fas fa-cog"></i>&nbsp;&nbsp;내 정보</a>
+          <a href="<c:url value="/user/mypage" />"><b style="color: #fcba03;" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='#fcba03'"><i class="fas fa-cog"></i>&nbsp;&nbsp;내 정보</b></a>
         </li>
         <li class="mypage__navmenu__item">
           <a href="<c:url value="/user/logout" />"><i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;로그아웃</a>
@@ -49,7 +49,7 @@
                 type="radio"
                 name="gender"
                 class="radio gender_male_radio"
-                value="1"/>
+                value="1" ${login.gender == 1?'checked':''}/>
               &nbsp;&nbsp;&nbsp;&nbsp;
               <label for="radio-2">여성&nbsp;</label>
               <input
@@ -57,7 +57,7 @@
                 type="radio"
                 name="gender"
                 class="radio gender_female_radio"
-                value="0"/>
+                value="0" ${login.gender == 0?'checked':''}/>
             </div>
             <div id="join_check" class="check"></div>  
             <div class="button_wrapper">
@@ -68,6 +68,7 @@
     </div>
   </div>
   <script>
+  
   
   var chk1 = false
   
@@ -90,7 +91,7 @@
 		                chk1 = true;
 		            }
 		        }
-		    })//ajax end
+		    });//ajax end
 		}
 	}
 	

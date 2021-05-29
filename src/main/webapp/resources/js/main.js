@@ -33,6 +33,3 @@ arrowUp.addEventListener('click', () => {
     scrollIntoView('#header');
 });
 
-
-
-

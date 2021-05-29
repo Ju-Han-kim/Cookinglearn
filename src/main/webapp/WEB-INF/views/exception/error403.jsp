@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
-<html lang="en" style="background: url('/resources/img/error404.png') no-repeat center center fixed;">
+<html lang="en" style="background: url('/resources/img/error403.png') no-repeat center center fixed;">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />

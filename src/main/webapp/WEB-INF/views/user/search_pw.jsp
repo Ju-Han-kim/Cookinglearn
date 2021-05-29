@@ -39,9 +39,9 @@
     <div class="login_title">
         <h2>비밀번호 찾기 </h2>
     </div>
-    <form action="<c:url value="/user/searchPw"/>" method="post">
+    <form id="searchPw" method="post" action="/user/searchPw">
     	<div class="login_wrap"> 
-			<input type="password" name="userPassword" class="pw_input" placeholder="비밀번호를 입력해주세요"/>
+			<input type="text" name="userId" class="pw_input" placeholder="아이디(이메일)를 입력해주세요"/>
 			<input type="submit" class="pw_submit" value="안내 메일 전송" />
 		</div>
 	</form>

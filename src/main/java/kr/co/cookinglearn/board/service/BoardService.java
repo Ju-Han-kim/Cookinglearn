@@ -40,4 +40,7 @@ public interface BoardService {
 	
 	public int onlineCateCountBoard(String category);
 
+	//topClass
+	public List<BoardVO> topClass() throws Exception;
+	
 }

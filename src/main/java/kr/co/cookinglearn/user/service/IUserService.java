@@ -1,6 +1,7 @@
 package kr.co.cookinglearn.user.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -36,5 +37,12 @@ public interface IUserService {
 	
 	//클래스 시청
 	ClassVO myClassWatch(int classCode);
+	
+	//권한 키 변경
+	void updateAuthKey(String userId, String authKey);
+	
+	//권한 상태 변경
+	void updateAuthStatus(String userId, String authKey);
+
 
 }

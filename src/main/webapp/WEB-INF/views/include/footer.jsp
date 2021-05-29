@@ -58,8 +58,22 @@
          alert("의견이 성공적으로 접수되었습니다.");
       }
       if(message === "modFail") {
-    	  alert("해당 서비스 이용을 위해선 로그인이 필요합니다.")
+    	 alert("해당 서비스 이용을 위해선 로그인이 필요합니다.")
       }
+      
+      $(function(){
+    	    // this will get the full URL at the address bar
+    	    var url = window.location.href; 
+
+    	    // passes on every "a" tag 
+    	    $("ul.navbar__menu a").each(function() {
+    	            // checks if its the same on the address bar
+    	        if(url == (this.href)) { 
+    	            $(this).closest("li").addClass("active");
+    	        }
+    	    });
+    	});
+      
     </script>
   </body>
 </html>

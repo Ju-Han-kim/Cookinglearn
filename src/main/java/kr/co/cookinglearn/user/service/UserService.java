@@ -2,6 +2,7 @@ package kr.co.cookinglearn.user.service;
 
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -76,8 +77,19 @@ public class UserService implements IUserService {
 
 	@Override
 	public ClassVO myClassWatch(int classCode) {
-		// TODO Auto-generated method stub
 		return mapper.myClassWatch(classCode);
 	}
 
+	@Override
+	public void updateAuthKey(String userId, String authKey) {
+		
+		mapper.updateAuthKey(userId, authKey);
+		
+	}
+
+	@Override
+	public void updateAuthStatus(String userId, String authKey) {
+		mapper.updateAuthStatus(userId, authKey);
+	}
+	
 }

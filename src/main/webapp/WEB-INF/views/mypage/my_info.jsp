@@ -22,7 +22,7 @@
           <a href="<c:url value="/user/myqna" />"><i class="fas fa-question-circle"></i>&nbsp;&nbsp;내 문의</a>
         </li>
         <li class="mypage__navmenu__item">
-          <a href="<c:url value="/user/mypage" />"><i class="fas fa-cog"></i>&nbsp;&nbsp;내 정보</a>
+          <a href="<c:url value="/user/mypage" />"><b style="color: #fcba03;" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='#fcba03'"><i class="fas fa-cog"></i>&nbsp;&nbsp;내 정보</b></a>
         </li>
         <li class="mypage__navmenu__item">
           <a href="<c:url value="/user/logout" />"><i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;로그아웃</a>
@@ -46,7 +46,7 @@
       		<div id="my_info">
 	          <h3>내 정보 조회</h3>
 	          <p id="my_info_id"><i class="fas fa-user-check"></i>&nbsp;&nbsp;아이디:&nbsp;&nbsp;<c:out value="${login.userId}"/></p>
-	          <p id="my_info_pw"><i class="fas fa-lock"></i>&nbsp;&nbsp;&nbsp;비밀번호:&nbsp;&nbsp;<c:out value="${login.userPassword}"/></p>
+	          <p id="my_info_pw"><i class="fas fa-lock"></i>&nbsp;&nbsp;&nbsp;비밀번호:&nbsp;&nbsp;********</p>
 	          <p id="my_info_nk"><i class="fas fa-user-astronaut"></i>&nbsp;&nbsp;&nbsp;닉네임:&nbsp;&nbsp;<c:out value="${login.nickname}"/></p>
 	          <p id="my_info_gd"><i class="fas fa-venus-mars"></i>&nbsp;&nbsp;성별:&nbsp;&nbsp;<c:out value="${(login.gender > 0) ? '남성' : '여성' }"/></p>
 	          <p id="my_info_rg"><i class="far fa-calendar-check"></i>&nbsp;&nbsp;&nbsp;가입일:&nbsp;&nbsp;<c:out value="${login.regDate}"/></p>

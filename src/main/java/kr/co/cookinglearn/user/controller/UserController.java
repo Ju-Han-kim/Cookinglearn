@@ -1,17 +1,16 @@
 package kr.co.cookinglearn.user.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
-import java.util.Random;
 
-import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +25,7 @@ import kr.co.cookinglearn.qna.sevice.IQnaService;
 import kr.co.cookinglearn.user.model.ClassVO;
 import kr.co.cookinglearn.user.model.UserVO;
 import kr.co.cookinglearn.user.service.IUserService;
+import kr.co.cookinglearn.user.service.MailSendService;
 
 @Controller
 @RequestMapping("/user")
@@ -37,53 +37,93 @@ public class UserController {
    private IUserService service;
    
    @Autowired
-   private JavaMailSender mailSender;
+   private MailSendService mss;
    
-   //to sign_up_agreement
+   @Autowired
+	private IQnaService qnaService;
+   
+   //약관동의 페이지로 가기
    @GetMapping("/join")
    public String signUpAgree() {
       return "user/sign_up_agreement";
    }
    
-   //to join_form
+   //회원가입 페이지로 가기
    @GetMapping("/register")
    public String write() {
       return "user/join_form";
    }
    
-   //register user
+   //회원가입 처리
    @PostMapping("/register")
-   public String register(UserVO user) {
+   public void register(UserVO user, HttpServletResponse response) throws IOException {
+	  //기본 정보 등록
 	  service.register(user);
-	  return "redirect:/";
-
+	  
+	  //이메일 보내기
+	  String authKey0 = mss.sendAuthMail(user.getUserId());
+	  user.setAuthKey(authKey0);
+	  
+	  String userId = user.getUserId();
+	  String authKey = user.getAuthKey();
+	  
+	  //updating authKey
+	  service.updateAuthKey(userId, authKey);
+	  
+	  response.setContentType("text/html;charset=utf-8");
+	  PrintWriter out = response.getWriter();
+	  out.println("<script>alert('이메일(아이디)로 전송된 인증 메일을 확인하여 가입 절차를 완료해주세요'); location.href='/' </script>");
+	  out.flush();
+	  
+	  
    }
    
-   //to login page
+   //회원가입 이메일 인증 처리
+   @GetMapping("/signUpConfirm")
+   public void SignUpConfirm(@RequestParam("email") String userId, @RequestParam("authKey") String authKey, HttpServletResponse response) throws IOException {
+	   service.updateAuthStatus(userId, authKey);
+	   response.setContentType("text/html;charset=utf-8");
+	   PrintWriter out = response.getWriter();
+	   out.println("<script>alert('회원가입에 성공하셨습니다! 로그인 후 이용 가능합니다'); location.href='/' </script>");
+	   out.flush();
+	   
+   }
+   
+   //로그인 페이지 가기
    @GetMapping("/login")
    public String login() {
       return "user/login";
    }
    
-   //search password
+   //비밀번호 찾기 페이지 가기
    @GetMapping("/searchPw")
    public String searchPw() {
 	   return "user/search_pw";
    }
    
+   //비밀번호 찾기 처리
    @PostMapping("/searchPw")
-   public String searchPwByEmail(RedirectAttributes ra) {
-	   ra.addFlashAttribute("msg", "이메일을 확인하세요");
-	   return "redirect:/user/login";
+   public String searchPwByEmail(String userId, HttpServletResponse response) throws Exception {
+	   UserVO user = service.selectOne(userId);
+	   String tmpPw = mss.sendPwMail(userId);
+	   user.setUserPassword(tmpPw);
+	   service.changeInfo(user);
+	   
+	   response.setContentType("text/html;charset=utf-8");
+	   PrintWriter out = response.getWriter();
+	   out.println("<script>alert('입력하신 이메일로 보내진 임시 비밀번호로 로그인을 진행해주세요'); </script>");
+	   out.flush();
+	   
+	   return "user/login";
    }
    
-   //login
+   //로그인 처리
    @PostMapping("/loginCheck")
-   public String loginCheck(UserVO inputData, HttpSession session, RedirectAttributes ra) {
+   public String loginCheck(UserVO inputData, HttpSession session, RedirectAttributes ra, HttpServletRequest request) {
       
       UserVO dbData = service.selectOne(inputData.getUserId());
       
-      if(dbData != null && (dbData.getDeleteAccount() < 1)) {
+      if((dbData != null) && (dbData.getDeleteAccount() < 1) && (dbData.getAuthStatus() == 1)) {
          if(inputData.getUserPassword().equals(dbData.getUserPassword())) {
             //세션 데이터 생성(로그인 유지)
             session.setAttribute("login", dbData);
@@ -101,7 +141,7 @@ public class UserController {
       
    }
    
-   //id check
+   //아이디 중복 확인
    @ResponseBody
    @PostMapping("/userIdChk")
    public int userIdChk(String userId) throws Exception {
@@ -110,7 +150,7 @@ public class UserController {
       return result;
    }
    
-   //nickname check
+   //닉네임 중복 확인
    @ResponseBody
    @PostMapping("/nicknameChk")
    public int nicknameChk(String nickname) throws Exception {
@@ -118,55 +158,21 @@ public class UserController {
       
       return result;
    }
-   
-   //계정 이메일 인증
-   @GetMapping("/mailCheck")
-   @ResponseBody
-   public void mailCheck(String email) throws Exception {
-      
-      //인증번호 난수 생성
-      Random random = new Random();
-      int checkNum = random.nextInt(888888)+111111;
-      
-      //이메일 보내기
-      String setFrom = "cookinglearn@hotmail.com"; // 이거 이메일 바꿔야 함
-      String toMail = email;
-      String title = "쿠킹런 회원가입 계정 인증";
-      String content =
-            "쿠킹런 회원가입을 진행해주셔서 감사합니다." +
-            "<br><br>" +
-            "인증 번호는 " + checkNum + "입니다." +
-            "<br>" +
-            "감사합니다.";
-      
-      try {
-            
-            MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
-            helper.setFrom(setFrom);
-            helper.setTo(toMail);
-            helper.setSubject(title);
-            helper.setText(content,true);
-            mailSender.send(message);
-            
-        }catch(Exception e) {
-            e.printStackTrace();
-        }
-   }
-   
-   //logout
+	   
+   //로그아웃 처리
    @GetMapping("/logout")
    public void logout(HttpSession session, HttpServletResponse response) throws Exception {
 	   session.invalidate();
 	   service.logout(response);
    }
    
-   //mypage
+   //마이페이지 가기
    @GetMapping("/mypage")
    public String mypage() {
 	   return "mypage/my_info";
    }
    
+   //마이페이지 비밀번호 처리
    @PostMapping("/mypage")
    public String myPwChk(String password, HttpSession session, RedirectAttributes ra) {
 	   UserVO user = (UserVO) session.getAttribute("login");
@@ -183,7 +189,7 @@ public class UserController {
 	   }
    }
    
-   //myclass
+   //내 강의 페이지 가기
    @GetMapping("/myclass")
    public String myclass() {
 	   return "mypage/my_class";
@@ -197,16 +203,13 @@ public class UserController {
 //	   return "mypage/my_point";
 //   }
    
-   //mypayment
+   //결제 페이지 가기
    @GetMapping("/mypayment")
    public String mypayment() {
 	   return "mypage/my_payment";
    }
    
-   @Autowired
-	private IQnaService qnaService;
-   
-   //myqna
+   //내 문의 페이지 가기
    @GetMapping("/myqna")
    public String myqna(HttpSession session, Model model) {
 	   UserVO user = (UserVO) session.getAttribute("login");
@@ -215,18 +218,20 @@ public class UserController {
 	   return "mypage/my_qna";
    }
    
-   //탈퇴
+   //회원 탈퇴 처리
    @GetMapping("/delete")
    public void delete(HttpSession session, HttpServletResponse response) throws Exception {
 	   UserVO user = (UserVO) session.getAttribute("login");
 	   service.delete(user.getUserId(), session, response);
    }
-	   
+   
+   //내 정보 수정 페이지 가기
    @GetMapping("/modify")
    public String modify() {
 	   return "mypage/my_modify";
    }
    
+   //내 정보 수정 페이지 처리
    @PostMapping("/modify")
    public String modified(UserVO update, HttpSession session) {
 	   UserVO user = (UserVO) session.getAttribute("login");
@@ -238,7 +243,7 @@ public class UserController {
 	   return "redirect:/user/mypage";
    }
    
-   //nickname check for modify
+   //내 정보 수정 페이지 닉네임 중복 확인
    @ResponseBody
    @PostMapping("/nicknameMod")
    public int nicknameMod(String nickname, HttpSession session) throws Exception {

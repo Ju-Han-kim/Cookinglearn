@@ -26,19 +26,16 @@ public class BoardServiceImpl implements BoardService {
 
 	 @Override
 	 public List<BoardVO> getOfflineClass() throws Exception {
-		 // TODO Auto-generated method stub
 		 return dao.getOfflineClass();
 	 }
 
 	@Override
 	 public List<BoardVO> getOfflineKateClass(String kategorie) throws Exception {
-		 // TODO Auto-generated method stub
 		 return dao.getOfflineKateClass(kategorie);
 	 }
 
 	@Override
 	public BoardVO offlineDetail(int viewDetail) {
-		// TODO Auto-generated method stub
 		return dao.offlineKategorieList(viewDetail);
 	}
 
@@ -63,26 +60,28 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public void reviewInsert(ReviewVO vo) throws Exception {
-		// TODO Auto-generated method stub
 	
 		dao.reviewInsert(vo);
 	}
 
 	@Override
 	public void reviewDelete(int reviewNo) {
-		// TODO Auto-generated method stub
 		dao.reviewDelete(reviewNo);
 	}
 
 	@Override
 	public int countBoard() {
-		// TODO Auto-generated method stub
 		return dao.countBoard();
 	}
 	
 	public int onlineCateCountBoard(String category) {
-		// TODO Auto-generated method stub
 		return dao.onlineCateCountBoard(category);
+	}
+	
+	//TopClass
+	@Override
+	public List<BoardVO> topClass() throws Exception {
+		return dao.topClass();
 	}
 	
 }

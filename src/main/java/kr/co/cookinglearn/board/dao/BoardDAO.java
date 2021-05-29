@@ -44,6 +44,6 @@ public interface BoardDAO {
 	public int countBoard();
 	
 	public int onlineCateCountBoard(String category);
-
 	
+	public List<BoardVO> topClass() throws Exception;
 }

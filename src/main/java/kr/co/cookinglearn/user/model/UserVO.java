@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 public class UserVO {
 	
 	private int userNo;
-	private String userId; //이메일
+	private String userId; //email
 	private String userPassword;
 	private String nickname;
 	private int gender;
@@ -13,7 +13,22 @@ public class UserVO {
 	private int adminLevel;
 	private int deleteAccount;
 	private Timestamp deleteDay;
+	private String authKey;
+	private int authStatus;
 	
+	
+	public String getAuthKey() {
+		return authKey;
+	}
+	public void setAuthKey(String authKey) {
+		this.authKey = authKey;
+	}
+	public int getAuthStatus() {
+		return authStatus;
+	}
+	public void setAuthStatus(int authStatus) {
+		this.authStatus = authStatus;
+	}
 	public int getUserNo() {
 		return userNo;
 	}
@@ -69,8 +84,4 @@ public class UserVO {
 		this.deleteDay = deleteDay;
 	}
 	
-	
-	
-	   
-
 }

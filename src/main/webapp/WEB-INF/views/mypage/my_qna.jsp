@@ -19,7 +19,7 @@
           <a href="<c:url value="/user/mypayment" />"><i class="fas fa-receipt"></i>&nbsp;&nbsp;결제 내역</a>
         </li>
         <li class="mypage__navmenu__item">
-          <a href="<c:url value="/user/myqna" />"><i class="fas fa-question-circle"></i>&nbsp;&nbsp;내 문의</a>
+          <a href="<c:url value="/user/myqna" />"><b style="color: #fcba03;" onMouseOver="this.style.color='black'" onMouseOut="this.style.color='#fcba03'"><i class="fas fa-question-circle"></i>&nbsp;&nbsp;내 문의</b></a>
         </li>
         <li class="mypage__navmenu__item">
           <a href="<c:url value="/user/mypage" />"><i class="fas fa-cog"></i>&nbsp;&nbsp;내 정보</a>
