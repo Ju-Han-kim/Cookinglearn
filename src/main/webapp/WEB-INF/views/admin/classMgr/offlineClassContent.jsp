@@ -14,9 +14,40 @@
 					<div class="card-header"><strong>오프라인 강의 상세현황</strong></div>
 					<div class="card-body">
 						<div class="row">
+							<div class="col-md-12 text-center">
+								<img alt="썸네일" src="${classInfo.thumbnailImg}" width="250px" height="250px">
+							</div>
+						</div>
+						<div class="row text-center">
+							<div class="col-md-12">
+								<h1>${classInfo.className}</h1>
+							</div>
+						</div>
+						<div class="row text-center">
+							<div class="col-md-6">
+								<img src="/resources/board/icon/time.png"> 강의기간 : <fmt:formatNumber pattern="#,###" value="${classInfo.runTime/24/60}"/>일
+							</div>
+							<div class="col-md-6">
+								<img src="/resources/board/icon/calender.png"> 카테고리 : ${classInfo.classCategory}
+							</div>
+						</div>
+						<br>
+						<div class="row text-center">
+							<div class="col-md-6">
+								<img src="/resources/board/icon/buy.png"> 수강비용 : <fmt:formatNumber pattern="#,###" value="${classInfo.price}"/>원
+							</div>
+							<div class="col-md-6">
+								<img src="/resources/board/icon/buy.png"> 최대인원 : ${classInfo.maxStudent}명
+							</div>
+						</div>
+						<br>
+						<div class="row">
 							<div class="col-md-12">
 								<c:if test="${classInfo.classContent != null}">
 									${classInfo.classContent}
+								</c:if>
+								<c:if test="${classInfo.classContent == null}">
+									작성된 내용이 없습니다.
 								</c:if>
 							</div>
 						</div>
