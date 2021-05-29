@@ -54,9 +54,9 @@
 											<th scope="col">진행상태</th>
 											<th scope="col">비고</th>
 										</tr>
-										<c:forEach var="student" items="${students}">
+										<c:forEach var="student" items="${students}" varStatus="status">
 											<tr>
-												<td scope="row">${student.stuNo}</td>
+												<td scope="row">${status.count}</td>
 												<td>${student.userId}</td>
 												<td>${student.nickname}</td>
 												<td>

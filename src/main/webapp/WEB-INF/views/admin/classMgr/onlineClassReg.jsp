@@ -171,26 +171,45 @@
 		
 		function checkUrlFunc() {
 			const src = $("#classUrl").val();
-			window.open(src,"영상확인","top=100px, left=50px, height=800px, width=1200px, menubar=no, toolbar=no, location=no");
-			
-			if(confirm('영상을 확정하시겠습니까?')){
-				$("#classUrl").attr("readonly", "");
-				$("#ckeck-btn-area").html("<button class='btn btn-outline-secondary' type='button' id='modifyUrl'>영상수정</button>");
-				chk5 = true;
-				$("#modifyUrl").click(function() {
-					if(confirm("영상을 수정하시겠습니까?")){
-						$("#classUrl").removeAttr("readonly");
-						$("#classUrl").val("");
-						$("#classUrl").focus();
-						chk5 = false;
-						$("#ckeck-btn-area").html("<button class='btn btn-outline-secondary' type='button' id='checkUrl'>영상확인</button>");
-						$("#checkUrl").click(function() {
-							checkUrlFunc();
-						});
-					}
+			openDialog(src,"영상확인","top=100px, left=50px, height=800px, width=1200px, menubar=no, toolbar=no, location=no", function(win) {
+				if(confirm('영상을 확정하시겠습니까?')){
+					$("#classUrl").attr("readonly", "");
+					$("#ckeck-btn-area").html("<button class='btn btn-outline-secondary' type='button' id='modifyUrl'>영상수정</button>");
+					chk5 = true;
+					$("#modifyUrl").click(function() {
+						modUrlFunc();
+					});
+				}
+			});
+		}
+		
+		function modUrlFunc() {
+			if(confirm("영상을 수정하시겠습니까?")){
+				$("#classUrl").removeAttr("readonly");
+				$("#classUrl").val("");
+				$("#classUrl").focus();
+				chk5 = false;
+				$("#ckeck-btn-area").html("<button class='btn btn-outline-secondary' type='button' id='checkUrl'>영상확인</button>");
+				$("#checkUrl").click(function() {
+					checkUrlFunc();
 				});
 			}
 		}
+		
+		const openDialog = function(uri, popupName, options, closeCallback) {
+			const win = window.open(uri, popupName, options);
+			let interval = window.setInterval(function() {
+				try {
+					if (win == null || win.closed) {
+					    window.clearInterval(interval);
+					    closeCallback(win);
+					}
+				}
+				catch (e) {
+				}
+			}, 1000);
+			return win;
+		};
 		
 		//Thumbnail 업로드
 		$("#thumbnailImgFile").change(function(e) {
