@@ -35,7 +35,7 @@
 	<!-- 결제완료시 얻어와지는 데이터를 DB에 저장 -->
 	<insert id="insert">
 		INSERT INTO "ORDER"
-		(clas, content)
+		(class, content)
 		VALUES(opinion_seq.NEXTVAL, #{content})
 	</insert>
 	

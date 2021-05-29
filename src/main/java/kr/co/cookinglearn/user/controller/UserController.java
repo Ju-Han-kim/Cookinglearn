@@ -42,6 +42,8 @@ public class UserController {
    @Autowired
 	private IQnaService qnaService;
    
+   private String referer;
+   
    //약관동의 페이지로 가기
    @GetMapping("/join")
    public String signUpAgree() {
@@ -91,7 +93,10 @@ public class UserController {
    
    //로그인 페이지 가기
    @GetMapping("/login")
-   public String login() {
+   public String login(HttpServletRequest request) {
+	  referer = request.getHeader("REFERER");
+	  System.out.println(referer);
+
       return "user/login";
    }
    
@@ -137,7 +142,9 @@ public class UserController {
          return "redirect:/user/login";
       }
       
-      return "redirect:/";
+      referer = referer.replace("http://localhost:8080/", "");
+      
+      return "redirect:/" + referer;
       
    }
    

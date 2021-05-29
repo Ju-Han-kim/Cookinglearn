@@ -45,6 +45,11 @@ a {
   color: var(--color-light-black);
 }
 
+a:hover {
+	text-decoration: none !important;
+	color: black !important;
+}
+
 ul {
   list-style: none;
   padding-left: 0;
@@ -259,6 +264,7 @@ p {
 
 .active {
   font-weight: 700;
+  color: #ffea03;
 }
 
 /* Footer */

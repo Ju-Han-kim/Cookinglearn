@@ -82,7 +82,6 @@ public class UserService implements IUserService {
 
 	@Override
 	public void updateAuthKey(String userId, String authKey) {
-		
 		mapper.updateAuthKey(userId, authKey);
 		
 	}
