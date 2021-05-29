@@ -176,5 +176,8 @@
 	
 	if(msg === "noadmin"){
 		alert("비정상적인 접근입니다.");
+	}else if(msg === "login"){
+		alert("로그인 후 이용해주세요.");
 	}
+	
 </script>

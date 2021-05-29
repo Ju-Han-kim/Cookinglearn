@@ -24,6 +24,7 @@ import kr.co.cookinglearn.qna.model.QnaVO;
 import kr.co.cookinglearn.qna.sevice.IQnaService;
 import kr.co.cookinglearn.user.model.ClassVO;
 import kr.co.cookinglearn.user.model.UserVO;
+import kr.co.cookinglearn.user.model.process.MyClassVO;
 import kr.co.cookinglearn.user.service.IUserService;
 import kr.co.cookinglearn.user.service.MailSendService;
 
@@ -195,8 +196,33 @@ public class UserController {
    
    //내 강의 페이지 가기
    @GetMapping("/myclass")
-   public String myclass() {
+   public String myclass(HttpSession session, Model model) {
+	   
+	   UserVO user = (UserVO)session.getAttribute("login");
+	   
+	   if(user == null) {
+		   return "redirect:/?msg=login";
+	   } else {
+		   //수강중 클래스
+		   List<MyClassVO> takingClassList = service.getMyClassList(user.getUserNo(), 1);
+		   model.addAttribute("takingClassList", takingClassList);
+		   
+		   //대기중인 클래스
+		   List<MyClassVO> waitingClassList = service.getMyClassList(user.getUserNo(), 0);
+		   model.addAttribute("waitingClassList", waitingClassList);
+		   
+	   }
+	   
 	   return "mypage/my_class";
+   }
+   
+   //클래스 상태변경
+   @PostMapping("/setOrderProcess")
+   @ResponseBody
+   public void setOrderProcess(int orderNo, int orderProcess) {
+	   
+	   service.setOrderProcess(orderNo, orderProcess);
+	   
    }
    
 
@@ -269,7 +295,6 @@ public class UserController {
 	   
 	   ClassVO classVO = service.myClassWatch(classCodeInt);
 	   
-	   System.out.println(classVO.getClassUrl());
 	   model.addAttribute("classUrl", classVO.getClassUrl());
 	   
 	   return "mypage/my_class_watch";
