@@ -248,11 +248,21 @@
 		$("#submit-btn").click(function() {
 			
 			if(chk1 && chk2 && chk3){
-				$("#contentImg").val(contentImg);
-				$("#thumbnailImg").val(thumbnailImg);
-				$("#class-form").submit();
+				if(confirm($("#className").val()+"(을)를 등록하시겠습니까?")){
+					$("#contentImg").val(contentImg);
+					$("#thumbnailImg").val(thumbnailImg);
+					$("#class-form").submit();
+				}
 			} else {
-				alert("입력값을 확인해주세요!");
+				if(!chk1){
+					alert("강의이름을 입력해주세요!");
+				}
+				if(!chk2) {
+					alert("수강비용을 입력해주세요!");
+				}
+				if(!chk3) {
+					alert("썸네일을 등록해주세요!");
+				}
 			}
 			
 		});
