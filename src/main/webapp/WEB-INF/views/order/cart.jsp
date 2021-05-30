@@ -3,13 +3,25 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
+
 <jsp:include page="../include/header.jsp" />
 <link rel="stylesheet" href="<c:url value='/css/orderstyle.css'/>" />
-<script type="text/javascript" src="/js/order.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script type="text/javascript" src="/js/order1.js"></script>
 
+
+ <body onLoad ="javascript:basket.reCalc(); javascript:basket.updateUI()">
     <form name="orderform" class="orderform" id="orderform" method="post" class="orderform" action="/Page" onsubmit="return false;">
+    	<c:choose>
+    		<c:when test="${empty cartList }">
+    			<script>
+    				alert("장바구니가 비었습니다");
+    				location.href="<c:url value="/"/>";
+    			</script>
+    		</c:when>
+    		<c:otherwise>
+        <c:forEach items="${cartList}" var="BoardVO" varStatus="status">
     	<input type="hidden" name="cmd" value="order">
             <div class="basketdiv" id="basket">
     			<h3>온라인 강의</h3>
@@ -28,55 +40,27 @@
                     </div>
                     <div class="split"></div>
                 </div>
-        
+                
+                <c:if test="${BoardVO.classType}">
                 <div class="row data">
                     <div class="subdiv">
-                        <div class="check"><input type="checkbox" name="buy" value="260" checked="">&nbsp;</div>
-                        <div class="img"><img src="./img/basket1.jpg" width="60"></div>
+                        <div class="check"><input type="checkbox" name="buy" checked="checked" value="${BoardVO.className }" onclick="javascript:basket.checkItem();">&nbsp;</div>
+                        <div class="img"><img src="/resources/board/img/${BoardVO.thumbnailImg }" width="60"></div>
                         <div class="pname">
-                            <span>인강1</span>
+                            <span>${BoardVO.className }</span>
                         </div>
+                        <input type="hidden" id="p_num" value="${status.count }">
                     </div>
                     <div class="subdiv">
-                        <div class="basketprice"><input type="hidden" name="p_price" id="p_price1" class="p_price" value="20000">20,000원</div>
+                        <div class="basketprice"><input type="hidden" name="p_price" id="p_price1" class="p_price" value="${BoardVO.price }">${BoardVO.price }원</div>
                     </div>
                     <div class="subdiv">
                         <div class="basketcmd"><a href="javascript:void(0)" class="abutton" onclick="javascript:basket.delItem();">삭제</a></div>
                     </div>
                 </div>
-                <div class="row data">
-                    <div class="subdiv">
-                        <div class="check"><input type="checkbox" name="buy" value="261" checked="">&nbsp;</div>
-                        <div class="img"><img src="./img/basket2.jpg" width="60"></div>
-                        <div class="pname">
-                            <span>인강2</span>
-                        </div>
-                    </div>
-                    <div class="subdiv">
-                        <div class="basketprice"><input type="hidden" name="p_price" id="p_price2" class="p_price" value="19000">19,000원</div>
-                    </div>
-                    <div class="subdiv">
-                        <div class="basketcmd"><a href="javascript:void(0)" class="abutton" onclick="javascript:basket.delItem();">삭제</a></div>
-                    </div>
-                </div>
-                <div class="row data">
-                    <div class="subdiv">
-                        <div class="check"><input type="checkbox" name="buy" value="262" checked="">&nbsp;</div>
-                        <div class="img"><img src="./img/basket3.jpg" width="60"></div>
-                        <div class="pname">
-                            <span>인강3</span>
-                        </div>
-                    </div>
-                    <div class="subdiv">
-                        <div class="basketprice"><input type="hidden" name="p_price" id="p_price3" class="p_price" value="15200">15,200원</div>
-                    </div>
-                    <div class="subdiv">
-                        <div class="basketcmd"><a href="javascript:void(0)" class="abutton" onclick="javascript:basket.delItem();">삭제</a></div>
-                    </div>
-                </div>
-        
+            </c:if>
+                <%-- </c:forEach> --%>                      
             </div>
-            
             <div class="basketdiv" id="basket">
     			<h3>오프라인 강의</h3>
                 <div class="row head">
@@ -94,54 +78,30 @@
                     </div>
                     <div class="split"></div>
                 </div>
+                
+                <%-- <c:forEach items="${cartList}" var="BoardVO" varStatus="status"> --%>
+                <c:if test='${!BoardVO.classType}'>
         
                 <div class="row data">
                     <div class="subdiv">
-                        <div class="check"><input type="checkbox" name="buy" value="260" checked="">&nbsp;</div>
-                        <div class="img"><img src="./img/basket1.jpg" width="60"></div>
+                        <div class="check"><input type="checkbox"  name="buy"  checked="checked" value="${BoardVO.className }" onclick="javascript:basket.checkItem();">&nbsp;</div>
+                        <div class="img"><img src="resources/board/img/${BoardVO.thumbnailImg }" width="60"></div>
                         <div class="pname">
-                            <span>인강1</span>
+                            <span>${BoardVO.className }</span>
                         </div>
+                        <input type="hidden" id="p_num${status.count}" value="1">
                     </div>
                     <div class="subdiv">
-                        <div class="basketprice"><input type="hidden" name="p_price" id="p_price1" class="p_price" value="20000">20,000원</div>
+                        <div class="basketprice"><input type="hidden" name="p_price" id="p_price1" class="p_price" value="${BoardVO.price }">${BoardVO.price }원</div>
                     </div>
                     <div class="subdiv">
                         <div class="basketcmd"><a href="javascript:void(0)" class="abutton" onclick="javascript:basket.delItem();">삭제</a></div>
                     </div>
                 </div>
-                <div class="row data">
-                    <div class="subdiv">
-                        <div class="check"><input type="checkbox" name="buy" value="261" checked="">&nbsp;</div>
-                        <div class="img"><img src="./img/basket2.jpg" width="60"></div>
-                        <div class="pname">
-                            <span>인강2</span>
-                        </div>
-                    </div>
-                    <div class="subdiv">
-                        <div class="basketprice"><input type="hidden" name="p_price" id="p_price2" class="p_price" value="19000">19,000원</div>
-                    </div>
-                    <div class="subdiv">
-                        <div class="basketcmd"><a href="javascript:void(0)" class="abutton" onclick="javascript:basket.delItem();">삭제</a></div>
-                    </div>
-                </div>
-                <div class="row data">
-                    <div class="subdiv">
-                        <div class="check"><input type="checkbox" name="buy" value="262" checked="">&nbsp;</div>
-                        <div class="img"><img src="./img/basket3.jpg" width="60"></div>
-                        <div class="pname">
-                            <span>인강3</span>
-                        </div>
-                    </div>
-                    <div class="subdiv">
-                        <div class="basketprice"><input type="hidden" name="p_price" id="p_price3" class="p_price" value="15200">15,200원</div>
-                    </div>
-                    <div class="subdiv">
-                        <div class="basketcmd"><a href="javascript:void(0)" class="abutton" onclick="javascript:basket.delItem();">삭제</a></div>
-                    </div>
-                </div>
-        
+
+       			 </c:if>
             </div>
+       		 </c:forEach>
     		
     		<div class="basketrowcmd-wrapper">
 	           <div class="right-align basketrowcmd">
@@ -155,23 +115,53 @@
     		
     		<div class="payment-wrapper">
     			<h3>결제정보</h3>
-    				<div class="payment-content">
-    					<div class="total">총 주문 금액</div>
-    					<div class="point">포인트</div>
-    					<div class="payment-method">결제수단
-    					<input type="radio" name="payment_method" id="kg" value="kg" checked="checked">신용카드
-    					<input type="radio" name="payment_method" id="naverpay" value="naverpay">네이버페이
-    					<input type="radio" name="payment_method" id="kakaopay" value="kakaopay">카카오페이					
-    					</div>
-    				</div>
+    				<ul class="payment-content">
+	    				<li>
+	    					<div class="total">총 주문 금액</div>
+	    				</li>
+	    				<li>
+	    					<div class="point">포인트</div>
+	    					<div class="point-body">사용가능한 포인트는 ${point.pointChange} 입니다.
+	    						<a href="javascript:void(0)"  class="point-use" onclick="javascript:pointUseFunc()">포인트 사용하기</a>
+	    					</div>
+	    				</li>
+	    				<li>
+	    					<div class="payment-method">결제수단
+		    					<input type="radio" name="payment_method" id="kg" value="kg" checked="checked">신용카드
+		    					<input type="radio" name="payment_method" id="naverpay" value="naverpay">실시간 계좌이체
+		    					<input type="radio" name="payment_method" id="kakaopay" value="kakaopay">카카오페이					
+	    					</div>
+	    				</li>
+	    				</ul>
     		</div>
     		<div class="orderbtn">
     			<button id="orderbtn" type="button" onclick="getOrderM()">결제하기</button>
     		</div>
-    		
+    		</c:otherwise>
+    		</c:choose>
         </form>
 <script>  
 	
+//체크박스 체크된 항목 값 더하기 (총 얼마인지)
+
+	/* $(function(){
+		
+		var sum = 0;
+		
+		$('#buy').each(function(){
+			if($(this).is(":checked"))
+			{
+				const psum = 
+				parseInt($(this).parents().find('input[name="buy"]').val());
+				sum = sum + psum;
+			}
+				$("#sum_p_price").html("합계금액:"+sum+"원");
+		});
+		
+	}); */
+	
+
+
 	$(function() {
 		
 		$("#orderbtn").click(function() {
@@ -212,20 +202,25 @@
 
 
         function iamport(){
+        	
+        	var classNameArray =[];
+        	$("input[name=buy]:checked").each(function(){
+        		classNameArray.push(this.value);
+        	})
+        	
         	//console.log;(document.getElemntBy)
 			//가맹점 식별코드
 			IMP.init('imp99899187');
 			IMP.request_pay({
 			    pg : 'kcp',
 			    pay_method : 'card',
-			    merchant_uid : 'merchant_' + new Date().getTime(),
-			    name : '상품1' , //결제창에서 보여질 이름
+			    merchant_uid :  new Date().getTime()+'${userNo}',
+			    name : classNameArray.toString() , //결제창에서 보여질 이름
 			    amount : 100, //실제 결제되는 가격
-			    buyer_email : 'iamport@siot.do',
-			    buyer_name : '구매자이름',
+			    buyer_name : '${userLogin.nickname}',
 			    buyer_tel : '010-1234-5678',
-			    buyer_addr : '서울 강남구 도곡동',
-			    buyer_postcode : '123-456'
+			    byer_email : '${userLogin.userId}'
+
 			    //m_redirect_url: '<c:url value="/order/complete"/>' //결제완료시 넘어가는 페이지
 			}, function(rsp) {
 				console.log(rsp);
@@ -235,6 +230,23 @@
 			        msg += '상점 거래ID : ' + rsp.merchant_uid;
 			        msg += '결제 금액 : ' + rsp.paid_amount;
 			        msg += '카드 승인번호 : ' + rsp.apply_num;
+			        
+			        //여기 어떻게 할지 생각좀 해보기 ㅜㅜ
+			        //var 
+			       
+			        $.ajax({
+	                    type: "POST", 
+	                    url: "/order/complete", //충전 금액값을 보낼 url 설정
+	                    data: {
+// 	                        "amount" : 100//결제금액
+// 	                        "pay_method" : 'card'//결제방법
+// 	                        "merchant_uid" : 'merchant_' + new Date().getTime()//주문번호
+// 	                        //유저번호는 controller에서 session으로 넣어주기
+// 	                        name//강의번호
+// 	                        //이거 allData로 jsp에서 c태그 가져와서 추가하기 
+	                        
+	                    },
+	                });
 			    } else {
 			    	 var msg = '결제에 실패하였습니다.';
 			         msg += '에러내용 : ' + rsp.error_msg;
