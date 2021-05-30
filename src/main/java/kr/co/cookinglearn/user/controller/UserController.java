@@ -53,7 +53,7 @@ public class UserController {
    
    private String referer;
    
-   //약관동의 페이지로 가기.
+   //약관동의 페이지로 가기
    @GetMapping("/join")
    public String signUpAgree() {
       return "user/sign_up_agreement";
