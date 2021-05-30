@@ -4,7 +4,6 @@
 
 <jsp:include page="../include/header.jsp" />
 
-
 	<!-- Mypage -->
     <div class="mypage__wrapper">
       <ul class="mypage__navmenu__sidebar">

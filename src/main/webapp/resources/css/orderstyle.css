@@ -191,4 +191,33 @@
     font-size: 1em;
 }
 
-//여기서부터 결제부분 
+/*  여기서부터 결제부분 */
+
+
+/* 결제 완료 부분 */
+/* 주문완료 */
+
+.orderComplete{
+	width:80%;
+	display: flex;
+	align-items: center;  
+	/* 수직정렬 */
+    flex-direction: row; default: row
+    justify-content: center;  
+    /* flex direction에 대해서 정렬방식 선택 */
+    border:solid 20px #ffe193;
+    margin:10% 20% 0 20%;
+  	
+}
+ 
+.orderInfo { width:380px; 
+			 margin:45px auto 0; 
+			 padding:0 0 10px 130px; 
+			 color:#353535; 
+			 line-height:1.5;
+			 background:url("http://img.echosting.cafe24.com/skin/base_ko_KR/order/bg_result.gif") no-repeat 0 10px; }
+.orderInfo p { margin:0 0 20px; }
+.orderInfo p strong { display:block; margin:0 0 7px; color:#000; font-size:20px; font-family:gulim,sans-serif; }
+.orderInfo p a { color:#008bcc; text-decoration:underline; font-weight:bold; }
+.orderInfo li strong { font-size:14px; letter-spacing:-1px; }
+
