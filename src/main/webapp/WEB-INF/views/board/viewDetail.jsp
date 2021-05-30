@@ -1,12 +1,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="/resources/board/css/style.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -15,7 +15,7 @@
 
 <%-- Header --%>
 <jsp:include page="../include/header.jsp" />
-
+<div class="class_list">
 <div align="center">
 	<table style="text-align: center;">
 		<tr>
@@ -32,12 +32,12 @@
 			<td>
 				<p>
 					<img src="/resources/board/icon/time.png"> 
-					강의시간 : ${detail.runTime/24/60}분
+					강의시간 : 
 				</p>
 			</td>
 			<td>
 				<p>
-					<img src="/resources/board/icon/calender.png"> 강의 기간 : 30일
+					<img src="/resources/board/icon/calender.png"> 카테고리 : ${detail.classCategory}
 				</p>
 			</td>
 		</tr>
@@ -71,35 +71,39 @@
 <br>
 <div class="container mt-3">
 	<h2>클래스 리뷰</h2>
-		<form action="ReviewInsert" method="post" onsubmit="return review_insert();">
-		<div class="input-group mb-3">
-			<input type="hidden" name="classCode" value="${detail.classCode}">
-			<input type="text" class="form-control" name="reviewComment" id="reviewComment1" placeholder="댓글을 입력하세요.">
-			<div class="input-group-append">
-				<button class="btn btn-success" id="reviewInsert">작성</button>
-			</div>
+	<form action="ReviewInsert" method="post" id="reviewForm">
+	<div class="input-group mb-3">
+		<input type="hidden" name="classCode" value="${detail.classCode}">
+		<input type="text" class="form-control" name="reviewComment" id="reviewComment1" placeholder="댓글을 입력하세요.">
+		<input type="checkbox" name="area" id="box1" onclick="getCheckedCnt()"><label for="box1"></label>
+		<input type="checkbox" name="area" id="box2" onclick="getCheckedCnt()"><label for="box2"></label>
+		<input type="checkbox" name="area" id="box3" onclick="getCheckedCnt()"><label for="box3"></label>
+		<input type="checkbox" name="area" id="box4" onclick="getCheckedCnt()"><label for="box4"></label>
+		<input type="checkbox" name="area" id="box5" onclick="getCheckedCnt()"><label for="box5"></label>
+		<input type="hidden" name="reviewStar" id="star" value="0">
+		<div class="input-group-append">
+			<button class="btn btn-success" id="reviewInsert">작성</button>
+			<br>
 		</div>
-		</form>
-	<table class="table table-borderless">
+	</div>
+	</form>
+	<div class="row">
 		<c:forEach items="${review}" var="reviewList">
-			<tr>
-				<td><img src="/resources/board/icon/person_m.png">
-					${reviewList.writer} <br> ${reviewList.reviewComment}
-					
-				</td>
-				
+			<div class="col-md-11">
+				<img src="/resources/board/icon/person_m.png">
+				${reviewList.writer} <br> ${reviewList.reviewComment}
+			</div>
+			<div class="col-md-1">
 				<c:if test="${login.nickname eq reviewList.writer}">
-				<td>
-					<form action="reviewModify">
-						<button type="button" class="btn btn-warning">수정</button>
-					</form>
-						<input type="hidden" name="reviewNo" value="${reviewList.reviewNo}">
-						<button id="reviewDelete" type="button" class="btn btn-danger" onclick="reviewDelete();">삭제</button>
-				</td>
+				<form id="deleteForm" action="reviewDelete" method="post">
+					<input type="hidden" name="reviewNo" value="${reviewList.reviewNo}">
+					<button id="reviewDelete" type="button" class="btn btn-danger" >삭제</button>
+				</form>
 				</c:if>
-			</tr>
+			</div>
 		</c:forEach>
-	</table>
+	</div>
+</div>
 </div>
 <%-- footer --%>
 <jsp:include page="../include/footer.jsp" />
@@ -107,6 +111,36 @@
 
 <script type="text/javascript">
 
+	$(function() {
+		$("#reviewInsert").click(function() {
+			const starVal = $("input:checkbox[name='area']:checked").length;
+			$("#star").attr("value", starVal);
+			const reviewComment = document.getElementById("reviewComment1").value;
+			
+			if ("${login}") {
+				console.log(reviewComment);
+				if (reviewComment == "") {
+					alert('내용을 입력해주세요.');
+					return false;
+				} else {
+					alert('댓글이 작성되었습니다.');
+					return true;
+				}
+			} else {
+				var returnLogoinPage = confirm('로그인이 필요한 서비스 입니다.\n로그인 창으로 이동하시겠습니까?');
+				if(returnLogoinPage) 
+					location.href = "/user/login";
+				return false;
+			}
+		});
+		
+		$("#reviewDelete").click(function() {
+			if(confirm('댓글을 정말 삭제하시겠습니까?')){
+				$("#deleteForm").submit();
+			}
+		});
+	});
+	
 	function class_reg() {	
 		if ("${login}") {
 			alert('장바구니에 담겼습니다.');
@@ -121,6 +155,7 @@
 
 	function review_insert() {
 		const reviewComment = document.getElementById("reviewComment1").value;
+		
 		if ("${login}") {
 			console.log(reviewComment);
 			if (reviewComment == "") {
@@ -137,16 +172,4 @@
 			return false;
 		}
 	}
-	
-	
-	function reviewDelete()  {
-		var trueDelete = confirm('댓글을 정말 삭제하시겠습니까?');
-		if(trueDelete){
-			document.frm.action = "reviewDelete";
-			document.frm.method = "post";
-			document.frm.submit();
-		}
-		return false;
-	}
-	
 </script>

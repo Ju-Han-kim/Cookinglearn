@@ -35,8 +35,8 @@ public class BoardServiceImpl implements BoardService {
 	 }
 
 	@Override
-	public BoardVO offlineDetail(int viewDetail) {
-		return dao.offlineKategorieList(viewDetail);
+	public BoardVO offlineClassDetail(int viewDetail) throws Exception {
+		return dao.offlineClassDetail(viewDetail);
 	}
 
 	@Override
