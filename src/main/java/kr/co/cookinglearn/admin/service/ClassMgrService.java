@@ -85,6 +85,11 @@ public class ClassMgrService implements IClassMgrService {
 	public void regClass(ClassVO classInfo) {
 		
 		if(classInfo.isClassType()) {
+			String url = classInfo.getClassUrl();
+			if(url.contains("youtube")) {
+				String chUrl = url.replace("watch?v=", "embed/");
+				classInfo.setClassUrl(chUrl);
+			}
 			classInfo.setRunTime(classInfo.getRunTime()*60*24);
 			classInfo.setStartDate(new Timestamp(System.currentTimeMillis()));
 		}
@@ -96,6 +101,11 @@ public class ClassMgrService implements IClassMgrService {
 	public void modClass(ClassVO classInfo) {
 		
 		if(classInfo.isClassType()) {
+			String url = classInfo.getClassUrl();
+			if(url.contains("youtube")) {
+				String chUrl = url.replace("watch?v=", "embed/");
+				classInfo.setClassUrl(chUrl);
+			}
 			classInfo.setRunTime(classInfo.getRunTime()*60*24);
 		}
 		
