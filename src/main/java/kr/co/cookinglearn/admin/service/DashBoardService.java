@@ -91,7 +91,7 @@ public class DashBoardService implements IDashBoardService {
 		String today = sdf2.format(now);
 		String tomorrow = sdf2.format(new Date(now.getTime()+ 1000 * 60 * 60 * 24L));
 		String startTime = " 00:00:00.0";
-		String endTime = " 24:59:59.99";
+		String endTime = " 23:59:59.99";
 		
 		//1.오늘강의
 		classSearch.setStartDate(Timestamp.valueOf(today+startTime));
