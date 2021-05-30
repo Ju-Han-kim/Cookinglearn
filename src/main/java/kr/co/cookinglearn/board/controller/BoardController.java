@@ -137,7 +137,7 @@ public class BoardController {
 			service.reviewInsert(vo);
 		}
 			
-		referer = referer.replace("http://localhost:8080/", "");
+		referer = referer.replace("http://localhost/", "");
 	      
 		return "redirect:/" + referer;
 	}

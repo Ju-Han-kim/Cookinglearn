@@ -13,6 +13,7 @@ public class OrderVO {
 	private Timestamp paymentDate;
 	private Timestamp limitDate;
 	private int orderProcess;
+	private int payNo;
 	
 	
 	public int getOrderNo() {
@@ -69,11 +70,18 @@ public class OrderVO {
 	public void setOrderProcess(int orderProcess) {
 		this.orderProcess = orderProcess;
 	}
+	public int getPayNo() {
+		return payNo;
+	}
+	public void setPayNo(int payNo) {
+		this.payNo = payNo;
+	}
 	@Override
 	public String toString() {
 		return "OrderVO [orderNo=" + orderNo + ", userNo=" + userNo + ", classCode=" + classCode + ", pointUse="
 				+ pointUse + ", payment=" + payment + ", paymentMethod=" + paymentMethod + ", paymentDate="
-				+ paymentDate + ", limitDate=" + limitDate + ", orderProcess=" + orderProcess + "]";
+				+ paymentDate + ", limitDate=" + limitDate + ", orderProcess=" + orderProcess + ", payNo=" + payNo
+				+ "]";
 	}
 	
 	

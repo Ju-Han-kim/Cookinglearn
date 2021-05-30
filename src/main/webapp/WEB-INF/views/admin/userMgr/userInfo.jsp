@@ -18,7 +18,11 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="card border-secondary mb-3">
-					<div class="card-header"><strong>계정 정보</strong></div>
+					<div class="card-header">
+						<strong>
+							계정 정보 / <c:if test="${userInfo.deleteAccount}">탈퇴한 회원입니다</c:if>
+						</strong>
+					</div>
 					<div class="card-body text-secondary">
 						<div class="col-md-12 text-center">
 							<table class="table table-bordered">
@@ -28,6 +32,9 @@
 									<th scope="col">성별</th>
 									<th scope="col">보유적립금</th>
 									<th scope="col">가입일자</th>
+									<c:if test="${userInfo.deleteAccount}">
+										<th scope="col">탈퇴일자</th>
+									</c:if>
 								</tr>
 								<tr>
 									<td>${userInfo.userId}</td>
@@ -46,6 +53,9 @@
 									<td>
 										<fmt:formatDate pattern="yyyy-MM-dd(E)" value="${userInfo.regDate}"/> 
 									</td>
+									<c:if test="${userInfo.deleteAccount}">
+										<td><fmt:formatDate pattern="yyyy-MM-dd(E)" value="${userInfo.deleteDay}"/></td>
+									</c:if>
 								</tr>
 							</table>
 						</div>
@@ -55,6 +65,9 @@
 							<div class="card-header"><strong>관리자권한</strong></div>
 							<div class="card-body text-secondary">
 								<div class="col-md-12" id="adminArea">
+									<c:if test="${userInfo.adminLevel == -1}">
+										탈퇴한 계정입니다.
+									</c:if>
 									<c:if test="${userInfo.adminLevel == 0}">
 										이 계정은 일반계정입니다. 관리자권한을 부여하시겠습니까? &nbsp;<button class="btn btn-sm btn-outline-danger" id="grant-admin-btn">권한부여</button>
 									</c:if>

@@ -1,13 +1,13 @@
 package kr.co.cookinglearn.user.service;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kr.co.cookinglearn.user.model.ClassVO;
 import kr.co.cookinglearn.user.model.UserVO;
+import kr.co.cookinglearn.user.model.process.MyClassVO;
 
 public interface IUserService {
 
@@ -38,11 +38,13 @@ public interface IUserService {
 	//클래스 시청
 	ClassVO myClassWatch(int classCode);
 	
-	//권한 키 변경
-	void updateAuthKey(String userId, String authKey);
+	//계정 활성화
+	void activationUser(String userId);
 	
-	//권한 상태 변경
-	void updateAuthStatus(String userId, String authKey);
-
+	//계정정보와 강의상태를 입력받아 강의리스트 반환
+	List<MyClassVO> getMyClassList(int userNo, int orderProcess);
+	
+	//선택된 신청강의의 상태를 변경
+	void setOrderProcess(int orderNo, int orderProcess);
 
 }

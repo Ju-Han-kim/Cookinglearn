@@ -45,7 +45,7 @@
 							<th scope="col">닉네임</th>
 							<th scope="col">성별</th>
 							<th scope="col">가입일자</th>
-							<th scope="col">관리자권한</th>
+							<th scope="col">비고(권한)</th>
 						</tr>
 						<c:forEach var="user" items="${userList}">
 							<tr>
@@ -62,9 +62,17 @@
 									<fmt:formatDate pattern="yyyy-MM-dd(E)" value="${user.regDate}"/>
 								</td>
 								<td>
-									<c:if test="${user.adminLevel >= 1}">
-										Admin
-									</c:if>
+									<c:choose>
+										<c:when test="${user.deleteAccount}">탈퇴회원</c:when>
+										<c:otherwise>
+											<c:if test="${user.adminLevel >= 1}">
+												Admin
+											</c:if>
+											<c:if test="${user.adminLevel == -1}">
+												인증 진행중
+											</c:if>
+										</c:otherwise>
+									</c:choose>
 								</td>
 							</tr>
 						</c:forEach>

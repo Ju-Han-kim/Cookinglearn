@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.cookinglearn.admin.common.page.ClassSearchVO;
 import kr.co.cookinglearn.admin.common.page.QnaSearchVO;
+import kr.co.cookinglearn.admin.model.OrderVO;
 import kr.co.cookinglearn.admin.model.QnaVO;
 import kr.co.cookinglearn.admin.model.process.DashBoardProcessVO;
 import kr.co.cookinglearn.admin.model.process.DashBoardSalesVO;
@@ -55,23 +56,23 @@ public class DashBoardService implements IDashBoardService {
 		for(DashBoardProcessVO count : countList) {
 			if(count.isClassType()) {
 				switch (count.getOrderProcess()) {
-				case 0:
-				case 1:
-				case 2:
+				case OrderVO.PAYMENT_FINISHED:
+				case OrderVO.TAKING_CLASS:
+				case OrderVO.COMPLETE_CLASS:
 					onComplete += count.getCount();
 					break;
-				case 3:
+				case OrderVO.RETURN_CLASS:
 					onReturn += count.getCount();
 					break;
 				}
 			} else {
 				switch (count.getOrderProcess()) {
-				case 0:
-				case 1:
-				case 2:
+				case OrderVO.PAYMENT_FINISHED:
+				case OrderVO.TAKING_CLASS:
+				case OrderVO.COMPLETE_CLASS:
 					offComplete += count.getCount();
 					break;
-				case 3:
+				case OrderVO.RETURN_CLASS:
 					offReturn += count.getCount();
 					break;
 				}
@@ -90,7 +91,7 @@ public class DashBoardService implements IDashBoardService {
 		String today = sdf2.format(now);
 		String tomorrow = sdf2.format(new Date(now.getTime()+ 1000 * 60 * 60 * 24L));
 		String startTime = " 00:00:00.0";
-		String endTime = " 24:59:59.99";
+		String endTime = " 23:59:59.99";
 		
 		//1.오늘강의
 		classSearch.setStartDate(Timestamp.valueOf(today+startTime));
@@ -162,26 +163,26 @@ public class DashBoardService implements IDashBoardService {
 			
 			if(sales.isClassType()) {
 				switch (sales.getOrderProcess()) {
-				case 0:
-				case 1:
-				case 2:
+				case OrderVO.PAYMENT_FINISHED:
+				case OrderVO.TAKING_CLASS:
+				case OrderVO.COMPLETE_CLASS:
 					onClass += sales.getCount();
 					onPayment += sales.getPayment();
 					break;
-				case 3:
+				case OrderVO.RETURN_CLASS:
 					returnClass += sales.getCount();
 					returnPayment += sales.getPayment();
 					break;
 				}
 			} else {
 				switch (sales.getOrderProcess()) {
-				case 0:
-				case 1:
-				case 2:
+				case OrderVO.PAYMENT_FINISHED:
+				case OrderVO.TAKING_CLASS:
+				case OrderVO.COMPLETE_CLASS:
 					offClass += sales.getCount();
 					offPayment += sales.getPayment();
 					break;
-				case 3:
+				case OrderVO.RETURN_CLASS:
 					returnClass += sales.getCount();
 					returnPayment += sales.getPayment();
 					break;

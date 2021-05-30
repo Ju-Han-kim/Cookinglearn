@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <jsp:include page="include/header.jsp" />
 <link rel="stylesheet" type="text/css" href="/board/css/style.css">
@@ -81,5 +82,8 @@
 	
 	if(msg === "noadmin"){
 		alert("비정상적인 접근입니다.");
+	}else if(msg === "login"){
+		alert("로그인 후 이용해주세요.");
 	}
+	
 </script>

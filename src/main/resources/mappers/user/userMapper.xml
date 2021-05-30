@@ -16,10 +16,16 @@
 		<result property="adminLevel" column="admin_level" />
 		<result property="deleteAccount" column="delete_account" />
 		<result property="deleteDay" column="delete_day" />
-		<result property="authKey" column="auth_key" />
-		<result property="authStatus" column="auth_status" />
 	</resultMap>
 	
+	<resultMap id="mypageMap" type="kr.co.cookinglearn.user.model.process.MyClassVO" >
+		<id property="orderNo" column="order_no"/>
+		<result property="classType" column="class_type" />
+		<result property="classCode" column="class_code" />
+		<result property="startDate" column="start_date" />
+		<result property="className" column="class_name" />
+		<result property="thumbnailImg" column="thumbnail_img" />
+	</resultMap>
 	
 	<!-- 아이디 중복 체크 -->
 	<select id="checkId" resultType="int">
@@ -38,8 +44,8 @@
 	<!-- 회원 가입 -->
 	<insert id="register">
 		INSERT INTO "USER"
-		(user_no, user_id, user_password, nickname, gender)
-		VALUES (user_no_seq.NEXTVAL, #{userId}, #{userPassword}, #{nickname}, #{gender})
+		(user_no, user_id, user_password, nickname, gender, admin_level)
+		VALUES (user_no_seq.NEXTVAL, #{userId}, #{userPassword}, #{nickname}, #{gender}, -1)
 	</insert>
 	
 	<!-- 회원 정보 조회 -->
@@ -62,18 +68,25 @@
 		WHERE user_id = #{userId}
 	</update>
 	
-	<!-- 권한키 변경 -->
-	<update id="updateAuthKey">
+	<!-- 계정 활성화 -->
+	<update id="activationUser">
 		UPDATE "USER"
-		SET auth_key = #{authKey}
+		SET admin_level = 0
 		WHERE user_id = #{userId}
 	</update>
 	
-	<!-- 권한 상태 변경 -->
-	<update id="updateAuthStatus">
-		UPDATE "USER"
-		SET auth_status = '1'
-		WHERE user_id = #{userId} AND auth_key = #{authKey}
+	<!-- 계정정보와 강의상태를 입력받아 강의리스트 반환 -->
+	<select id="getMyClassList" resultMap="mypageMap">
+		SELECT * 
+		FROM "ORDER" JOIN "CLASS" USING(class_code)
+		WHERE user_no=#{userNo} AND order_process=#{orderProcess}
+	</select>
+	
+	<!-- 선택된 신청강의의 상태를 변경 -->
+	<update id="setOrderProcess">
+		UPDATE "ORDER"
+		SET order_process = #{orderProcess}
+		WHERE order_no = #{orderNo}
 	</update>
 	
 	

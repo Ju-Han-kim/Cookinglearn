@@ -8,6 +8,7 @@
 	<resultMap id="orderMgrMap" type="kr.co.cookinglearn.admin.model.process.OrderViewVO">
 		<id property="orderNo" column="order_no"/>
 		<result property="userNo" column="user_no"/>
+		<result property="payNo" column="pay_no"/>
 		<result property="classCode" column="class_code"/>
 		<result property="pointUse" column="point_use"/>
 		<result property="payment" column="payment"/>

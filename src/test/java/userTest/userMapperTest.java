@@ -16,7 +16,7 @@ public class userMapperTest {
 	@Autowired
 	private IUserMapper mapper;
 	
-	
+	/*
 	@Test
 	public void userRegisterTest() {
 		
@@ -52,7 +52,7 @@ public class userMapperTest {
 		
 		
 	}
-	
+	*/
 	
 	
 }

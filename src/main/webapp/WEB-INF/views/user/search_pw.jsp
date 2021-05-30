@@ -46,6 +46,10 @@
 		</div>
 	</form>
 <script>
+	const msg = "${param.msg}";
+	if(msg === "noId"){
+		alert("없는 계정입니다. 아이디를 확인해주세요");
+	}
 </script>
 </body>
 </html>

@@ -48,7 +48,7 @@ public class OrderController {
 				("3516296101724753","zk2K0YxlwE0NADWDNHRcqpwmjnjew9W5tYPuXmPt1QgCucfhU7ukx1GQo05Va10D0Q8XdXqeOHQiU6zO");
 		
 		UserVO uvo = (UserVO) session.getAttribute("login");
-		BoardVO bvo = (BoardVO) session.getAttribute("classCode");
+		BoardVO bvo = (BoardVO) session.getAttribute("classInfo");
 		PointVO point = (PointVO) session.getAttribute("point");
 		
 		
@@ -56,8 +56,8 @@ public class OrderController {
 			return "order/cart";
 		}else {
 			
-			int code = 1;
-			//int code = bvo.getClassCode();  
+//			int code = 1;
+			int code = bvo.getClassCode();  
 			List<BoardVO> cartList = service.cartList(code);
 			model.addAttribute("cartList",cartList);
 			System.out.println(cartList);
@@ -67,8 +67,6 @@ public class OrderController {
 		}
 		return "order/cart";
 		
-		//일단 세션이 없으니까
-		//return "order/cart";
 	}
 	
 	
