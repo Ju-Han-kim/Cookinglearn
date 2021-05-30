@@ -28,6 +28,8 @@ public class BoardController {
 	@Inject
 	private BoardService reviewService;
 	
+	private String referer;
+	
 	// 오프라인 게시물 목록
 	@RequestMapping(value="/offline", method=RequestMethod.GET)
 	public String getOfflineClass(Model model) throws Exception{
@@ -46,12 +48,13 @@ public class BoardController {
 	
 	// 오프라인 게시물 상세 조회
 	@RequestMapping(value="/offline-detail", method=RequestMethod.GET)
-	public String getOfflineKateDetailView(Model model, int viewDetail) throws Exception {
-		BoardVO detail = service.offlineDetail(viewDetail);
+	public String getOfflineKateDetailView(Model model, int viewDetail, HttpServletRequest request) throws Exception {
+		BoardVO detail = service.offlineClassDetail(viewDetail);
 		model.addAttribute("detail", detail);
-	
+		
 		List<ReviewVO> reviewList = reviewService.reviewList(viewDetail);
 		model.addAttribute("review", reviewList);
+		referer = request.getHeader("REFERER");
 		return "board/offline-detail";
 	}
 
@@ -100,9 +103,7 @@ public class BoardController {
 		model.addAttribute("paging", vo);
 		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("kategorie", category);
-		
-		
-		
+
 		return "/board/online-kat";
 	}
 
@@ -120,9 +121,9 @@ public class BoardController {
 
 	//댓글 작성
 	@RequestMapping(value="/ReviewInsert", method=RequestMethod.POST)
-	public String reviewInsert(HttpSession session, ReviewVO vo, @RequestParam String classCode) throws Exception {
+	public String reviewInsert(HttpServletRequest request, HttpSession session, ReviewVO vo, @RequestParam String classCode) throws Exception {
 		UserVO userVO = (UserVO) session.getAttribute("login");
-
+		String referer = request.getHeader("REFERER");
 		//user객체 있을경우 
 		if(userVO != null) {
 			Integer userNo = userVO.getUserNo();
@@ -136,11 +137,13 @@ public class BoardController {
 			service.reviewInsert(vo);
 		}
 			
-		return "redirect:/board/online-all";
+		referer = referer.replace("http://localhost:8080/", "");
+	      
+		return "redirect:/" + referer;
 	}
 	
 	//댓글 삭제
-	@RequestMapping(value="/reviewDelete", method=RequestMethod.GET)
+	@RequestMapping(value="/reviewDelete", method=RequestMethod.POST)
 	public String reviewDelete(@RequestParam int reviewNo) throws Exception {
 			System.out.println("댓글 삭제");
 			service.reviewDelete(reviewNo);
@@ -156,11 +159,6 @@ public class BoardController {
 		BoardVO vo = service.detail(classCode);
 		
 		if(userVO != null) {
-			System.out.println(vo.getClassCode());
-			//classCode만 넘김.
-//			session.setAttribute("classCode", vo.getClassCode());
-			
-			//객체 넘김
 			session.setAttribute("classInfo", vo);
 		}
 		return "redirect:/order/cart";

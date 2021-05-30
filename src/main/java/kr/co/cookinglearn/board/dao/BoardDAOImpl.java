@@ -82,6 +82,12 @@ public class BoardDAOImpl implements BoardDAO {
 		return sql.selectList(namespace + ".topClass");
 	}
 
+	@Override
+	public BoardVO offlineClassDetail(int no) throws Exception {
+		// TODO Auto-generated method stub
+		return sql.selectOne(namespace + ".offlineDetail", no);
+	}
+
 	
 	
 }

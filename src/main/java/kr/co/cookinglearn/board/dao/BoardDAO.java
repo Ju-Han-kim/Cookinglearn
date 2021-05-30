@@ -37,6 +37,9 @@ public interface BoardDAO {
 	// 오프라인 카테고리 별 클래스 목록(2) 
 	public BoardVO offlineKategorieList(int viewDetail);
 
+	//온라인 클래스 상세보기 페이지
+	public BoardVO offlineClassDetail(int no) throws Exception;
+	
 	// 댓글 삭제
 	public void reviewDelete(int reviewNo);
 	

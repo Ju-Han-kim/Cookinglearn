@@ -24,7 +24,7 @@ public interface BoardService {
 	public BoardVO detail(int no) throws Exception;
 
 	//오프라인 상세보기 페이지
-	public BoardVO offlineDetail(int viewDetail);
+	public BoardVO offlineClassDetail(int viewDetail) throws Exception;
 	
 	//댓글 상세보기
 	public List<ReviewVO> reviewList(int no) throws Exception;
