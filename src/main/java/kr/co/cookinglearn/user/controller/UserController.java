@@ -8,9 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.cookinglearn.admin.repository.IPointMgrMapper;
 import kr.co.cookinglearn.qna.model.QnaVO;
 import kr.co.cookinglearn.qna.sevice.IQnaService;
 import kr.co.cookinglearn.user.model.ClassVO;
@@ -40,7 +43,13 @@ public class UserController {
    private MailSendService mss;
    
    @Autowired
-	private IQnaService qnaService;
+   private IQnaService qnaService;
+   
+   @Autowired
+   BCryptPasswordEncoder  passwordEncoder;
+   
+   @Autowired
+   private IPointMgrMapper pointMapper;
    
    private String referer;
    
@@ -59,6 +68,7 @@ public class UserController {
    //회원가입 처리
    @PostMapping("/register")
    public void register(UserVO user, HttpServletResponse response) throws IOException {
+	   
 	  //기본 정보 등록
 	  service.register(user);
 	  
@@ -95,8 +105,6 @@ public class UserController {
    @GetMapping("/login")
    public String login(HttpServletRequest request) {
 	  referer = request.getHeader("REFERER");
-	  System.out.println(referer);
-
       return "user/login";
    }
    
@@ -128,8 +136,11 @@ public class UserController {
       
       UserVO dbData = service.selectOne(inputData.getUserId());
       
+      String inputPw = inputData.getUserPassword();
+      String dbPw = dbData.getUserPassword();
+      
       if ((dbData != null) && (dbData.getDeleteAccount() < 1)/* && (dbData.getAuthStatus() == 1) */) {
-         if(inputData.getUserPassword().equals(dbData.getUserPassword())) {
+         if(passwordEncoder.matches(inputPw, dbPw)) {
             //세션 데이터 생성(로그인 유지)
             session.setAttribute("login", dbData);
             
@@ -175,14 +186,19 @@ public class UserController {
    
    //마이페이지 가기
    @GetMapping("/mypage")
-   public String mypage() {
+   public String mypage(HttpSession session, Model model) {
+	   UserVO user = (UserVO) session.getAttribute("login");
+	   int point = pointMapper.getUserPoint(user.getUserNo());
+	   model.addAttribute("point", point);
 	   return "mypage/my_info";
    }
    
    //마이페이지 비밀번호 처리
    @PostMapping("/mypage")
-   public String myPwChk(String password, HttpSession session, RedirectAttributes ra) {
+   public String myPwChk(String password, HttpSession session, RedirectAttributes ra, Model model) {
 	   UserVO user = (UserVO) session.getAttribute("login");
+	   int point = pointMapper.getUserPoint(user.getUserNo());
+	   model.addAttribute("point", point);
 	   
 	   if (user.getUserPassword().equals(password)) {
 		   ra.addFlashAttribute("msg","pwSuccess");
@@ -198,7 +214,10 @@ public class UserController {
    
    //내 강의 페이지 가기
    @GetMapping("/myclass")
-   public String myclass() {
+   public String myclass(HttpSession session, Model model) {
+	   UserVO user = (UserVO) session.getAttribute("login");
+	   int point = pointMapper.getUserPoint(user.getUserNo());
+	   model.addAttribute("point", point);
 	   return "mypage/my_class";
    }
    
@@ -212,7 +231,10 @@ public class UserController {
    
    //결제 페이지 가기
    @GetMapping("/mypayment")
-   public String mypayment() {
+   public String mypayment(HttpSession session, Model model) {
+	   UserVO user = (UserVO) session.getAttribute("login");
+	   int point = pointMapper.getUserPoint(user.getUserNo());
+	   model.addAttribute("point", point);
 	   return "mypage/my_payment";
    }
    
@@ -222,6 +244,10 @@ public class UserController {
 	   UserVO user = (UserVO) session.getAttribute("login");
 	   List<QnaVO> qna = qnaService.getList(user.getUserNo());
 	   model.addAttribute("qna", qna);
+	   
+	   int point = pointMapper.getUserPoint(user.getUserNo());
+	   model.addAttribute("point", point);
+	   
 	   return "mypage/my_qna";
    }
    
@@ -234,19 +260,23 @@ public class UserController {
    
    //내 정보 수정 페이지 가기
    @GetMapping("/modify")
-   public String modify() {
+   public String modify(HttpSession session, Model model) {
+	   UserVO user = (UserVO) session.getAttribute("login");
+	   int point = pointMapper.getUserPoint(user.getUserNo());
+	   model.addAttribute("point", point);
 	   return "mypage/my_modify";
    }
    
    //내 정보 수정 페이지 처리
    @PostMapping("/modify")
-   public String modified(UserVO update, HttpSession session) {
+   public String modified(UserVO update, HttpSession session, Model model) {
 	   UserVO user = (UserVO) session.getAttribute("login");
 	   update.setUserId(user.getUserId());
 	   service.changeInfo(update);
 	   UserVO newUser = service.selectOne(user.getUserId());
 	   session.setAttribute("login", newUser);
-	   
+	   int point = pointMapper.getUserPoint(user.getUserNo());
+	   model.addAttribute("point", point);
 	   return "redirect:/user/mypage";
    }
    
@@ -266,14 +296,17 @@ public class UserController {
    
    //클래스 시청 페이지
    @GetMapping("/myclasswatch")
-   public String myClassWatch(Model model, @RequestParam String classCode) {
+   public String myClassWatch(HttpSession session, Model model, @RequestParam String classCode) {
 	   
 	   int classCodeInt = Integer.parseInt(classCode);
 	   
 	   ClassVO classVO = service.myClassWatch(classCodeInt);
 	   
-	   System.out.println(classVO.getClassUrl());
 	   model.addAttribute("classUrl", classVO.getClassUrl());
+	   
+	   UserVO user = (UserVO) session.getAttribute("login");
+	   int point = pointMapper.getUserPoint(user.getUserNo());
+	   model.addAttribute("point", point);
 	   
 	   return "mypage/my_class_watch";
    }

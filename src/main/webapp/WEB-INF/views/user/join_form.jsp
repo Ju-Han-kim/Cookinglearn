@@ -169,6 +169,7 @@
 	            	$("#confirmPassword").css("background-color", "#ffeceb");
 	            	$("#password_check").html('<span style="color:red;">*비밀번호가 일치하지 않습니다</span>');
 	            } else {
+	            	chk4 = true;
 	            	$("#confirmPassword").css("background-color", "#ebf1ff");
 	            	if(chk1 && chk2 && chk3 && chk4){
 		                $("#join_check").html('<span style="color:green;"></span>');

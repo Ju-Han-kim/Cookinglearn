@@ -8,7 +8,7 @@
     <div class="mypage__wrapper">
       <ul class="mypage__navmenu__sidebar">
         <h3>안녕하세요 <c:out value="${login.nickname}"/>님!</h3>
-        <p>내 포인트: 2100p</p>
+        <p>내 포인트:&nbsp;&nbsp;<c:out value="${point}"/>p</p>
         <li class="mypage__navmenu__item">
           <a href="<c:url value="/user/myclass" />"><i class="fas fa-book"></i>&nbsp;&nbsp;&nbsp;내 강의</a>
         </li>
