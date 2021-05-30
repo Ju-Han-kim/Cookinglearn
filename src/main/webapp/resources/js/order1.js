@@ -28,16 +28,16 @@ let basket = {
           this.updateUI();
     },
     //재계산
-    reCalc: function(){
-        console.log("ee");
+    reCalc: function(count){
+        console.log(count);
         this.totalCount = 0;
         this.totalPrice = 0;
         document.querySelectorAll("#p_num").forEach(function (item) {
             if(item.checked == true){
-                var count = parseInt(item.getAttribute('value'));
-                this.totalCount += count;
+               //var count = parseInt(item.getAttribute('value'));
+                this.totalCount = count;
                 var price = item.parentElement.parentElement.previousElementSibling.firstElementChild.getAttribute('value');
-                this.totalPrice += count * price;
+                this.totalPrice += price;
     	console.log(count);
             }
         }, this); // forEach 2번째 파라메터로 객체를 넘겨서 this 가 객체리터럴을 가리키도록 함. - thisArg

@@ -11,7 +11,8 @@
 <script type="text/javascript" src="/js/order1.js"></script>
 
 
- <body onLoad ="javascript:basket.reCalc(); javascript:basket.updateUI()">
+ <c:forEach items="${cartList}" var="BoardVO" varStatus="status">
+ <body onLoad ="javascript:basket.reCalc(${status.count}); javascript:basket.updateUI()">
     <form name="orderform" class="orderform" id="orderform" method="post" class="orderform" action="/Page" onsubmit="return false;">
     	<c:choose>
     		<c:when test="${empty cartList }">
@@ -21,7 +22,6 @@
     			</script>
     		</c:when>
     		<c:otherwise>
-        <c:forEach items="${cartList}" var="BoardVO" varStatus="status">
     	<input type="hidden" name="cmd" value="order">
             <div class="basketdiv" id="basket">
     			<h3>온라인 강의</h3>
@@ -89,7 +89,7 @@
                         <div class="pname">
                             <span>${BoardVO.className }</span>
                         </div>
-                        <input type="hidden" id="p_num${status.count}" value="1">
+                        <input type="hidden" id="p_num" value="${status.count}">
                     </div>
                     <div class="subdiv">
                         <div class="basketprice"><input type="hidden" name="p_price" id="p_price1" class="p_price" value="${BoardVO.price }">${BoardVO.price }원</div>
@@ -101,7 +101,7 @@
 
        			 </c:if>
             </div>
-       		 </c:forEach>
+       		 
     		
     		<div class="basketrowcmd-wrapper">
 	           <div class="right-align basketrowcmd">
@@ -140,6 +140,7 @@
     		</c:otherwise>
     		</c:choose>
         </form>
+        </c:forEach>
 <script>  
 	
 //체크박스 체크된 항목 값 더하기 (총 얼마인지)
