@@ -2,12 +2,12 @@ package kr.co.cookinglearn.user.service;
 
 import java.io.PrintWriter;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kr.co.cookinglearn.user.model.ClassVO;
@@ -20,6 +20,9 @@ public class UserService implements IUserService {
 
 	@Autowired
 	private IUserMapper mapper;
+	
+	@Autowired
+	BCryptPasswordEncoder  passwordEncoder;
 	
 	@Override
 	public int checkId(String account) {
@@ -44,6 +47,8 @@ public class UserService implements IUserService {
 
 	@Override
 	public void register(UserVO user) {
+		String encPassword = passwordEncoder.encode(user.getUserPassword());
+		user.setUserPassword(encPassword);
 		mapper.register(user);
 	}
 
@@ -82,7 +87,6 @@ public class UserService implements IUserService {
 
 	@Override
 	public void updateAuthKey(String userId, String authKey) {
-		
 		mapper.updateAuthKey(userId, authKey);
 		
 	}

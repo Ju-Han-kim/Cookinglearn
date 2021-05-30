@@ -25,12 +25,28 @@ public class QnaService implements IQnaService {
 		
 		qna.setUserNo(user.getUserNo());
 		qna.setWriter(user.getNickname());
+		String originalContent = qna.getQnaContent();
+		String changedContent;
+		changedContent = originalContent.replaceAll("\n", "<br>");
+		changedContent = changedContent.replaceAll(" ", "&nbsp;");
+		qna.setQnaContent(changedContent);
+		
 		mapper.insert(qna);
 	}
 
 	@Override
 	public List<QnaVO> getList(int userNo) {
-		return mapper.getList(userNo);
+		List<QnaVO> qna = mapper.getList(userNo);
+		
+		for (QnaVO vo : qna) {
+			String originalContent = vo.getQnaContent();
+			String changedContent;
+			changedContent = originalContent.replaceAll("<br>", "\n");
+			changedContent = changedContent.replaceAll("&nbsp;", " ");
+			vo.setQnaContent(changedContent);
+		}
+		
+		return qna;
 	}
 
 }

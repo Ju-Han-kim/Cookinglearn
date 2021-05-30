@@ -163,10 +163,19 @@
 	            $("#join_check").html('<span style="color:green;"></span>');
 	            $("#password_check").html('<span style="color:green;"></span>');
 	            $(this).css("background-color", "#ebf1ff");
-	            if(chk1 && chk2 && chk3 && chk4){
-	                $("#join_check").html('<span style="color:green;"></span>');
+	            
+	            if ($(this).val() != $("#confirmPassword").val()) {
+	            	chk4 = false;
+	            	$("#confirmPassword").css("background-color", "#ffeceb");
+	            	$("#password_check").html('<span style="color:red;">*비밀번호가 일치하지 않습니다</span>');
 	            } else {
-	                $("#join_check").html('<span style="color:red;"></span>');
+	            	chk4 = true;
+	            	$("#confirmPassword").css("background-color", "#ebf1ff");
+	            	if(chk1 && chk2 && chk3 && chk4){
+		                $("#join_check").html('<span style="color:green;"></span>');
+		            } else {
+		                $("#join_check").html('<span style="color:red;"></span>');
+		            }
 	            }
 	        }
 	    });

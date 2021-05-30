@@ -41,8 +41,13 @@ body {
 }
 
 a {
-  text-decoration: none;
+  text-decoration: none !important;
   color: var(--color-light-black);
+}
+
+a:hover {
+	text-decoration: none !important;
+	cursor: pointer;
 }
 
 ul {
@@ -259,6 +264,7 @@ p {
 
 .active {
   font-weight: 700;
+  color: #ffea03 !important;
 }
 
 /* Footer */
