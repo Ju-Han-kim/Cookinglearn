@@ -75,11 +75,11 @@
 	<div class="input-group mb-3">
 		<input type="hidden" name="classCode" value="${detail.classCode}">
 		<input type="text" class="form-control" name="reviewComment" id="reviewComment1" placeholder="댓글을 입력하세요.">
-		<input type="checkbox" name="area" id="box1" onclick="getCheckedCnt()"><label for="box1"></label>
-		<input type="checkbox" name="area" id="box2" onclick="getCheckedCnt()"><label for="box2"></label>
-		<input type="checkbox" name="area" id="box3" onclick="getCheckedCnt()"><label for="box3"></label>
-		<input type="checkbox" name="area" id="box4" onclick="getCheckedCnt()"><label for="box4"></label>
-		<input type="checkbox" name="area" id="box5" onclick="getCheckedCnt()"><label for="box5"></label>
+		<input type="checkbox" name="area" class="checkStar" id="box1"><label for="box1"></label>
+		<input type="checkbox" name="area" class="checkStar" id="box2"><label for="box2"></label>
+		<input type="checkbox" name="area" class="checkStar" id="box3"><label for="box3"></label>
+		<input type="checkbox" name="area" class="checkStar" id="box4"><label for="box4"></label>
+		<input type="checkbox" name="area" class="checkStar" id="box5"><label for="box5"></label>
 		<input type="hidden" name="reviewStar" id="star" value="0">
 		<div class="input-group-append">
 			<button class="btn btn-success" id="reviewInsert">작성</button>
@@ -139,6 +139,24 @@
 				$("#deleteForm").submit();
 			}
 		});
+		
+		//별점체크
+		$(".checkStar").click(function() {
+			const chId = $(this).attr("id").substring(3);
+			
+			if(chId > 1 && $(this).is(":checked")){
+				for(let i=1; i<=parseInt(chId)-1; i++){
+					$("#box"+i).prop("checked", true);
+				}
+			}
+			
+			if(chId < 5 && !$(this).is(":checked")){
+				for(let i=parseInt(chId)+1; i<=5; i++){
+					$("#box"+i).prop("checked", false);
+				}
+			}
+		});
+		
 	});
 	
 	function class_reg() {	
@@ -172,4 +190,6 @@
 			return false;
 		}
 	}
+	
+	
 </script>
