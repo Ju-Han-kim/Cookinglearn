@@ -13,21 +13,27 @@ public class OrderVO {
 	private Timestamp paymentDate;
 	private Timestamp limitDate;
 	private int orderProcess;
+	private int payNo;
+	
+	public static final int PAYMENT_FINISHED = 0;
+	public static final int TAKING_CLASS = 1;
+	public static final int COMPLETE_CLASS = 2;
+	public static final int RETURN_CLASS = 3;
 
 	public String getProcess(int orderProcess) { 
 		String process = "";
 		
 		switch (orderProcess) {
-		case 0:
+		case PAYMENT_FINISHED:
 			process = "결제완료";
 			break;
-		case 1:
+		case TAKING_CLASS:
 			process = "수강확정";
 			break;
-		case 2:
+		case COMPLETE_CLASS:
 			process = "수강완료";
 			break;
-		case 3:
+		case RETURN_CLASS:
 			process = "반품";
 			break;
 		}
@@ -39,9 +45,18 @@ public class OrderVO {
 	public String toString() {
 		return "OrderVO [orderNo=" + orderNo + ", userNo=" + userNo + ", classCode=" + classCode + ", pointUse="
 				+ pointUse + ", payment=" + payment + ", paymentMethod=" + paymentMethod + ", paymentDate="
-				+ paymentDate + ", limitDate=" + limitDate + ", orderProcess=" + orderProcess + "]";
+				+ paymentDate + ", limitDate=" + limitDate + ", orderProcess=" + orderProcess + ", payNo=" + payNo
+				+ "]";
 	}
 	
+	public int getPayNo() {
+		return payNo;
+	}
+
+	public void setPayNo(int payNo) {
+		this.payNo = payNo;
+	}
+
 	public int getOrderNo() {
 		return orderNo;
 	}

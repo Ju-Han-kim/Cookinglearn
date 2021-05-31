@@ -1,7 +1,9 @@
 package kr.co.cookinglearn.user.service;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.cookinglearn.user.model.ClassVO;
 import kr.co.cookinglearn.user.model.UserVO;
+import kr.co.cookinglearn.user.model.process.MyClassVO;
 import kr.co.cookinglearn.user.repository.IUserMapper;
 
 
@@ -86,14 +89,31 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public void updateAuthKey(String userId, String authKey) {
-		mapper.updateAuthKey(userId, authKey);
-		
+	public void activationUser(String userId) {
+		mapper.activationUser(userId);
 	}
-
+	
 	@Override
-	public void updateAuthStatus(String userId, String authKey) {
-		mapper.updateAuthStatus(userId, authKey);
+	public List<MyClassVO> getMyClassList(int userNo, int orderProcess) {
+		
+		Map<String, Integer> datas = new HashMap<String, Integer>();
+		
+		datas.put("userNo", userNo);
+		datas.put("orderProcess", orderProcess);
+		
+		return mapper.getMyClassList(datas);
+	}
+	
+	@Override
+	public void setOrderProcess(int orderNo, int orderProcess) {
+		
+		Map<String, Integer> datas = new HashMap<String, Integer>();
+		
+		datas.put("orderNo", orderNo);
+		datas.put("orderProcess", orderProcess);
+		
+		mapper.setOrderProcess(datas);
+		
 	}
 	
 }

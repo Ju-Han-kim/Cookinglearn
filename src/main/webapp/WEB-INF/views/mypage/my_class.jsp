@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <jsp:include page="../include/header.jsp" />
 
@@ -32,45 +33,81 @@
         <div class="classes">
           <div class="classes_left">
             <h2>수강중인 클래스</h2>
-            <div class="classes_wrap_left">
-              <div class="class_left">
-                  <div class="class">
-                    <div class="class_thumb">
-                      <img src="https://www.kikkoman.eu/fileadmin/_processed_/0/0/csm_WEB_Traditional_Fukuoka_Ramen_646cd39e6b.jpg" alt="클래스 썸네일">
-                    </div>
-                    <div class="class_contents">
-                      <div class="class_title">
-                        <h4>일본 나가사키 전통 라멘! 나카무라 센세이의 라멘 클래스</h4>
-                      </div>
-                      <div class="class_button_wrap">
-                        <button class="button_left" onclick="location.href='myclasswatch' ">시청하기</button>
-                        <button class="button_right">삭제하기</button>
-                      </div>
-                    </div>
-                  </div>
-              </div>                
-            </div>
+            <c:if test="${fn:length(takingClassList) != 0}">
+	            <c:forEach var="takingClass" items="${takingClassList}">
+		            <div class="classes_wrap_left">
+		              <div class="class_left">
+		                  <div class="class">
+		                  <div class="class_thumb">
+		                    <img src="${takingClass.thumbnailImg}" alt="클래스 썸네일">
+		                  </div>
+		                  <div class="class_contents">
+		                    <div class="class_button_wrap">
+		                      <c:if test="${takingClass.classType}">
+		                        <button class="button_left show-btn" id="${takingClass.classCode}">시청하기</button>
+		                      </c:if>
+		                      <c:if test="${!takingClass.classType}">
+		                        <button class="button_left" disabled="disabled"><fmt:formatDate pattern="yyyy-MM-dd" value="${takingClass.startDate}"/><br><fmt:formatDate pattern="HH시 mm분" value="${takingClass.startDate}"/></button>
+		                      </c:if>
+		                    </div>
+		                    <div class="class_title">
+		                      <h4>
+		                      	<c:if test="${takingClass.classType}">
+		                      	  온)
+		                      	</c:if>
+		                      	<c:if test="${!takingClass.classType}">
+		                      	  오프)
+		                      	</c:if>
+		                      	${takingClass.className}
+	                      	  </h4>
+		                    </div>
+		                  </div>
+		                </div>
+		              </div>
+		            </div>
+	            </c:forEach>
+           </c:if>
+           <c:if test="${fn:length(takingClassList) == 0}">
+				강의를 신청해보세요!
+           </c:if>
           </div>
           <div class="classes_right">
             <h2>대기중인 클래스</h2>
-            <div class="classes_wrap_right">
-              <div class="class_right">
-                <div class="class">
-                  <div class="class_thumb">
-                    <img src="https://qtmd.org/wp-content/uploads/2019/07/howcuttingdo.jpg" alt="클래스 썸네일">
-                  </div>
-                  <div class="class_contents">
-                    <div class="class_title">
-                      <h4>일본 나가사키 전통 라멘! 나카무라 센세이의 라멘 클래스</h4>
-                    </div>
-                    <div class="class_button_wrap">
-                      <button class="button_left">수강동의</button>
-                      <button class="button_right">반품하기</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            
+            <c:if test="${fn:length(waitingClassList) != 0}">
+	            <c:forEach var="waitingClass" items="${waitingClassList}">
+		            <div class="classes_wrap_right">
+		              <div class="class_right">
+		                <div class="class">
+		                  <div class="class_thumb">
+		                    <img src="${waitingClass.thumbnailImg}" alt="클래스 썸네일">
+		                  </div>
+		                  <div class="class_contents">
+		                    <div class="class_button_wrap" id="${waitingClass.orderNo}">
+		                      <button class="button_left agree-btn" id="${waitingClass.orderNo}">수강동의</button>
+		                      <button class="button_right return-btn" id="${waitingClass.orderNo}">반품하기</button>
+		                    </div>
+		                    <div class="class_title">
+		                      <h4>
+		                        <c:if test="${waitingClass.classType}">
+		                      	  온)
+		                      	</c:if>
+		                      	<c:if test="${!waitingClass.classType}">
+		                      	  오프)
+		                      	</c:if>
+		                      	${waitingClass.className}
+		                      </h4>
+		                    </div>
+		                  </div>
+		                </div>
+		              </div>
+		            </div>
+	            </c:forEach>
+            </c:if>
+             <c:if test="${fn:length(waitingClassList) == 0}">
+             	<!-- 별도카드 구현필요 -->
+				강의를 신청해보세요!
+             </c:if>
           </div>
         </div>
       </div>
@@ -78,3 +115,73 @@
 	
 	
 <jsp:include page="../include/footer.jsp" />
+
+<script>
+	
+	$(function() {
+		
+		//시청하기
+		$(".show-btn").click(function() {
+			
+			const classCode = $(this).attr("id");
+			const url = "/user/myclasswatch?classCode="+classCode;
+			
+			location.href=url;
+			
+		});
+
+		
+		//수강동의
+		$(".agree-btn").click(function() {
+			
+			const orderNo = $(this).attr("id");
+			if(confirm("수강동의하시겠습니까?")){
+				$.ajax({
+					type: "POST",
+					data:{
+						"orderNo": orderNo,
+						"orderProcess": 1
+					},
+					url:"/user/setOrderProcess",
+					success: function() {
+						alert("수강동의처리되었습니다.");
+						location.href="/user/myclass";
+						
+					},
+					error: function() {
+						console.log("통신오류 : 프로세스변경");
+					}
+				});
+			}
+			
+		});
+		
+		
+		//반품하기
+		$(".return-btn").click(function() {
+			
+			const orderNo = $(this).attr("id");
+			if(confirm("반품하시겠습니까?")){
+				$.ajax({
+					type: "POST",
+					data:{
+						"orderNo": orderNo,
+						"orderProcess": 3
+					},
+					url:"/user/setOrderProcess",
+					success: function() {
+						alert("반품처리되었습니다.");
+						location.href="/user/myclass";
+					},
+					error: function() {
+						console.log("통신오류 : 프로세스변경");
+					}
+				});
+			}
+		});
+		
+		
+	});
+
+
+</script>

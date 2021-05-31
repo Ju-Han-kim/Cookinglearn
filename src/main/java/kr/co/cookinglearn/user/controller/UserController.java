@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +26,7 @@ import kr.co.cookinglearn.qna.model.QnaVO;
 import kr.co.cookinglearn.qna.sevice.IQnaService;
 import kr.co.cookinglearn.user.model.ClassVO;
 import kr.co.cookinglearn.user.model.UserVO;
+import kr.co.cookinglearn.user.model.process.MyClassVO;
 import kr.co.cookinglearn.user.service.IUserService;
 import kr.co.cookinglearn.user.service.MailSendService;
 
@@ -46,7 +46,7 @@ public class UserController {
    private IQnaService qnaService;
    
    @Autowired
-   BCryptPasswordEncoder  passwordEncoder;
+   BCryptPasswordEncoder passwordEncoder;
    
    @Autowired
    private IPointMgrMapper pointMapper;
@@ -73,14 +73,7 @@ public class UserController {
 	  service.register(user);
 	  
 	  //이메일 보내기
-	  String authKey0 = mss.sendAuthMail(user.getUserId());
-	  user.setAuthKey(authKey0);
-	  
-	  String userId = user.getUserId();
-	  String authKey = user.getAuthKey();
-	  
-	  //updating authKey
-	  service.updateAuthKey(userId, authKey);
+	  mss.sendAuthMail(user.getUserId());
 	  
 	  response.setContentType("text/html;charset=utf-8");
 	  PrintWriter out = response.getWriter();
@@ -92,8 +85,8 @@ public class UserController {
    
    //회원가입 이메일 인증 처리
    @GetMapping("/signUpConfirm")
-   public void SignUpConfirm(@RequestParam("email") String userId, @RequestParam("authKey") String authKey, HttpServletResponse response) throws IOException {
-	   service.updateAuthStatus(userId, authKey);
+   public void SignUpConfirm(@RequestParam("email") String userId, HttpServletResponse response) throws IOException {
+	   service.activationUser(userId);
 	   response.setContentType("text/html;charset=utf-8");
 	   PrintWriter out = response.getWriter();
 	   out.println("<script>alert('회원가입에 성공하셨습니다! 로그인 후 이용 가능합니다'); location.href='/' </script>");
@@ -118,42 +111,51 @@ public class UserController {
    @PostMapping("/searchPw")
    public String searchPwByEmail(String userId, HttpServletResponse response) throws Exception {
 	   UserVO user = service.selectOne(userId);
-	   String tmpPw = mss.sendPwMail(userId);
-	   user.setUserPassword(tmpPw);
-	   service.changeInfo(user);
 	   
-	   response.setContentType("text/html;charset=utf-8");
-	   PrintWriter out = response.getWriter();
-	   out.println("<script>alert('입력하신 이메일로 보내진 임시 비밀번호로 로그인을 진행해주세요'); </script>");
-	   out.flush();
+	   if(user != null) {
+		   String tmpPw = mss.sendPwMail(userId);
+		   user.setUserPassword(tmpPw);
+		   service.changeInfo(user);
+		   
+		   response.setContentType("text/html;charset=utf-8");
+		   PrintWriter out = response.getWriter();
+		   out.println("<script>alert('입력하신 이메일로 보내진 임시 비밀번호로 로그인을 진행해주세요'); </script>");
+		   out.flush();
+		   
+		   return "user/login";
+	   } else {
+		   return "redirect:/user/searchPw?msg=noId";
+	   }
 	   
-	   return "user/login";
    }
    
-   //로그인 처리
+ //로그인 처리
    @PostMapping("/loginCheck")
    public String loginCheck(UserVO inputData, HttpSession session, RedirectAttributes ra, HttpServletRequest request) {
       
       UserVO dbData = service.selectOne(inputData.getUserId());
-      
-      String inputPw = inputData.getUserPassword();
-      String dbPw = dbData.getUserPassword();
-      
+
       if ((dbData != null) && (dbData.getDeleteAccount() < 1)) {
-         if(passwordEncoder.matches(inputPw, dbPw)) {
-            //세션 데이터 생성(로그인 유지)
-            session.setAttribute("login", dbData);
-            
-         }else {
-            ra.addFlashAttribute("msg","pwFail");
-            return "redirect:/user/login";
-         }
-      }else {
+    	  String inputPw = inputData.getUserPassword();
+    	  String dbPw = dbData.getUserPassword();
+	         if(passwordEncoder.matches(inputPw, dbPw)) {
+	        	 if(dbData.getAdminLevel() >= 0) {
+		            //세션 데이터 생성(로그인 유지)
+		            session.setAttribute("login", dbData);
+	        	 }else {
+	        		 ra.addFlashAttribute("msg","mailAuth");
+	                 return "redirect:/user/login";
+	        	 }
+	         }else {
+	            ra.addFlashAttribute("msg","pwFail");
+	            return "redirect:/user/login";
+	         }
+      } else {
          ra.addFlashAttribute("msg","idFail");
          return "redirect:/user/login";
       }
       
-      referer = referer.replace("http://localhost:8080/", "");
+      referer = referer.replace("http://localhost/", "");
       
       return "redirect:/" + referer;
       
@@ -215,10 +217,38 @@ public class UserController {
    //내 강의 페이지 가기
    @GetMapping("/myclass")
    public String myclass(HttpSession session, Model model) {
-	   UserVO user = (UserVO) session.getAttribute("login");
-	   int point = pointMapper.getUserPoint(user.getUserNo());
-	   model.addAttribute("point", point);
+	   
+	   UserVO user = (UserVO)session.getAttribute("login");
+	   
+	   if(user == null) {
+		   
+		   return "redirect:/?msg=login";
+		   
+	   } else {
+		   
+		   int point = pointMapper.getUserPoint(user.getUserNo());
+		   model.addAttribute("point", point);
+		   
+		   //수강중 클래스
+		   List<MyClassVO> takingClassList = service.getMyClassList(user.getUserNo(), 1);
+		   model.addAttribute("takingClassList", takingClassList);
+		   
+		   //대기중인 클래스
+		   List<MyClassVO> waitingClassList = service.getMyClassList(user.getUserNo(), 0);
+		   model.addAttribute("waitingClassList", waitingClassList);
+		   
+	   }
+	   
 	   return "mypage/my_class";
+   }
+   
+   //클래스 상태변경
+   @PostMapping("/setOrderProcess")
+   @ResponseBody
+   public void setOrderProcess(int orderNo, int orderProcess) {
+	   
+	   service.setOrderProcess(orderNo, orderProcess);
+	   
    }
    
 

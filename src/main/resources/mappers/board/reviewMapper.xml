@@ -45,7 +45,7 @@
 			#{classCode},
 			#{writer},
 			#{reviewComment},
-			3
+			#{reviewStar}
 		)
 	</insert>
 	

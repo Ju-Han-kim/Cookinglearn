@@ -16,7 +16,7 @@ public class ClassVO {
 	private String classUrl;
 	private int price;
 	private int maxStudent;
-
+	
 	public ClassVO() {
 
 	}

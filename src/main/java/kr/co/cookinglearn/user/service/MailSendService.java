@@ -39,9 +39,7 @@ public class MailSendService {
 	}
 
 	//인증메일 보내기
-	public String sendAuthMail(String email) {
-		//6자리 난수 인증번호 생성
-		String authKey = getKey(6);
+	public void sendAuthMail(String email) {
 
 		//인증메일 보내기
 		try {
@@ -49,10 +47,8 @@ public class MailSendService {
 			sendMail.setSubject("회원가입 이메일 인증");
 			sendMail.setText(new StringBuffer().append("<h1>[이메일 인증]</h1>")
 					.append("<p>아래 링크를 클릭하시면 이메일 인증이 완료됩니다.</p>")
-					.append("<a href='http://localhost:8080/user/signUpConfirm?email=") // 
+					.append("<a href='http://localhost/user/signUpConfirm?email=") 
 					.append(email)
-					.append("&authKey=")
-					.append(authKey)
 					.append("' target='_blenk'>이메일 인증 확인</a>")
 					.toString());
 			sendMail.setFrom("cookinglearnofficial@gmail.com", "쿠킹런 관리자");
@@ -64,7 +60,6 @@ public class MailSendService {
 			e.printStackTrace();
 		}
 
-		return authKey;
 	}
 
 	//비밀번호 찾기 메일 보내기

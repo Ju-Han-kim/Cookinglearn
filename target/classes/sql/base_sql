@@ -5,7 +5,7 @@ CREATE TABLE "USER" (
 	nickname	varchar2(100)		NOT NULL,
 	gender	number(1)		NOT NULL,
 	reg_date	date	DEFAULT sysdate	NOT NULL,
-	admin_level	number(1)	DEFAULT 0	NOT NULL,
+	admin_level	number(1)	DEFAULT -1	NOT NULL,
 	delete_account	number(1),
 	delete_day	date
 );
@@ -182,4 +182,6 @@ create sequence user_no_seq
 
 ALTER TABLE QNA ADD answer_date date;
 
-ALTER TABLE "CLASS" MODIFY class_content varchar(2000);
+ALTER TABLE "CLASS" MODIFY class_content varchar2(2000);
+
+ALTER TABLE "ORDER" ADD pay_no number;

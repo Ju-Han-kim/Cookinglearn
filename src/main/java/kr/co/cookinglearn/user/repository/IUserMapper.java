@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import kr.co.cookinglearn.user.model.ClassVO;
 import kr.co.cookinglearn.user.model.UserVO;
+import kr.co.cookinglearn.user.model.process.MyClassVO;
 
 public interface IUserMapper {
 	
@@ -34,10 +35,13 @@ public interface IUserMapper {
 	//클래스 시청
 	ClassVO myClassWatch(int classCode);
 	
-	//setAuthKey
-	void updateAuthKey(@Param("userId") String userId, @Param("authKey") String authKey);
-
-	//updateAuthStatus
-	void updateAuthStatus(@Param("userId") String userId, @Param("authKey") String authKey);
-
+	//계정 활성화
+	void activationUser(String userId);
+	
+	//계정정보와 강의상태를 입력받아 강의리스트 반환
+	List<MyClassVO> getMyClassList(Map<String, Integer> datas);
+	
+	//선택된 신청강의의 상태를 변경
+	void setOrderProcess(Map<String, Integer> datas);
+	
 }
