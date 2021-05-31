@@ -139,7 +139,7 @@ public class UserController {
       String inputPw = inputData.getUserPassword();
       String dbPw = dbData.getUserPassword();
       
-      if ((dbData != null) && (dbData.getDeleteAccount() < 1)/* && (dbData.getAuthStatus() == 1) */) {
+      if ((dbData != null) && (dbData.getDeleteAccount() < 1)) {
          if(passwordEncoder.matches(inputPw, dbPw)) {
             //세션 데이터 생성(로그인 유지)
             session.setAttribute("login", dbData);
