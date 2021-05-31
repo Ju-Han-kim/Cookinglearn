@@ -251,14 +251,6 @@ public class UserController {
 	   
    }
    
-
-   
-//   //mypoint
-//   @GetMapping("/mypoint")
-//   public String mypoint() {
-//	   return "mypage/my_point";
-//   }
-   
    //결제 페이지 가기
    @GetMapping("/mypayment")
    public String mypayment(HttpSession session, Model model) {
