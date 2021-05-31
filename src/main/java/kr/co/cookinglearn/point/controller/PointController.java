@@ -23,26 +23,6 @@ public class PointController {
 	@Autowired 
 	private IPointService service;
 	
-	@GetMapping("/")
-	public String myPoint(HttpSession session, Model model) {
-		
-		UserVO loginUser = (UserVO) session.getAttribute("login");
-		
-		if(loginUser == null) {
-			return "redirect:/user/login";
-		}
-		else {
-			
-			int userNo = loginUser.getUserNo();
-			
-			ArrayList<PointVO> pointList = service.pointList(userNo);
-			
-			model.addAttribute("pointList", pointList);
-			
-			
-		}
-		return "mypage/my_point";
-	}
 	
 	
 	

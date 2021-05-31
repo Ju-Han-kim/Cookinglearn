@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import kr.co.cookinglearn.admin.repository.IPointMgrMapper;
+import kr.co.cookinglearn.point.service.IPointService;
 import kr.co.cookinglearn.qna.model.QnaVO;
 import kr.co.cookinglearn.qna.sevice.IQnaService;
 import kr.co.cookinglearn.user.model.ClassVO;
@@ -46,10 +46,10 @@ public class UserController {
    private IQnaService qnaService;
    
    @Autowired
-   BCryptPasswordEncoder passwordEncoder;
+   private BCryptPasswordEncoder passwordEncoder;
    
    @Autowired
-   private IPointMgrMapper pointMapper;
+   private IPointService pointService;
    
    private String referer;
    
@@ -190,7 +190,7 @@ public class UserController {
    @GetMapping("/mypage")
    public String mypage(HttpSession session, Model model) {
 	   UserVO user = (UserVO) session.getAttribute("login");
-	   int point = pointMapper.getUserPoint(user.getUserNo());
+	   int point = pointService.getUserPoint(user.getUserNo());
 	   model.addAttribute("point", point);
 	   return "mypage/my_info";
    }
@@ -199,10 +199,10 @@ public class UserController {
    @PostMapping("/mypage")
    public String myPwChk(String password, HttpSession session, RedirectAttributes ra, Model model) {
 	   UserVO user = (UserVO) session.getAttribute("login");
-	   int point = pointMapper.getUserPoint(user.getUserNo());
+	   int point = pointService.getUserPoint(user.getUserNo());
 	   model.addAttribute("point", point);
 	   
-	   if (user.getUserPassword().equals(password)) {
+	   if (passwordEncoder.matches(password, user.getUserPassword())) {
 		   ra.addFlashAttribute("msg","pwSuccess");
 		   return "redirect:/user/mypage";
 	   } else if(password == ""){
@@ -226,7 +226,7 @@ public class UserController {
 		   
 	   } else {
 		   
-		   int point = pointMapper.getUserPoint(user.getUserNo());
+		   int point = pointService.getUserPoint(user.getUserNo());
 		   model.addAttribute("point", point);
 		   
 		   //수강중 클래스
@@ -251,19 +251,22 @@ public class UserController {
 	   
    }
    
-
-   
-//   //mypoint
-//   @GetMapping("/mypoint")
-//   public String mypoint() {
-//	   return "mypage/my_point";
-//   }
+   //mypoint
+   @GetMapping("/mypoint")
+   public String mypoint(HttpSession session, Model model) {
+	   
+	   UserVO user = (UserVO) session.getAttribute("login");
+	   model.addAttribute("point", pointService.getUserPoint(user.getUserNo()));
+	   model.addAttribute("pointList", pointService.getUserPointList(user.getUserNo()));
+	   
+	   return "mypage/my_point";
+   }
    
    //결제 페이지 가기
    @GetMapping("/mypayment")
    public String mypayment(HttpSession session, Model model) {
 	   UserVO user = (UserVO) session.getAttribute("login");
-	   int point = pointMapper.getUserPoint(user.getUserNo());
+	   int point = pointService.getUserPoint(user.getUserNo());
 	   model.addAttribute("point", point);
 	   return "mypage/my_payment";
    }
@@ -275,7 +278,7 @@ public class UserController {
 	   List<QnaVO> qna = qnaService.getList(user.getUserNo());
 	   model.addAttribute("qna", qna);
 	   
-	   int point = pointMapper.getUserPoint(user.getUserNo());
+	   int point = pointService.getUserPoint(user.getUserNo());
 	   model.addAttribute("point", point);
 	   
 	   return "mypage/my_qna";
@@ -292,7 +295,7 @@ public class UserController {
    @GetMapping("/modify")
    public String modify(HttpSession session, Model model) {
 	   UserVO user = (UserVO) session.getAttribute("login");
-	   int point = pointMapper.getUserPoint(user.getUserNo());
+	   int point = pointService.getUserPoint(user.getUserNo());
 	   model.addAttribute("point", point);
 	   return "mypage/my_modify";
    }
@@ -305,7 +308,7 @@ public class UserController {
 	   service.changeInfo(update);
 	   UserVO newUser = service.selectOne(user.getUserId());
 	   session.setAttribute("login", newUser);
-	   int point = pointMapper.getUserPoint(user.getUserNo());
+	   int point = pointService.getUserPoint(user.getUserNo());
 	   model.addAttribute("point", point);
 	   return "redirect:/user/mypage";
    }
@@ -335,7 +338,7 @@ public class UserController {
 	   model.addAttribute("classUrl", classVO.getClassUrl());
 	   
 	   UserVO user = (UserVO) session.getAttribute("login");
-	   int point = pointMapper.getUserPoint(user.getUserNo());
+	   int point = pointService.getUserPoint(user.getUserNo());
 	   model.addAttribute("point", point);
 	   
 	   return "mypage/my_class_watch";

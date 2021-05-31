@@ -1,15 +1,18 @@
 package kr.co.cookinglearn.point.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import kr.co.cookinglearn.admin.model.PointVO;
+import kr.co.cookinglearn.point.model.PointVO;
 
 public interface IPointService {
 	
 	//포인트 사용&적립
-	void insert(PointVO addpoint);
+	void insertPoint(PointVO addPoint);
 
-	//포인트 리스트 출력
-	ArrayList<PointVO> pointList(int userNo);
+	//사용자정보를 받아 적립금 리스트 반환
+	List<PointVO> getUserPointList(int userNo);
+	
+	//사용자정보를 받아 적립금 현재금액 반환
+	int getUserPoint(int userNo);
 
 }
