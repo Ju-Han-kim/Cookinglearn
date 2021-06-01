@@ -32,6 +32,8 @@
       rel="stylesheet"
     />
 </head>
+<!-- jquery -->
+<script src="<c:url value='/resources/vendor/jquery/jquery.min.js'/>"></script>
 <body>
     <div class="logo">
         <a href="/">CookingLearn</a>
@@ -42,14 +44,21 @@
     <form id="searchPw" method="post" action="/user/searchPw">
     	<div class="login_wrap"> 
 			<input type="text" name="userId" class="pw_input" placeholder="아이디(이메일)를 입력해주세요"/>
-			<input type="submit" class="pw_submit" value="안내 메일 전송" />
+			<input type="button" class="pw_submit" value="안내 메일 전송" />
 		</div>
 	</form>
 <script>
 	const msg = "${param.msg}";
 	if(msg === "noId"){
 		alert("없는 계정입니다. 아이디를 확인해주세요");
+		$(".pw_submit").prop("disabled", false);
 	}
+	
+	$(".pw_submit").click(function(){
+		$(".pw_submit").prop("disabled", true);
+		$("#searchPw").submit();
+	});
+	
 </script>
 </body>
 </html>

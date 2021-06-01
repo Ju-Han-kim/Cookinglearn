@@ -229,7 +229,8 @@
 	        const check = $(".id_check_button").attr('value') == "Y" && $(".nick_check_button").attr('value') == "Y";
 
 	        if(chk1 && chk2 && chk3 && chk4 && radio && check){
-	            $("#join_form").submit();
+	            $("#joinButton").prop("disabled", true); // 중복 회원가입 방지
+	        	$("#join_form").submit();
 	            
 	        } else if (chk1 && chk2 && chk3 && chk4 && check) {
 	        	alert("성별을 입력해주세요");
