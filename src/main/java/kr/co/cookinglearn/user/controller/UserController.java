@@ -194,9 +194,6 @@ public class UserController {
 	   UserVO user = (UserVO) session.getAttribute("login");
 	   // -- 포인트 데이터 뷰에 전송
 	   
-	   System.out.println(user);
-	   System.out.println(pointMapper);
-	   
 	   int point = pointMapper.getUserPoint(user.getUserNo());
 	   model.addAttribute("point", point);
 	   return "mypage/my_info";
