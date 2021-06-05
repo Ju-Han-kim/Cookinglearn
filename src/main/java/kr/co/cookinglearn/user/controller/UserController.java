@@ -103,7 +103,6 @@ public class UserController {
 	  } else {
 		  referer = null;
 	  }
-	  
       return "user/login";
    }
    
@@ -169,9 +168,7 @@ public class UserController {
       } else {
     	  referer = referer.replace("http://localhost/", "");
       }
-      
       return "redirect:/" + referer;
-      
    }
    
    //아이디 중복 확인
