@@ -1,15 +1,30 @@
 
 let basket = {
-    totalCount: 1, 
-    totalPrice: 2,
+    totalCount: 0, 
+    totalPrice: 0,
     //체크한 장바구니 상품 비우기
     delCheckedItem: function(){
     	console.log('click')
         document.querySelectorAll("input[name=buy]:checked").forEach(function (item) {
             item.parentElement.parentElement.parentElement.remove();
+            
+            
         });
         //AJAX 서버 업데이트 전송
-    
+        var deleteSession = item;
+        
+    	$.ajax({
+    			type: "POST",
+    			url: "/sessionDelete",
+    			data:{
+    				deleteSession
+    			},
+    			cache:false,
+    			async:false,
+    			success: function(data){
+    			alert("삭제 되었습니다")
+    			}
+    	});
         //전송 처리 결과가 성공이면
         this.reCalc();
         this.updateUI();
@@ -33,12 +48,14 @@ let basket = {
         this.totalCount = 0;
         this.totalPrice = 0;
         document.querySelectorAll("#p_num").forEach(function (item) {
+        console.log(item.checked);
             if(item.checked == true){
-               //var count = parseInt(item.getAttribute('value'));
                 this.totalCount = count;
-                var price = item.parentElement.parentElement.previousElementSibling.firstElementChild.getAttribute('value');
+                console.log(item.parentElement.parentElement.nextElementSibling);
+                price = item.parentElement.parentElement.nextElementSibling.children(".p_price").getAttribute('value');
+               //console.log(price);
                 this.totalPrice += price;
-    	console.log(count);
+    	console.log(this.totalCount);
             }
         }, this); // forEach 2번째 파라메터로 객체를 넘겨서 this 가 객체리터럴을 가리키도록 함. - thisArg
     },
@@ -47,6 +64,8 @@ let basket = {
     console.log("gg");
         document.querySelector('#sum_p_num').textContent = '상품갯수: ' + this.totalCount.formatNumber() + '개';
         document.querySelector('#sum_p_price').textContent = '합계금액: ' + this.totalPrice.formatNumber() + '원';
+        
+        var totalPrice = this.totalPrice;
     },
     /*
     //개별 수량 변경

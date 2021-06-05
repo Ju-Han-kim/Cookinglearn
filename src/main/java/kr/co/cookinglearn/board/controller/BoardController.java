@@ -160,19 +160,23 @@ public class BoardController {
 		
 		UserVO userVO = (UserVO) session.getAttribute("login");
 		BoardVO vo = service.detail(classCode);
-		
+
 		if(userVO != null) {
 
-			classInfo.add(vo);
+			List<BoardVO> tempList = (List<BoardVO>)session.getAttribute("classInfo");
 			
 			//객체가 비어있지 않으면 삭제 후 다시 넘김
-			if (session.getAttribute("classInfo") != null) {
-				session.removeAttribute("classInfo");
-				session.setAttribute("classInfo", classInfo);
-			} else {
-				session.setAttribute("classInfo", classInfo);
-			}
+			if (tempList != null) {
+				classInfo.addAll(tempList);
+			} 
+			
+			classInfo.add(vo);
+
+			session.setAttribute("classInfo", classInfo);
+
+			System.out.println(classInfo.toString());
 		}
+		
 		return "redirect:/order/cart";
 	}
 	
