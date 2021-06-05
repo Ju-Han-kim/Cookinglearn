@@ -1,0 +1,55 @@
+/* 내 포인트 */
+.points {
+  width: 100%;
+  height: 100%;
+  padding: 15px 15px;
+}
+
+.point {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.point_wrap {
+  width: 100%;
+  height: auto;
+  background-color: #ffffff;
+  border: 1.2px solid #b4b4b4;
+  border-radius: 4px;
+  padding: 15px;
+  overflow-y: hidden;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.11), 0 2px 2px rgba(0, 0, 0, 0.11),
+    0 4px 4px rgba(0, 0, 0, 0.11), 0 6px 8px rgba(0, 0, 0, 0.11),
+    0 8px 16px rgba(0, 0, 0, 0.11);
+}
+
+.point_detail {
+  padding: 5px;
+  height: 30px;
+  line-height:30px;
+  float: left;
+}
+
+.point_count {
+  height: 81px;
+  line-height:81px;
+  float: right;
+}
+
+.point_detail p {
+  font-size: 14px;
+}
+
+.points_not {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.points_not h2 {
+  color: #555;
+  margin-top: 200px;
+}

@@ -160,6 +160,10 @@ public class BoardController {
 		
 		UserVO userVO = (UserVO) session.getAttribute("login");
 		BoardVO vo = service.detail(classCode);
+		
+		if(vo == null) {
+			vo = service.offlineClassDetail(classCode);
+		}
 
 		if(userVO != null) {
 

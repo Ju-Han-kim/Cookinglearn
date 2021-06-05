@@ -5,7 +5,7 @@
    
 <mapper namespace="kr.co.cookinglearn.point.repository.IPointMapper">
 
-	<resultMap id="MainpageMap" type="kr.co.cookinglearn.point.model.PointVO" >
+	<resultMap id="pointMap" type="kr.co.cookinglearn.point.model.PointVO" >
 		<id property="pointNo" column="point_no" />
 		<result property="userNo" column="user_no" />
 		<result property="pointDate" column="point_date" />
@@ -14,23 +14,19 @@
 	</resultMap>
 	
 	<!-- 포인트 적립 -->
-	<insert id="insert">
-		INSERT into "POINT"
-		VALUES(pointSeq.NEXTVAL,#{userNo},#{pointDate},#{pointHistory},#{pointChange})
+	<insert id="insertPoint">
+		INSERT INTO "POINT"
+		VALUES (point_no_seq.NEXTVAL, #{userNo}, sysdate, #{pointHistory}, #{pointChange})
 	</insert>
 	
-	<!-- 포인트사용도 적립으로 구동됨-->
-	
-	
-	<!-- 포인트 내역 확인 -->
-	<select id="pointList">
-	select * from "POINT"
-	where user_no = #{userNo}	
+	<select id="getUserPointList" resultMap="pointMap">
+		SELECT * FROM "POINT"
+		WHERE user_no = #{userNo}
 	</select>
 	
-	<!-- 포인트 합계 -->
 	<select id="getUserPoint" resultType="int">
 		SELECT NVL(SUM(point_change), 0) FROM "POINT"
 		WHERE user_no = #{userNo}
 	</select>
+	
 </mapper>

@@ -44,7 +44,7 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				<form action="cart" method="post" onsubmit="return class_reg();">
+				<form action="/board/cart" method="post" onsubmit="return class_reg();">
 					<input type="hidden" name="classCode" value="${detail.classCode}">
 					<button id="button" class="btn btn-outline-light text-dark">
 						<img src="/resources/board/icon/buy.png"> ${detail.price}원

@@ -102,39 +102,39 @@
 					<img src="/resources/board/icon/star_off.png" width="10">
 				</c:if>
 				<c:if test="${reviewList.reviewStar eq 1}">
-					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources/board/icon/star_on.png" width="10">
 					<img src="/resources/board/icon/star_off.png" width="10">
 					<img src="/resources/board/icon/star_off.png" width="10">
 					<img src="/resources/board/icon/star_off.png" width="10">
 					<img src="/resources/board/icon/star_off.png" width="10">
 				</c:if>
 				<c:if test="${reviewList.reviewStar eq 2}">
-					<img src="/resources//board/icon/star_on.png" width="10">
-					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources/board/icon/star_on.png" width="10">
+					<img src="/resources/board/icon/star_on.png" width="10">
 					<img src="/resources/board/icon/star_off.png" width="10">
 					<img src="/resources/board/icon/star_off.png" width="10">
 					<img src="/resources/board/icon/star_off.png" width="10">
 				</c:if>
 				<c:if test="${reviewList.reviewStar eq 3}">
-					<img src="/resources//board/icon/star_on.png" width="10">
-					<img src="/resources//board/icon/star_on.png" width="10">
-					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources/board/icon/star_on.png" width="10">
+					<img src="/resources/board/icon/star_on.png" width="10">
+					<img src="/resources/board/icon/star_on.png" width="10">
 					<img src="/resources/board/icon/star_off.png" width="10">
 					<img src="/resources/board/icon/star_off.png" width="10">
 				</c:if>
 				<c:if test="${reviewList.reviewStar eq 4}">
-					<img src="/resources//board/icon/star_on.png" width="10">
-					<img src="/resources//board/icon/star_on.png" width="10">
-					<img src="/resources//board/icon/star_on.png" width="10">
-					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources/board/icon/star_on.png" width="10">
+					<img src="/resources/board/icon/star_on.png" width="10">
+					<img src="/resources/board/icon/star_on.png" width="10">
+					<img src="/resources/board/icon/star_on.png" width="10">
 					<img src="/resources/board/icon/star_off.png" width="10">
 				</c:if>
 				<c:if test="${reviewList.reviewStar eq 5}">
-					<img src="/resources//board/icon/star_on.png" width="10">
-					<img src="/resources//board/icon/star_on.png" width="10">
-					<img src="/resources//board/icon/star_on.png" width="10">
-					<img src="/resources//board/icon/star_on.png" width="10">
-					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources/board/icon/star_on.png" width="10">
+					<img src="/resources/board/icon/star_on.png" width="10">
+					<img src="/resources/board/icon/star_on.png" width="10">
+					<img src="/resources/board/icon/star_on.png" width="10">
+					<img src="/resources/board/icon/star_on.png" width="10">
 				</c:if>
 				${reviewList.reviewComment}
 			</div>
