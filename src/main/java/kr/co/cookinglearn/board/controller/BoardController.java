@@ -164,11 +164,12 @@ public class BoardController {
 		if(userVO != null) {
 
 			classInfo.add(vo);
-			session.setAttribute("classInfo", classInfo);
 			
 			//객체가 비어있지 않으면 삭제 후 다시 넘김
 			if (session.getAttribute("classInfo") != null) {
 				session.removeAttribute("classInfo");
+				session.setAttribute("classInfo", classInfo);
+			} else {
 				session.setAttribute("classInfo", classInfo);
 			}
 			System.out.println(classInfo.toString());
