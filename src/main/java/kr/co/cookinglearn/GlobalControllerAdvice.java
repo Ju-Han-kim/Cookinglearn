@@ -58,7 +58,7 @@ public class GlobalControllerAdvice {
 	}
 	
 	//500
-	@ExceptionHandler({ Exception.class })
+	@ExceptionHandler({Exception.class})
 	public String handleServerException(final Exception ex) {
 		logger.warn("error", ex);
 		return "exception/error500";

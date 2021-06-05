@@ -61,8 +61,8 @@
 	<beans:bean id="classInterceptor" class="kr.co.cookinglearn.admin.common.interceptor.ClassInterceptor" />
 	<beans:bean id="adminInterceptor" class="kr.co.cookinglearn.admin.common.interceptor.AdminInterceptor" />
 	<beans:bean id="userInterceptor" class="kr.co.cookinglearn.user.common.interceptor.UserInterceptor" />
-	
 	<interceptors>
+	
 		<interceptor>
 			<mapping path="/admin/class/off/*"/>
 			<mapping path="/admin/class/on/*"/>
@@ -81,13 +81,13 @@
 			<beans:ref bean="adminInterceptor"/>
 		</interceptor>
 		<interceptor>
-			<mapping path="/user/mypage/"/>
-			<mapping path="/user/myclass/"/>
-			<mapping path="/user/mypayment/"/>
-			<mapping path="/user/myqna/"/>
-			<mapping path="/user/delete/"/>
-			<mapping path="/user/modify/"/>
-			<mapping path="/user/myclasswatch/"/>
+			<mapping path="/user/mypage"/>
+			<mapping path="/user/myclass"/>
+			<mapping path="/user/mypayment"/>
+			<mapping path="/user/myqna"/>
+			<mapping path="/user/delete"/>
+			<mapping path="/user/modify"/>
+			<mapping path="/user/myclasswatch"/>
 			<beans:ref bean="userInterceptor"/>
 		</interceptor>
 	</interceptors>

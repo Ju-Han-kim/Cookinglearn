@@ -9,7 +9,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import kr.co.cookinglearn.user.model.UserVO;
 
 public class UserInterceptor extends HandlerInterceptorAdapter {
-	
+
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -17,7 +17,6 @@ public class UserInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 		
 		UserVO user = (UserVO)session.getAttribute("login");
-		System.out.println("interceptor: " + user);
 		
 		if(user == null) {
 			response.sendRedirect("/?msg=login");
@@ -26,7 +25,5 @@ public class UserInterceptor extends HandlerInterceptorAdapter {
 		
 		return true;
 	}
-	
-	
 	
 }
