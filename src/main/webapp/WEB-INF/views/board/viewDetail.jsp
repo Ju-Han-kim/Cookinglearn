@@ -90,6 +90,54 @@
 	</form>
 	<div class="row">
 		<c:forEach items="${review}" var="reviewList">
+		<div class="col-md-11">
+				<img src="/resources/board/icon/person_m.png">
+				${reviewList.writer}
+				<br>
+				<c:if test="${reviewList.reviewStar eq 0}">
+					<img src="/resources/board/icon/star_off.png" width="10">
+					<img src="/resources/board/icon/star_off.png" width="10">
+					<img src="/resources/board/icon/star_off.png" width="10">
+					<img src="/resources/board/icon/star_off.png" width="10">
+					<img src="/resources/board/icon/star_off.png" width="10">
+				</c:if>
+				<c:if test="${reviewList.reviewStar eq 1}">
+					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources/board/icon/star_off.png" width="10">
+					<img src="/resources/board/icon/star_off.png" width="10">
+					<img src="/resources/board/icon/star_off.png" width="10">
+					<img src="/resources/board/icon/star_off.png" width="10">
+				</c:if>
+				<c:if test="${reviewList.reviewStar eq 2}">
+					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources/board/icon/star_off.png" width="10">
+					<img src="/resources/board/icon/star_off.png" width="10">
+					<img src="/resources/board/icon/star_off.png" width="10">
+				</c:if>
+				<c:if test="${reviewList.reviewStar eq 3}">
+					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources/board/icon/star_off.png" width="10">
+					<img src="/resources/board/icon/star_off.png" width="10">
+				</c:if>
+				<c:if test="${reviewList.reviewStar eq 4}">
+					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources/board/icon/star_off.png" width="10">
+				</c:if>
+				<c:if test="${reviewList.reviewStar eq 5}">
+					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources//board/icon/star_on.png" width="10">
+				</c:if>
+				${reviewList.reviewComment}
+			</div>
 			<div class="col-md-11">
 				<img src="/resources/board/icon/person_m.png">
 				${reviewList.writer} <br> ${reviewList.reviewComment}
