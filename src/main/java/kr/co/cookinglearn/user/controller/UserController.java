@@ -96,7 +96,14 @@ public class UserController {
    //로그인 페이지 가기
    @GetMapping("/login")
    public String login(HttpServletRequest request) {
-	  referer = request.getHeader("REFERER");
+	  String temp = request.getHeader("REFERER");
+	  String url = "http://localhost/user/login";
+	  if(!temp.equals(url)) {
+		  referer = temp;
+	  } else {
+		  referer = null;
+	  }
+	  
       return "user/login";
    }
    
@@ -157,7 +164,11 @@ public class UserController {
          return "redirect:/user/login";
       }
       
-      referer = referer.replace("http://localhost/", "");
+      if (referer == null) {
+    	  referer = "";
+      } else {
+    	  referer = referer.replace("http://localhost/", "");
+      }
       
       return "redirect:/" + referer;
       
