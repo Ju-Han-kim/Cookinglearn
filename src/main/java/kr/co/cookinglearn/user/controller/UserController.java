@@ -193,6 +193,10 @@ public class UserController {
    public String mypage(HttpSession session, Model model) {
 	   UserVO user = (UserVO) session.getAttribute("login");
 	   // -- 포인트 데이터 뷰에 전송
+	   
+	   System.out.println(user);
+	   System.out.println(pointMapper);
+	   
 	   int point = pointMapper.getUserPoint(user.getUserNo());
 	   model.addAttribute("point", point);
 	   return "mypage/my_info";
@@ -226,24 +230,16 @@ public class UserController {
 	   
 	   UserVO user = (UserVO)session.getAttribute("login");
 	   
-	   if(user == null) {
-		   
-		   return "redirect:/?msg=login";
-		   
-	   } else {
-		   
-		   int point = pointMapper.getUserPoint(user.getUserNo());
-		   model.addAttribute("point", point);
-		   
-		   //수강중 클래스
-		   List<MyClassVO> takingClassList = service.getMyClassList(user.getUserNo(), 1);
-		   model.addAttribute("takingClassList", takingClassList);
-		   
-		   //대기중인 클래스
-		   List<MyClassVO> waitingClassList = service.getMyClassList(user.getUserNo(), 0);
-		   model.addAttribute("waitingClassList", waitingClassList);
-		   
-	   }
+	   int point = pointMapper.getUserPoint(user.getUserNo());
+	   model.addAttribute("point", point);
+	   
+	   //수강중 클래스
+	   List<MyClassVO> takingClassList = service.getMyClassList(user.getUserNo(), 1);
+	   model.addAttribute("takingClassList", takingClassList);
+	   
+	   //대기중인 클래스
+	   List<MyClassVO> waitingClassList = service.getMyClassList(user.getUserNo(), 0);
+	   model.addAttribute("waitingClassList", waitingClassList);
 	   
 	   return "mypage/my_class";
    }
