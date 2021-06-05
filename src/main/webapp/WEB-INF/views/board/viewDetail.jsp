@@ -73,14 +73,15 @@
 	<h2>클래스 리뷰</h2>
 	<form action="ReviewInsert" method="post" id="reviewForm">
 	<div class="input-group mb-3">
+		<br>
+		<input type="checkbox" name="area" class="checkStar" id="box1"><label for="box1"></label>
+		<input type="checkbox" name="area" class="checkStar" id="box2"><label for="box2"></label>
+		<input type="checkbox" name="area" class="checkStar" id="box3"><label for="box3"></label>
+		<input type="checkbox" name="area" class="checkStar" id="box4"><label for="box4"></label>
+		<input type="checkbox" name="area" class="checkStar" id="box5"><label for="box5"></label>
+		<input type="hidden" name="reviewStar" id="star" value="0">
 		<input type="hidden" name="classCode" value="${detail.classCode}">
 		<input type="text" class="form-control" name="reviewComment" id="reviewComment1" placeholder="댓글을 입력하세요.">
-		<input type="checkbox" name="area" id="box1" onclick="getCheckedCnt()"><label for="box1"></label>
-		<input type="checkbox" name="area" id="box2" onclick="getCheckedCnt()"><label for="box2"></label>
-		<input type="checkbox" name="area" id="box3" onclick="getCheckedCnt()"><label for="box3"></label>
-		<input type="checkbox" name="area" id="box4" onclick="getCheckedCnt()"><label for="box4"></label>
-		<input type="checkbox" name="area" id="box5" onclick="getCheckedCnt()"><label for="box5"></label>
-		<input type="hidden" name="reviewStar" id="star" value="0">
 		<div class="input-group-append">
 			<button class="btn btn-success" id="reviewInsert">작성</button>
 			<br>
@@ -89,6 +90,54 @@
 	</form>
 	<div class="row">
 		<c:forEach items="${review}" var="reviewList">
+		<div class="col-md-11">
+				<img src="/resources/board/icon/person_m.png">
+				${reviewList.writer}
+				<br>
+				<c:if test="${reviewList.reviewStar eq 0}">
+					<img src="/resources/board/icon/star_off.png" width="10">
+					<img src="/resources/board/icon/star_off.png" width="10">
+					<img src="/resources/board/icon/star_off.png" width="10">
+					<img src="/resources/board/icon/star_off.png" width="10">
+					<img src="/resources/board/icon/star_off.png" width="10">
+				</c:if>
+				<c:if test="${reviewList.reviewStar eq 1}">
+					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources/board/icon/star_off.png" width="10">
+					<img src="/resources/board/icon/star_off.png" width="10">
+					<img src="/resources/board/icon/star_off.png" width="10">
+					<img src="/resources/board/icon/star_off.png" width="10">
+				</c:if>
+				<c:if test="${reviewList.reviewStar eq 2}">
+					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources/board/icon/star_off.png" width="10">
+					<img src="/resources/board/icon/star_off.png" width="10">
+					<img src="/resources/board/icon/star_off.png" width="10">
+				</c:if>
+				<c:if test="${reviewList.reviewStar eq 3}">
+					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources/board/icon/star_off.png" width="10">
+					<img src="/resources/board/icon/star_off.png" width="10">
+				</c:if>
+				<c:if test="${reviewList.reviewStar eq 4}">
+					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources/board/icon/star_off.png" width="10">
+				</c:if>
+				<c:if test="${reviewList.reviewStar eq 5}">
+					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources//board/icon/star_on.png" width="10">
+					<img src="/resources//board/icon/star_on.png" width="10">
+				</c:if>
+				${reviewList.reviewComment}
+			</div>
 			<div class="col-md-11">
 				<img src="/resources/board/icon/person_m.png">
 				${reviewList.writer} <br> ${reviewList.reviewComment}
@@ -110,7 +159,6 @@
 
 
 <script type="text/javascript">
-
 	$(function() {
 		$("#reviewInsert").click(function() {
 			const starVal = $("input:checkbox[name='area']:checked").length;
@@ -139,6 +187,24 @@
 				$("#deleteForm").submit();
 			}
 		});
+		
+		//별점체크
+		$(".checkStar").click(function() {
+			const chId = $(this).attr("id").substring(3);
+			
+			if(chId > 1 && $(this).is(":checked")){
+				for(let i=1; i<=parseInt(chId)-1; i++){
+					$("#box"+i).prop("checked", true);
+				}
+			}
+			
+			if(chId < 5 && !$(this).is(":checked")){
+				for(let i=parseInt(chId)+1; i<=5; i++){
+					$("#box"+i).prop("checked", false);
+				}
+			}
+		});
+		
 	});
 	
 	function class_reg() {	
@@ -152,7 +218,6 @@
 			return false;
 		}
 	}
-
 	function review_insert() {
 		const reviewComment = document.getElementById("reviewComment1").value;
 		
@@ -172,4 +237,6 @@
 			return false;
 		}
 	}
+	
+	
 </script>
