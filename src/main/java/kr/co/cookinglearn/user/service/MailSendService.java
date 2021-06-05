@@ -7,6 +7,7 @@ import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kr.co.cookinglearn.user.model.MailUtils;
@@ -17,6 +18,9 @@ public class MailSendService {
 	@Autowired
 	private JavaMailSenderImpl mailSender;
 	private int size;
+	
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
 	
 	//인증키 생성
 	private String getKey(int size) {
@@ -64,7 +68,7 @@ public class MailSendService {
 
 	//비밀번호 찾기 메일 보내기
 		public String sendPwMail(String email) {
-			//9자리 난수 인증번호 생성
+			//9자리 난수 인증번호 생성 및 암호화
 			String tmpPw = getKey(9);
 
 			//비밀번호 찾기 메일 보내기

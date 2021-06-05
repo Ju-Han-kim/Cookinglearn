@@ -18,6 +18,13 @@ public class UserVO {
 		return userNo;
 	}
 
+	@Override
+	public String toString() {
+		return "UserVO [userNo=" + userNo + ", userId=" + userId + ", userPassword=" + userPassword + ", nickname="
+				+ nickname + ", gender=" + gender + ", regDate=" + regDate + ", adminLevel=" + adminLevel
+				+ ", deleteAccount=" + deleteAccount + ", deleteDay=" + deleteDay + "]";
+	}
+
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}

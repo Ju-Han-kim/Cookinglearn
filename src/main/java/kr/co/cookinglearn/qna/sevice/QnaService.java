@@ -20,6 +20,7 @@ public class QnaService implements IQnaService {
 	@Autowired
 	private IQnaMapper mapper;
 	
+	//QNA 폼 저장
 	@Override
 	public void insert(QnaVO qna, UserVO user) {
 		
@@ -33,7 +34,8 @@ public class QnaService implements IQnaService {
 		
 		mapper.insert(qna);
 	}
-
+	
+	//QNA 리스트 불러오기
 	@Override
 	public List<QnaVO> getList(int userNo) {
 		List<QnaVO> qna = mapper.getList(userNo);

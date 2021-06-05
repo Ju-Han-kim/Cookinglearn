@@ -33,7 +33,7 @@ import kr.co.cookinglearn.user.service.MailSendService;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-   
+	
    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
    
    @Autowired
@@ -80,7 +80,6 @@ public class UserController {
 	  out.println("<script>alert('이메일(아이디)로 전송된 인증 메일을 확인하여 가입 절차를 완료해주세요'); location.href='/' </script>");
 	  out.flush();
 	  
-	  
    }
    
    //회원가입 이메일 인증 처리
@@ -97,7 +96,13 @@ public class UserController {
    //로그인 페이지 가기
    @GetMapping("/login")
    public String login(HttpServletRequest request) {
-	  referer = request.getHeader("REFERER");
+	  String temp = request.getHeader("REFERER");
+	  String url = "http://localhost/user/login";
+	  if(!temp.equals(url)) {
+		  referer = temp;
+	  } else {
+		  referer = null;
+	  }
       return "user/login";
    }
    
@@ -114,6 +119,7 @@ public class UserController {
 	   
 	   if(user != null) {
 		   String tmpPw = mss.sendPwMail(userId);
+		   tmpPw = passwordEncoder.encode(tmpPw);
 		   user.setUserPassword(tmpPw);
 		   service.changeInfo(user);
 		   
@@ -123,10 +129,12 @@ public class UserController {
 		   out.flush();
 		   
 		   return "user/login";
+		   
 	   } else {
+		   
 		   return "redirect:/user/searchPw?msg=noId";
+		   
 	   }
-	   
    }
    
  //로그인 처리
@@ -155,10 +163,12 @@ public class UserController {
          return "redirect:/user/login";
       }
       
-      referer = referer.replace("http://localhost/", "");
-      
+      if (referer == null) {
+    	  referer = "";
+      } else {
+    	  referer = referer.replace("http://localhost/", "");
+      }
       return "redirect:/" + referer;
-      
    }
    
    //아이디 중복 확인
@@ -190,6 +200,8 @@ public class UserController {
    @GetMapping("/mypage")
    public String mypage(HttpSession session, Model model) {
 	   UserVO user = (UserVO) session.getAttribute("login");
+	   // -- 포인트 데이터 뷰에 전송
+	   
 	   int point = pointService.getUserPoint(user.getUserNo());
 	   model.addAttribute("point", point);
 	   return "mypage/my_info";
@@ -199,10 +211,13 @@ public class UserController {
    @PostMapping("/mypage")
    public String myPwChk(String password, HttpSession session, RedirectAttributes ra, Model model) {
 	   UserVO user = (UserVO) session.getAttribute("login");
+	   // -- 포인트 데이터 뷰에 전송
 	   int point = pointService.getUserPoint(user.getUserNo());
 	   model.addAttribute("point", point);
 	   
-	   if (passwordEncoder.matches(password, user.getUserPassword())) {
+	   String oldPw = user.getUserPassword();
+	   
+	   if (passwordEncoder.matches(password, oldPw)) {
 		   ra.addFlashAttribute("msg","pwSuccess");
 		   return "redirect:/user/mypage";
 	   } else if(password == ""){
@@ -220,12 +235,6 @@ public class UserController {
 	   
 	   UserVO user = (UserVO)session.getAttribute("login");
 	   
-	   if(user == null) {
-		   
-		   return "redirect:/?msg=login";
-		   
-	   } else {
-		   
 		   int point = pointService.getUserPoint(user.getUserNo());
 		   model.addAttribute("point", point);
 		   
@@ -236,10 +245,9 @@ public class UserController {
 		   //대기중인 클래스
 		   List<MyClassVO> waitingClassList = service.getMyClassList(user.getUserNo(), 0);
 		   model.addAttribute("waitingClassList", waitingClassList);
-		   
-	   }
 	   
 	   return "mypage/my_class";
+	   
    }
    
    //클래스 상태변경
@@ -305,10 +313,19 @@ public class UserController {
    public String modified(UserVO update, HttpSession session, Model model) {
 	   UserVO user = (UserVO) session.getAttribute("login");
 	   update.setUserId(user.getUserId());
+	   
+	   //수정 비밀번호 암호화
+	   String encPassword = passwordEncoder.encode(update.getUserPassword());
+	   update.setUserPassword(encPassword);
+	   
+	   //새로운 내 정보 업데이트
 	   service.changeInfo(update);
+	   
+	   //세션 다시 설정
 	   UserVO newUser = service.selectOne(user.getUserId());
 	   session.setAttribute("login", newUser);
 	   int point = pointService.getUserPoint(user.getUserNo());
+	   
 	   model.addAttribute("point", point);
 	   return "redirect:/user/mypage";
    }
@@ -339,6 +356,7 @@ public class UserController {
 	   
 	   UserVO user = (UserVO) session.getAttribute("login");
 	   int point = pointService.getUserPoint(user.getUserNo());
+	   
 	   model.addAttribute("point", point);
 	   
 	   return "mypage/my_class_watch";
