@@ -11,18 +11,23 @@
 <script type="text/javascript" src="/js/order1.js"></script>
 
 
- <c:forEach items="${cartList}" var="BoardVO" varStatus="status">
- <body onLoad ="javascript:basket.reCalc(${status.count}); javascript:basket.updateUI()">
-    <form name="orderform" class="orderform" id="orderform" method="post" class="orderform" action="/Page" onsubmit="return false;">
     	<c:choose>
     		<c:when test="${empty cartList }">
     			<script>
+    				console.log('test')
     				alert("장바구니가 비었습니다");
     				location.href="<c:url value="/"/>";
     			</script>
     		</c:when>
     		<c:otherwise>
+
+
+ <!-- <p>끝값:${status.end+1}</p> -->
+ <body>
+    	
+    <form name="orderform" class="orderform" id="orderform" method="post" class="orderform" action="/Page" onsubmit="return false;">
     	<input type="hidden" name="cmd" value="order">
+    	
             <div class="basketdiv" id="basket">
     			<h3>온라인 강의</h3>
                 <div class="row head">
@@ -40,16 +45,16 @@
                     </div>
                     <div class="split"></div>
                 </div>
-                
+                 <c:forEach items="${cartList}" var="BoardVO" varStatus="status">
                 <c:if test="${BoardVO.classType}">
                 <div class="row data">
                     <div class="subdiv">
-                        <div class="check"><input type="checkbox" name="buy" checked="checked" value="${BoardVO.className }" onclick="javascript:basket.checkItem();">&nbsp;</div>
+                        <div class="check"><input type="checkbox" id="p_num" name="buy" checked="checked" value="${BoardVO.className }" onclick="javascript:basket.checkItem();">&nbsp;</div>
                         <div class="img"><img src="/resources/board/img/${BoardVO.thumbnailImg }" width="60"></div>
                         <div class="pname">
                             <span>${BoardVO.className }</span>
                         </div>
-                        <input type="hidden" id="p_num" value="${status.count }">
+                        <input type="hidden"  value="${status.end+1 }">
                     </div>
                     <div class="subdiv">
                         <div class="basketprice"><input type="hidden" name="p_price" id="p_price1" class="p_price" value="${BoardVO.price }">${BoardVO.price }원</div>
@@ -59,7 +64,7 @@
                     </div>
                 </div>
             </c:if>
-                <%-- </c:forEach> --%>                      
+    	</c:forEach>                      
             </div>
             <div class="basketdiv" id="basket">
     			<h3>오프라인 강의</h3>
@@ -79,17 +84,17 @@
                     <div class="split"></div>
                 </div>
                 
-                <%-- <c:forEach items="${cartList}" var="BoardVO" varStatus="status"> --%>
+                 <c:forEach items="${cartList}" var="BoardVO" varStatus="status">
                 <c:if test='${!BoardVO.classType}'>
         
                 <div class="row data">
                     <div class="subdiv">
-                        <div class="check"><input type="checkbox"  name="buy"  checked="checked" value="${BoardVO.className }" onclick="javascript:basket.checkItem();">&nbsp;</div>
+                        <div class="check"><input type="checkbox"  name="buy" id="p_num" checked="checked" value="${BoardVO.className }" onclick="javascript:basket.checkItem();">&nbsp;</div>
                         <div class="img"><img src="resources/board/img/${BoardVO.thumbnailImg }" width="60"></div>
                         <div class="pname">
                             <span>${BoardVO.className }</span>
                         </div>
-                        <input type="hidden" id="p_num" value="${status.count}">
+                        <input type="hidden"  value="${status.end+1}">
                     </div>
                     <div class="subdiv">
                         <div class="basketprice"><input type="hidden" name="p_price" id="p_price1" class="p_price" value="${BoardVO.price }">${BoardVO.price }원</div>
@@ -100,6 +105,8 @@
                 </div>
 
        			 </c:if>
+       			 </c:forEach>
+       			 
             </div>
        		 
     		
@@ -121,7 +128,7 @@
 	    				</li>
 	    				<li>
 	    					<div class="point">포인트</div>
-	    					<div class="point-body">사용가능한 포인트는 ${point.pointChange} 입니다.
+	    					<div class="point-body">사용가능한 포인트는  입니다.
 	    						<a href="javascript:void(0)"  class="point-use" onclick="javascript:pointUseFunc()">포인트 사용하기</a>
 	    					</div>
 	    				</li>
@@ -137,10 +144,11 @@
     		<div class="orderbtn">
     			<button id="orderbtn" type="button" onclick="getOrderM()">결제하기</button>
     		</div>
-    		</c:otherwise>
-    		</c:choose>
+    		
         </form>
-        </c:forEach>
+        
+        </c:otherwise>
+    		</c:choose>
 <script>  
 	
 //체크박스 체크된 항목 값 더하기 (총 얼마인지)
@@ -161,7 +169,11 @@
 		
 	}); */
 	
-
+	$( document ).ready(function() {
+		const s = "$(cartList.size())";
+		basket.reCalc(s); 
+		basket.updateUI();
+	});
 
 	$(function() {
 		
@@ -204,6 +216,14 @@
 
         function iamport(){
         	
+        	var merchant_uid =  new Date().getTime()+'${userNo}';
+	        var pay_method = 'card';
+	        var name = classNameArray.toString();
+	        //총합 어떻게 넣어줄 지 
+	        var amount = totalPrice;
+	        var buyer_name = '${userLogin.nickname}';
+	        var buyer_email = '${userLogin.userId}';
+	        
         	var classNameArray =[];
         	$("input[name=buy]:checked").each(function(){
         		classNameArray.push(this.value);
@@ -214,13 +234,13 @@
 			IMP.init('imp99899187');
 			IMP.request_pay({
 			    pg : 'kcp',
-			    pay_method : 'card',
-			    merchant_uid :  new Date().getTime()+'${userNo}',
-			    name : classNameArray.toString() , //결제창에서 보여질 이름
-			    amount : 100, //실제 결제되는 가격
-			    buyer_name : '${userLogin.nickname}',
+			    pay_method : pay_method,
+			    merchant_uid : merchant_uid ,
+			    name : name , //결제창에서 보여질 이름
+			    amount : amount, //실제 결제되는 가격
+			    buyer_name : buyer_name,
 			    buyer_tel : '010-1234-5678',
-			    byer_email : '${userLogin.userId}'
+			    buyer_email : buyer_email
 
 			    //m_redirect_url: '<c:url value="/order/complete"/>' //결제완료시 넘어가는 페이지
 			}, function(rsp) {
@@ -233,7 +253,8 @@
 			        msg += '카드 승인번호 : ' + rsp.apply_num;
 			        
 			        //여기 어떻게 할지 생각좀 해보기 ㅜㅜ
-			        //var 
+			        
+			        var param = {}
 			       
 			        $.ajax({
 	                    type: "POST", 

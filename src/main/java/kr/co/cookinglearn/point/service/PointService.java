@@ -25,4 +25,11 @@ public class PointService implements IPointService {
 		return mapper.pointList(userNo);
 	}
 
+	@Override
+	public int getUserPoint(int userNo) {
+		return mapper.getUserPoint(userNo);
+	}
+	
+	
+
 }

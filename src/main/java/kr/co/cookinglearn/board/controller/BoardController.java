@@ -1,5 +1,6 @@
 package kr.co.cookinglearn.board.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -155,11 +156,27 @@ public class BoardController {
 	//장바구니 세션 생성
 	@RequestMapping(value = "/cart",  method=RequestMethod.POST)
 	public String cart(HttpSession session, int classCode) throws Exception {
+		
+		System.out.println("=========================");
+		List<BoardVO> classInfo = new ArrayList<BoardVO>();
+
 		UserVO userVO = (UserVO) session.getAttribute("login");
 		BoardVO vo = service.detail(classCode);
-		
+
 		if(userVO != null) {
-			session.setAttribute("classInfo", vo);
+			
+			List<BoardVO> tempList = (List<BoardVO>)session.getAttribute("classInfo");
+			
+			//객체가 비어있지 않으면 삭제 후 다시 넘김
+			if (tempList != null) {
+				classInfo.addAll(tempList);
+			} 
+			
+			classInfo.add(vo);
+
+			session.setAttribute("classInfo", classInfo);
+
+			System.out.println(classInfo.toString());
 		}
 		return "redirect:/order/cart";
 	}

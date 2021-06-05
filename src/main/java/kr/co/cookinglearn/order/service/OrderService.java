@@ -1,5 +1,6 @@
 package kr.co.cookinglearn.order.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class OrderService implements IOrderService {
 	private IOrderMapper mapper;
 	
 	@Override
-	public List<BoardVO> cartList(int code){
+	public ArrayList<BoardVO> cartList(int code){
 		return mapper.cartList(code);
 	}
 	
